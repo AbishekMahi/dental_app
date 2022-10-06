@@ -1,0 +1,284 @@
+import 'package:dental_app/screens/availability.dart';
+import 'package:dental_app/screens/contact-page.dart';
+import 'package:dental_app/screens/testimonials.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import '../utils/submit_button.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+String greetingMessage() {
+  var timeNow = DateTime.now().hour;
+  if (timeNow <= 12) {
+    return 'Good Morning';
+  } else if ((timeNow > 12) && (timeNow <= 16)) {
+    return 'Good Afternoon';
+  } else if ((timeNow > 16) && (timeNow < 20)) {
+    return 'Good Evening';
+  } else {
+    return 'Good Night';
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF378CEC), Color(0xFF007EE6)],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Text(
+            "Dental Care",
+            style: GoogleFonts.poppins(
+                color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                onPressed: () {},
+                splashRadius: 26,
+                icon: const Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.white,
+                ),
+                iconSize: 32,
+              ),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Text(
+                greetingMessage(),
+                style: GoogleFonts.poppins(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                    color: Colors.white),
+              ),
+              Container(
+                margin: const EdgeInsets.all(15),
+                // height: 200,
+                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromARGB(255, 216, 255, 243),
+                      Color.fromARGB(255, 245, 255, 253),
+                    ],
+                  ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Dental Care',
+                            style: GoogleFonts.poppins(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                                color: const Color(0xFF006DE9)),
+                          ),
+                          Text(
+                            'Dental Care App helps dentists manage their patients and clinic.',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                                color: const Color(0xBD1B1B1B)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Lottie.asset('assets/lottie/dental-clinic.json'),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, right: 15, left: 15, bottom: 15),
+                child: GridView.count(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 15,
+                  crossAxisCount: 3,
+                  children: [
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/doctor.png',
+                      title: 'About us',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/tooth.png',
+                      title: 'Services',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/appointment.png',
+                      title: 'Appointment',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/calendar.png',
+                      title: 'Availability',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Availability(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/testimony.png',
+                      title: 'Testimonials',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Testimonials(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/gallery.png',
+                      title: 'Gallery',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/blog.png',
+                      title: 'Doc Blog',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/pin.png',
+                      title: 'Reach us',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/phone.png',
+                      title: 'Contact',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ContactUs(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Submit_Button(
+                  btntxt: 'Book Appointment',
+                  fontSize: 22,
+                  ontouch: () {
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const HomePage(),
+                    //   ),
+                    // );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget ExtraFeatures({
+  required String title,
+  required String imageUrl,
+  required void Function() ontouch,
+}) {
+  return InkWell(
+    borderRadius: BorderRadius.circular(15),
+    onTap: ontouch,
+    child: Ink(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x29000000),
+            offset: Offset(2, 8),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Image.asset(
+              imageUrl,
+              height: 50,
+            ),
+          ),
+          Flexible(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: GoogleFonts.poppins(
+                  height: 1.1,
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
