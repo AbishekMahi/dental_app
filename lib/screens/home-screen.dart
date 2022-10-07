@@ -1,5 +1,8 @@
+import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
 import 'package:dental_app/screens/contact-page.dart';
+import 'package:dental_app/screens/gallery.dart';
+import 'package:dental_app/screens/history.dart';
 import 'package:dental_app/screens/testimonials.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             'Dental Care',
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w500,
@@ -144,7 +148,14 @@ class _HomePageState extends State<HomePage> {
                     ExtraFeatures(
                       imageUrl: 'assets/images/doctor.png',
                       title: 'About us',
-                      ontouch: () {},
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AboutUs(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/tooth.png',
@@ -183,16 +194,30 @@ class _HomePageState extends State<HomePage> {
                     ExtraFeatures(
                       imageUrl: 'assets/images/gallery.png',
                       title: 'Gallery',
-                      ontouch: () {},
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Gallery(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/blog.png',
-                      title: 'Doc Blog',
-                      ontouch: () {},
+                      title: 'My History',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const History(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/pin.png',
-                      title: 'Reach us',
+                      title: 'Prescriptions',
                       ontouch: () {},
                     ),
                     ExtraFeatures(

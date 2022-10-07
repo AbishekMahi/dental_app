@@ -65,18 +65,20 @@ class _TestimonialsState extends State<Testimonials> {
             triggerMode: RefreshIndicatorTriggerMode.onEdge,
             backgroundColor: const Color(0xFFEDE9FF),
             strokeWidth: 2,
-            // color: const Color(0XFF7455F7),
             onRefresh: _refresh,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
               padding: const EdgeInsets.all(15),
               child: Visibility(
                 visible: isLoaded,
-                replacement: const Center(child: CircularProgressIndicator()),
+                replacement: const Center(
+                    child: CircularProgressIndicator(
+                  backgroundColor: Colors.amber,
+                )),
                 child: ListView.builder(
                   itemCount: feedbacks?.length,
                   itemBuilder: (context, index) {

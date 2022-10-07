@@ -44,7 +44,7 @@ class _ContactUsState extends State<ContactUs> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.transparent,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
                   // boxShadow: const [
                   //   BoxShadow(

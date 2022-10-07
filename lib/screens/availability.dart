@@ -42,17 +42,17 @@ class _AvailabilityState extends State<Availability> {
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                 height: 220,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.transparent,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(110),
-                  // boxShadow: const [
-                  //   BoxShadow(
-                  //     color: Color(0x29000000),
-                  //     offset: Offset(0, 4),
-                  //     blurRadius: 3,
-                  //   ),
-                  // ],
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 3,
+                    ),
+                  ],
                 ),
                 child: Lottie.asset('assets/lottie/calendar.json'),
               ),
@@ -89,44 +89,44 @@ class _AvailabilityState extends State<Availability> {
                       ),
                     ),
                     AvailTime(
-                      day: 'Monday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Monday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
                     AvailTime(
-                      day: 'Tuesday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Tuesday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
                     AvailTime(
-                      day: 'Wednesday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Wednesday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
                     AvailTime(
-                      day: 'Thursday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Thursday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
                     AvailTime(
-                      day: 'Friday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Friday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
                     AvailTime(
-                      day: 'Saturday',
-                      time: "09:00 AM - 07:00 PM",
-                    ),
+                        day: 'Saturday',
+                        mortime: "09:00 AM - 12:00 PM",
+                        evetime: "01:30 AM - 07:00 PM"),
                     const Divider(),
-                    AvailTime(
-                      day: 'Sunday',
-                      time: "Holiday",
-                    ),
+                    AvailTime(day: 'Sunday', mortime: "Holiday", evetime: ""),
+                    const SizedBox(
+                      height: 5,
+                    )
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Submit_Button(
                   btntxt: 'Book Appointment',
                   fontSize: 22,
@@ -143,14 +143,15 @@ class _AvailabilityState extends State<Availability> {
 
 Widget AvailTime({
   required String day,
-  required String time,
+  required String mortime,
+  required String evetime,
 }) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
     child: Row(
       children: [
         Expanded(
-          flex: 5,
+          flex: 4,
           child: Text(
             day,
             textAlign: TextAlign.left,
@@ -163,16 +164,30 @@ Widget AvailTime({
           ),
         ),
         Expanded(
-          flex: 5,
-          child: Text(
-            time,
-            textAlign: TextAlign.left,
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              height: 0,
-              color: const Color(0xD5202020),
-            ),
+          flex: 6,
+          child: Column(
+            children: [
+              Text(
+                mortime,
+                textAlign: TextAlign.left,
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                  color: const Color(0xD5202020),
+                ),
+              ),
+              Text(
+                evetime,
+                textAlign: TextAlign.left,
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                  color: const Color(0xD5202020),
+                ),
+              ),
+            ],
           ),
         ),
       ],
