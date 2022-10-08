@@ -2,7 +2,8 @@ import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
 import 'package:dental_app/screens/contact-page.dart';
 import 'package:dental_app/screens/gallery.dart';
-import 'package:dental_app/screens/history.dart';
+import 'package:dental_app/screens/appointments.dart';
+import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -160,7 +161,14 @@ class _HomePageState extends State<HomePage> {
                     ExtraFeatures(
                       imageUrl: 'assets/images/tooth.png',
                       title: 'Services',
-                      ontouch: () {},
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Services(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/appointment.png',
@@ -205,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/blog.png',
-                      title: 'My History',
+                      title: 'Appointments',
                       ontouch: () {
                         Navigator.push(
                           context,
@@ -298,7 +306,7 @@ Widget ExtraFeatures({
               style: GoogleFonts.poppins(
                   height: 1.1,
                   color: Colors.black,
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400),
             ),
           ),

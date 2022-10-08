@@ -3,12 +3,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/submit_button.dart';
 import '../utils/textfield.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _phone = Uri.parse('tel:+918270514004');
+final Uri _email = Uri.parse('mailto:abishekmas0708@gmail.com');
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
 
   @override
   State<ContactUs> createState() => _ContactUsState();
+}
+
+void _launchPhone() async {
+  if (!await launchUrl(_phone)) throw 'Could not launch $_phone';
+}
+
+void _launchMail() async {
+  if (!await launchUrl(_email)) throw 'Could not launch $_email';
 }
 
 class _ContactUsState extends State<ContactUs> {
@@ -42,17 +54,17 @@ class _ContactUsState extends State<ContactUs> {
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                 height: 200,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),
-                  // boxShadow: const [
-                  //   BoxShadow(
-                  //     color: Color(0x29000000),
-                  //     offset: Offset(0, 4),
-                  //     blurRadius: 3,
-                  //   ),
-                  // ],
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 3,
+                    ),
+                  ],
                 ),
                 child: Lottie.asset('assets/lottie/contact.json'),
               ),
@@ -64,6 +76,8 @@ class _ContactUsState extends State<ContactUs> {
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(15, 10, 10, 10),
                       child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: (_launchPhone),
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
@@ -122,6 +136,8 @@ class _ContactUsState extends State<ContactUs> {
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(0, 10, 15, 10),
                       child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: (_launchMail),
                         child: Ink(
                           decoration: BoxDecoration(
                             color: Colors.white,

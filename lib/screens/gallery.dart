@@ -196,33 +196,3 @@ class _GalleryState extends State<Gallery> {
     );
   }
 }
-
-Widget GalleryGrid({
-  required String imageUrl,
-  required void Function() ontouch,
-}) {
-  return InkWell(
-    borderRadius: BorderRadius.circular(15),
-    onTap: ontouch,
-    child: Ink(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x29000000),
-            offset: Offset(2, 8),
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Image.network(
-          imageUrl,
-        ),
-      ),
-    ),
-  );
-}

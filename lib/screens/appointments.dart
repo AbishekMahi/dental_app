@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
-import 'package:lottie/lottie.dart';
-import '../utils/submit_button.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -57,7 +53,7 @@ class _HistoryState extends State<History> {
             elevation: 0,
             backgroundColor: Colors.transparent,
             title: Text(
-              "History",
+              "Appointments",
               style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 28,
