@@ -1,3 +1,4 @@
+import 'package:dental_app/screens/booking.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -30,7 +31,7 @@ class _AboutUsState extends State<AboutUs> {
           title: Text(
             "About us",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -155,12 +156,12 @@ class _AboutUsState extends State<AboutUs> {
                     btntxt: 'Book Appointment',
                     fontSize: 22,
                     ontouch: () {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const HomePage(),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Booking(),
+                        ),
+                      );
                     },
                   ),
                 ),

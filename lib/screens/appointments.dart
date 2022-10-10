@@ -56,7 +56,7 @@ class _HistoryState extends State<History> {
               "Appointments",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 28,
+                  fontSize: 22,
                   fontWeight: FontWeight.w500),
             ),
             bottom: PreferredSize(

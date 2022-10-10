@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -30,7 +32,7 @@ class _ServicesState extends State<Services> {
           title: Text(
             "Services",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -80,12 +82,31 @@ class _ServicesState extends State<Services> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
+                                      // CachedNetworkImage(
+                                      //   imageUrl:
+                                      //       "http://via.placeholder.com/350x150",
+                                      //   placeholder: (context, url) =>
+                                      //       CircularProgressIndicator(),
+                                      //   errorWidget: (context, url, error) =>
+                                      //       Icon(Icons.error),
+                                      // ),
+                                      // ExtendedExtendedImage.network(
+                                      //   'https://abishekmahi.github.io/sais-dental-clinic/images/Bridges-Crowns.jpg',
+                                      //   fit: BoxFit.fill,
+                                      //   cache: true,
+                                      //   border: Border.all(
+                                      //       color: Colors.red, width: 1.0),
+                                      //   borderRadius: BorderRadius.all(
+                                      //       Radius.circular(30.0)),
+                                      //   //cancelToken: cancellationToken,
+                                      // ),
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/Bridges-Crowns.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -126,9 +147,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/dentures.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -169,9 +191,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/dental-fillings.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -212,9 +235,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/braces-aligners.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -255,9 +279,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/root-canal-treatment.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -298,9 +323,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/wisdom-teeth-removal.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -341,9 +367,10 @@ class _ServicesState extends State<Services> {
                                       ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
-                                        child: Image.network(
+                                        child: ExtendedImage.network(
                                           'https://abishekmahi.github.io/sais-dental-clinic/images/dental-implants.jpg',
                                           fit: BoxFit.cover,
+                                          cache: true,
                                         ),
                                       ),
                                       Text(
@@ -358,6 +385,50 @@ class _ServicesState extends State<Services> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             "Dental implants are replacement tooth roots. Implants provide a strong foundation for fixed (permanent) or removable replacement teeth that are made to match your natural teeth. \n\n Success rates of dental implants vary, depending on where in the jaw the implants are placed but, in general, dental implants have a success rate of up to 98%. With proper care (see below), implants can last a lifetime.",
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.black87,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          StaggeredGridTile.count(
+                            crossAxisCellCount: 3,
+                            mainAxisCellCount: 2.5,
+                            child: FullScreenWidget(
+                              backgroundColor: Colors.white,
+                              child: SafeArea(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: ExtendedImage.network(
+                                          'https://i.postimg.cc/SRMxmjMz/Teeth-Whitening.jpg',
+                                          fit: BoxFit.cover,
+                                          cache: true,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Teeth Whitening",
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "Yellow, dull looking teeth bothering you? Then your solution might be in teeth whitening/teeth bleaching.Let your pearly whites shine and reflect your beauty. ",
                                             style: GoogleFonts.poppins(
                                                 color: Colors.black87,
                                                 fontSize: 16,

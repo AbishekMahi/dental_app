@@ -1,8 +1,10 @@
 import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
+import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/screens/contact-page.dart';
 import 'package:dental_app/screens/gallery.dart';
 import 'package:dental_app/screens/appointments.dart';
+import 'package:dental_app/screens/prescription.dart';
 import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
 import 'package:flutter/material.dart';
@@ -226,7 +228,14 @@ class _HomePageState extends State<HomePage> {
                     ExtraFeatures(
                       imageUrl: 'assets/images/pin.png',
                       title: 'Prescriptions',
-                      ontouch: () {},
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Prescriptions(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/phone.png',
@@ -249,12 +258,12 @@ class _HomePageState extends State<HomePage> {
                   btntxt: 'Book Appointment',
                   fontSize: 22,
                   ontouch: () {
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const HomePage(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Booking(),
+                      ),
+                    );
                   },
                 ),
               ),

@@ -31,7 +31,7 @@ class _AvailabilityState extends State<Availability> {
           title: Text(
             "Availability",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(

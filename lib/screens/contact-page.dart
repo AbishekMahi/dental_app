@@ -43,7 +43,7 @@ class _ContactUsState extends State<ContactUs> {
           title: Text(
             "Contact Us",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(

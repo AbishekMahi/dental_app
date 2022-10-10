@@ -25,7 +25,7 @@ class Submit_Button extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
-                  MaterialStateProperty.all(Color.fromARGB(255, 0, 199, 90)),
+                  MaterialStateProperty.all(const Color(0xFF00C75A)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),

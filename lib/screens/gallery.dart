@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -32,7 +33,7 @@ class _GalleryState extends State<Gallery> {
           title: Text(
             "Gallery",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -86,9 +87,10 @@ class _GalleryState extends State<Gallery> {
                           child: Center(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
+                              child: ExtendedImage.network(
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrP9mNRyOvjMG0JMo8iQQRM90tRZDP-PVdAIo6X4CJYyOF7Sikh6U-9I6uk5vhKAAeEJA&usqp=CAU',
                                 fit: BoxFit.cover,
+                                cache: true,
                               ),
                             ),
                           ),
@@ -101,9 +103,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://images.squarespace-cdn.com/content/v1/5f168de061ba823d9aba54ed/1599202350464-EPTIXIX125W9WAZ7ZUG3/Dental+Implants',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -114,9 +117,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://balusomansdental.com/wp-content/uploads/2019/11/dental-gal.jpg',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -127,9 +131,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://content.jdmagicbox.com/comp/shajapur/l9/9999p7364.7364.180604145318.n6l9/catalogue/patidar-dental-clinic-nalkheda-shajapur-dentists-5whn8zt8w3-250.jpg',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -140,9 +145,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'http://www.sanjeevanidentalclinic.com/wp-content/uploads/2019/10/sdc-orthodontics.jpg',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -153,9 +159,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://www.maruthidental.com/wp-content/uploads/2019/11/abt.jpg',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -166,9 +173,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://lh3.googleusercontent.com/p/AF1QipMGTYuhCQ1SKscKNtjtZ8gZqnPOgYb5mG8Sb-Gc=w1080-h608-p-no-v0',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),
@@ -179,9 +187,10 @@ class _GalleryState extends State<Gallery> {
                             child: Center(
                                 child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
+                          child: ExtendedImage.network(
                             'https://images.unsplash.com/photo-1629909615957-be38d48fbbe6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8ZGVudGFsJTIwY2xpbmljfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
                             fit: BoxFit.cover,
+                            cache: true,
                           ),
                         ))),
                       ),

@@ -57,7 +57,7 @@ class _WelcomeState extends State<Welcome> {
                       textAlign: TextAlign.center,
                       'Welcome',
                       style: GoogleFonts.poppins(
-                          fontSize: 28,
+                          fontSize: 24,
                           fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
@@ -81,7 +81,7 @@ class _WelcomeState extends State<Welcome> {
                 btntxt: 'GET STARTED',
                 fontSize: 20,
                 ontouch: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const Login()),
                   );
