@@ -1,5 +1,7 @@
+import 'package:dental_app/utils/future_appoints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../utils/past_appoints.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -67,40 +69,10 @@ class _HistoryState extends State<History> {
               ),
             ),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              Container(
-                margin: const EdgeInsets.all(10),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x29000000),
-                      offset: Offset(0, 4),
-                      blurRadius: 3,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(10),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x29000000),
-                      offset: Offset(0, 4),
-                      blurRadius: 3,
-                    ),
-                  ],
-                ),
-              ),
+              UpcomingAppoints(),
+              PastAppoints(),
             ],
           ),
         ),
