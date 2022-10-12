@@ -5,8 +5,10 @@ import 'package:dental_app/screens/contact-page.dart';
 import 'package:dental_app/screens/gallery.dart';
 import 'package:dental_app/screens/appointments.dart';
 import 'package:dental_app/screens/prescription.dart';
+import 'package:dental_app/screens/profile.dart';
 import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -33,6 +35,8 @@ String greetingMessage() {
 }
 
 class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,13 +59,36 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),
           ),
           actions: [
+            IconButton(
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const ProfilePage(),
+                //   ),
+                // );
+              },
+              splashRadius: 26,
+              icon: const Icon(
+                Icons.notifications,
+                color: Colors.yellow,
+              ),
+              iconSize: 32,
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
+                },
                 splashRadius: 26,
                 icon: const Icon(
-                  Icons.account_circle_outlined,
+                  Icons.account_circle,
                   color: Colors.white,
                 ),
                 iconSize: 32,
@@ -76,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 greetingMessage(),
                 style: GoogleFonts.poppins(
-                    fontSize: 25,
+                    fontSize: 22,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -112,9 +139,10 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             'Dental Care',
+                            // user.email!,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                                fontSize: 24,
+                                fontSize: 22,
                                 fontWeight: FontWeight.w500,
                                 height: 0,
                                 color: const Color(0xFF006DE9)),

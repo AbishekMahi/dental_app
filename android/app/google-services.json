@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190651721187",
+    "project_id": "dental-booking-app-10c26",
+    "storage_bucket": "dental-booking-app-10c26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190651721187:android:48809eb61a34dd49d72cd6",
+        "android_client_info": {
+          "package_name": "com.example.dental_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190651721187-tkndoi433g9n6utonm3mnostl85ftmgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs8jk8MpHrraNYCjiLB4CiEeWwndMcXSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190651721187-tkndoi433g9n6utonm3mnostl85ftmgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

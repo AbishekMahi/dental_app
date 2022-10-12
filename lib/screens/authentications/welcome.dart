@@ -1,8 +1,8 @@
-import 'package:dental_app/screens/login.dart';
+import 'package:dental_app/screens/authentications/login.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/submit_button.dart';
+import '../../utils/submit_button.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
@@ -83,7 +83,7 @@ class _WelcomeState extends State<Welcome> {
                 ontouch: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const Login()),
+                    MaterialPageRoute(builder: (context) => Login()),
                   );
                 },
               ),

@@ -37,25 +37,6 @@ class _BookingState extends State<Booking> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              // Container(
-              //   margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-              //   height: 200,
-              //   width: 200,
-              //   padding:
-              //       const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(100),
-              //     boxShadow: const [
-              //       BoxShadow(
-              //         color: Color(0x29000000),
-              //         offset: Offset(0, 4),
-              //         blurRadius: 3,
-              //       ),
-              //     ],
-              //   ),
-              //   child: Lottie.asset('assets/lottie/medicine.json'),
-              // ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
                 padding:
