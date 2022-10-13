@@ -1,14 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:math';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/login.dart';
 import 'package:dental_app/screens/home-screen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../utils/submit_button.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../utils/textfield.dart';
 
 class SignUp extends StatefulWidget {
@@ -39,7 +40,29 @@ class _SignUpState extends State<SignUp> {
     super.dispose();
   }
 
-  void signup() async {
+// Profile Pic Upload
+  String imageUrl = "";
+
+  void pickUploadImg() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 75,
+      maxHeight: 512,
+      maxWidth: 512,
+    );
+    Reference ref =
+        FirebaseStorage.instance.ref().child("users_imgs/profilepic.jpg");
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      print(value);
+      setState(() {
+        imageUrl = value;
+      });
+    });
+  }
+
+// Sign up and store Data to DB
+  Future signup() async {
     if (passwordConfirmed()) {
       try {
         var signup = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -52,6 +75,7 @@ class _SignUpState extends State<SignUp> {
         print(e);
       }
       addUserDetails(
+        imageUrl..trim(),
         fname.text.trim(),
         lname.text.trim(),
         email.text.trim(),
@@ -61,17 +85,22 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  Future addUserDetails(
-      String fname, String lname, String email, int age, int phone) async {
-    await FirebaseFirestore.instance.collection('users').add({
+  final CollectionReference userList =
+      FirebaseFirestore.instance.collection("userInfo");
+  Future addUserDetails(String fname, String lname, String imageUrl,
+      String email, int age, int phone) async {
+    // return await FirebaseFirestore.instance.collection('users').add({
+    return await FirebaseFirestore.instance.collection('users').add({
       'first name': fname,
       'last name': lname,
       'email': email,
       'age': age,
+      'imgUrl': imageUrl,
       'phone number': phone,
     });
   }
 
+// confirm Password
   bool passwordConfirmed() {
     if (password.text.trim() == cpassword.text.trim()) {
       return true;
@@ -202,6 +231,31 @@ class _SignUpState extends State<SignUp> {
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: GestureDetector(
+                  onTap: () {
+                    pickUploadImg();
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: imageUrl == ""
+                        ? Image.asset(
+                            'assets/images/default-profile-pic.jpg',
+                            fit: BoxFit.cover,
+                          )
+                        : ExtendedImage.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            cache: true,
+                          ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -369,7 +423,8 @@ class _SignUpState extends State<SignUp> {
           content: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   textAlign: TextAlign.center,
@@ -379,6 +434,23 @@ class _SignUpState extends State<SignUp> {
                       fontWeight: FontWeight.w500,
                       height: 0,
                       color: Colors.white),
+                ),
+                SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: imageUrl == ""
+                        ? Image.asset(
+                            'assets/images/default-profile-pic.jpg',
+                            fit: BoxFit.cover,
+                          )
+                        : ExtendedImage.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            cache: true,
+                          ),
+                  ),
                 ),
                 Text(
                   'Full Name : ${fname.text} ${lname.text}',

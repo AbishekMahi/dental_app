@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dental_app/screens/authentications/reset-password.dart';
 import 'package:dental_app/screens/authentications/signup.dart';
 import 'package:dental_app/screens/home-screen.dart';
@@ -135,7 +137,7 @@ class LoginState extends State<Login> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForgotPassword(),
+                                builder: (context) => const ForgotPassword(),
                               ),
                             );
                           },
@@ -202,13 +204,40 @@ class LoginState extends State<Login> {
   }
 
   void login() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+    // Navigator.of(context).pop();
     try {
       var signup = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text.trim(), password: password.text.trim());
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (_) => HomePage()), (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const HomePage(),
+          ),
+          (route) => false);
     } catch (e) {
       print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              e.toString(),
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                  color: Colors.black87),
+            ),
+          );
+        },
+      );
     }
   }
 }

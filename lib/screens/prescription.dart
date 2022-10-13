@@ -57,7 +57,7 @@ class _PrescriptionsState extends State<Prescriptions> {
               //   child: Lottie.asset('assets/lottie/medicine.json'),
               // ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 decoration: BoxDecoration(

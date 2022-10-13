@@ -35,27 +35,53 @@ class _UpcomingAppointsState extends State<UpcomingAppoints> {
               children: [
                 Column(
                   children: [
-                    Text(
-                      'July',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'July\n',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '10\n',
+                            style: GoogleFonts.poppins(
+                                color: const Color(0xDD009E00),
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          TextSpan(
+                            text: '2022',
+                            style: GoogleFonts.poppins(
+                                color: Colors.black87,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      '10',
-                      style: GoogleFonts.poppins(
-                          color: Color.fromARGB(221, 0, 158, 0),
-                          fontSize: 40,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      'WED',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    // Text(
+                    //   'July',
+                    //   style: GoogleFonts.poppins(
+                    //       color: Colors.black87,
+                    //       fontSize: 18,
+                    //       fontWeight: FontWeight.w400),
+                    // ),
+                    // Text(
+                    //   '10',
+                    //   style: GoogleFonts.poppins(
+                    //       color: Color.fromARGB(221, 0, 158, 0),
+                    //       fontSize: 40,
+                    //       fontWeight: FontWeight.w500),
+                    // ),
+                    // Text(
+                    //   'WED',
+                    //   style: GoogleFonts.poppins(
+                    //       color: Colors.black87,
+                    //       fontSize: 18,
+                    //       fontWeight: FontWeight.w400),
+                    // ),
                   ],
                 ),
                 const SizedBox(

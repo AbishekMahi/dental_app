@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:dental_app/screens/authentications/login.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/booking.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import '../utils/submit_button.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,6 +19,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+// Profile Pic Upload
+  String imageUrl = "";
+
+  void pickUploadImg() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 75,
+      maxHeight: 512,
+      maxWidth: 512,
+    );
+    Reference ref = FirebaseStorage.instance.ref().child("profilepic.jpg");
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      print(value);
+      setState(() {
+        imageUrl = value;
+      });
+    });
+  }
+
   final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -50,12 +74,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       SizedBox(
                         width: 85,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: ExtendedImage.network(
-                            'https://myabilitieswa.com.au/wp-content/uploads/2017/06/default-profile-pic-e1513291410505.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                        height: 85,
+                        child: GestureDetector(
+                          onTap: () {
+                            pickUploadImg();
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: imageUrl == ""
+                                ? Image.asset(
+                                    'assets/images/default-profile-pic.jpg',
+                                    fit: BoxFit.cover,
+                                  )
+                                : ExtendedImage.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                    cache: true,
+                                  ),
                           ),
                         ),
                       ),
@@ -79,8 +114,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             user.email!,
                             textAlign: TextAlign.left,
                             style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
                               height: 0,
                               color: Colors.white,
                             ),
@@ -228,6 +263,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     );
                   },
+                ),
+                Text(
+                  user.uid,
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
