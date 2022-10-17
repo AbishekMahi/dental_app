@@ -1,8 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_app/resourses/auth_method.dart';
 import 'package:dental_app/screens/authentications/login.dart';
 import 'package:dental_app/screens/home-screen.dart';
+import 'package:dental_app/utils/img_picker.dart';
+import 'package:dental_app/utils/submit_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +14,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import '../../utils/textfield.dart';
 
 class SignUp extends StatefulWidget {
@@ -27,7 +32,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController lname = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController age = TextEditingController();
-  String imageUrl = "";
+  Uint8List? imageUrl;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -38,84 +44,126 @@ class _SignUpState extends State<SignUp> {
     lname.dispose();
     phone.dispose();
     age.dispose();
-    // imageUrl.dispose();
     super.dispose();
+  }
+
+  void selectImg() async {
+    Uint8List img = await pickImg(ImageSource.gallery);
+    setState(() {
+      imageUrl = img;
+    });
+  }
+
+  void signUp() async {
+    // setState(() {
+    //   _isLoading = true;
+    // });
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Lottie.asset('assets/lottie/loading.json', width: 150),
+            ),
+          ),
+        );
+      },
+    );
+    if (passwordConfirmed()) {
+      String res = await AuthMethods().signupUser(
+        fname: fname.text,
+        lname: lname.text,
+        file: imageUrl!,
+        email: email.text,
+        password: password.text,
+        cpassword: cpassword.text,
+        age: age.text,
+        phone: phone.text,
+      );
+      // setState(() {
+      //   _isLoading = false;
+      // });
+      if (res != 'Success') {
+        showSnackBar(res, context);
+      } else {}
+    }
   }
 
 // Profile Pic Upload
 
-  void pickUploadImg() async {
-    final image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 75,
-      maxHeight: 512,
-      maxWidth: 512,
-    );
-    Reference ref =
-        FirebaseStorage.instance.ref().child("users_imgs/profilepic.jpg");
-    await ref.putFile(File(image!.path));
-    ref.getDownloadURL().then((value) {
-      print(value);
-      setState(() {
-        imageUrl = value;
-      });
-    });
-  }
+  // void pickUploadImg() async {
+  //   final image = await ImagePicker().pickImage(
+  //   source: ImageSource.gallery,
+  //   imageQuality: 75,
+  //   maxHeight: 512,
+  //   maxWidth: 512,
+  // );
+  //   Reference ref =
+  //       FirebaseStorage.instance.ref().child("users_imgs/profilepic.jpg");
+  //   await ref.putFile(File(image!.path));
+  //   ref.getDownloadURL().then((value) {
+  //     print(value);
+  //     setState(() {
+  //       imageUrl = value as Uint8List;
+  //     });
+  //   });
+  // }
 
 // Sign up and store Data to DB
-  Future signup() async {
-    if (passwordConfirmed()) {
-      try {
-        var signup = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: email.text.trim(), password: password.text.trim());
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const HomePage()),
-            (route) => false);
-      } catch (e) {
-        // print(e);
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(
-                e.toString(),
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                    color: Colors.black87),
-              ),
-            );
-          },
-        );
-        // print(e);
-      }
-      addUserDetails(
-        imageUrl..trim(),
-        fname.text.trim(),
-        lname.text.trim(),
-        email.text.trim(),
-        int.parse(age.text.trim()),
-        int.parse(phone.text.trim()),
-      );
-    }
-  }
+  // Future signup() async {
+  //   if (passwordConfirmed()) {
+  //     try {
+  //       var signup = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //           email: email.text.trim(), password: password.text.trim());
+  // Navigator.pushAndRemoveUntil(
+  //     context,
+  //     MaterialPageRoute(builder: (_) => const HomePage()),
+  //     (route) => false);
+  //     } catch (e) {
+  //       // print(e);
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             content: Text(
+  //               e.toString(),
+  //               textAlign: TextAlign.center,
+  //               style: GoogleFonts.poppins(
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w500,
+  //                   height: 0,
+  //                   color: Colors.black87),
+  //             ),
+  //           );
+  //         },
+  //       );
+  //       // print(e);
+  //     }
+  //     addUserDetails(
+  //       fname.text.trim(),
+  //       lname.text.trim(),
+  //       imageUrl,
+  //       email.text.trim(),
+  //       int.parse(age.text.trim()),
+  //       int.parse(phone.text.trim()),
+  //     );
+  //   }
+  // }
 
-  // final CollectionReference userList =
-  //     FirebaseFirestore.instance.document("userInfo");
-  Future addUserDetails(String fname, String lname, String imageUrl,
-      String email, int age, int phone) async {
-    return await FirebaseFirestore.instance.collection('users').add({
-      'first name': fname,
-      'last name': lname,
-      'email': email,
-      'age': age,
-      'imgUrl': imageUrl,
-      'phone number': phone,
-    });
-  }
+  // Future addUserDetails(String fname, String lname, Uint8List imageUrl,
+  //     String email, int age, int phone) async {
+  //   return await FirebaseFirestore.instance.collection('users').add({
+  //     'first name': fname,
+  //     'last name': lname,
+  //     'email': email,
+  //     'age': age,
+  //     'imgUrl': imageUrl,
+  //     'phone number': phone,
+  //   });
+  // }
 
 // confirm Password
   bool passwordConfirmed() {
@@ -211,7 +259,8 @@ class _SignUpState extends State<SignUp> {
                   print('Completed');
                   // send data to server
                   if (_formKey.currentState!.validate()) {
-                    signup();
+                    // signup();
+                    signUp();
                   } else {
                     showDialog(
                       context: context,
@@ -278,21 +327,21 @@ class _SignUpState extends State<SignUp> {
                 width: 100,
                 child: GestureDetector(
                   onTap: () {
-                    pickUploadImg();
+                    // pickUploadImg();
+                    selectImg();
                   },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: imageUrl == ""
-                        ? Image.asset(
+                  child: imageUrl != null
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundImage: MemoryImage(
+                            imageUrl!,
+                          ))
+                      : const CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage(
                             'assets/images/default-profile-pic.jpg',
-                            fit: BoxFit.cover,
-                          )
-                        : ExtendedImage.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            cache: true,
                           ),
-                  ),
+                        ),
                 ),
               ),
               const SizedBox(
@@ -421,12 +470,12 @@ class _SignUpState extends State<SignUp> {
                 keyvalue: 'cpassword',
                 controller: cpassword,
               ),
-              // // Sign button
+              // Sign button
               // Submit_Button(
               //   btntxt: 'SIGN UP',
               //   fontSize: 22,
               //   ontouch: () {
-              //     signup();
+              //     signUp();
               //   },
               // ),
               const SizedBox(
@@ -491,19 +540,18 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 100,
                   width: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: imageUrl == ""
-                        ? Image.asset(
+                  child: imageUrl != null
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundImage: MemoryImage(
+                            imageUrl!,
+                          ))
+                      : const CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage(
                             'assets/images/default-profile-pic.jpg',
-                            fit: BoxFit.cover,
-                          )
-                        : ExtendedImage.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            cache: true,
                           ),
-                  ),
+                        ),
                 ),
                 Text(
                   'Full Name : ${fname.text} ${lname.text}',
