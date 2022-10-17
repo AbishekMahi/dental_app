@@ -1,3 +1,4 @@
+import 'package:dental_app/screens/booking.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -130,7 +131,14 @@ class _AvailabilityState extends State<Availability> {
                 child: Submit_Button(
                   btntxt: 'Book Appointment',
                   fontSize: 22,
-                  ontouch: () {},
+                  ontouch: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Booking(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

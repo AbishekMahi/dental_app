@@ -8,10 +8,12 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../utils/textfield.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   State<StatefulWidget> createState() => LoginState();
 }
@@ -20,6 +22,8 @@ class LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool isObscure = false;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,164 +40,169 @@ class LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Login Here!',
-                      style: GoogleFonts.poppins(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                          color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // Email or phone number
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: email,
-                        keyboardType: TextInputType.emailAddress,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Login Here!',
                         style: GoogleFonts.poppins(
-                            fontSize: 18, color: Colors.white),
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.account_circle_outlined,
-                            color: Colors.white,
-                          ),
-                          border: InputBorder.none,
-                          labelText: 'Email Address',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          hintText: 'Email Address',
-                          hintStyle: const TextStyle(color: Colors.white70),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              color: Colors.white,
-                              width: 2.0,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              color: Colors.white,
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 227, 15, 0),
-                              width: 2.0,
-                            ),
-                          ),
-                          errorStyle: GoogleFonts.poppins(
-                            color: const Color(0xFFC70D00),
-                            fontSize: 15,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xFFC70D00),
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty ||
-                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                            return 'Enter a valid input!';
-                          }
-                          return null;
-                        },
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                            color: Colors.white),
                       ),
-                    ),
-
-                    PasswordField(
-                      controller: password,
-                      labelText: 'Password',
-                      hintText: 'Enter Password',
-                      prefixIcon: EvaIcons.lockOutline,
-                      keyvalue: 'password',
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          child: Text(
-                            'Forgot password?',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ForgotPassword(),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    // Sign button
-                    Submit_Button(
-                      btntxt: 'SIGN IN',
-                      fontSize: 22,
-                      ontouch: () {
-                        login();
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                      width: 150,
-                      child: Divider(
-                        color: Colors.white,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'New User?',
+                      // Email or phone number
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          textInputAction: TextInputAction.next,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: email,
+                          keyboardType: TextInputType.emailAddress,
                           style: GoogleFonts.poppins(
                               fontSize: 18, color: Colors.white),
-                        ),
-                        TextButton(
-                          child: Text(
-                            'Register Here!',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.account_circle_outlined,
+                              color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                            labelText: 'Email Address',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: 'Email Address',
+                            hintStyle: const TextStyle(color: Colors.white70),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUp(),
+                                width: 2.0,
                               ),
-                            );
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 227, 15, 0),
+                                width: 2.0,
+                              ),
+                            ),
+                            errorStyle: GoogleFonts.poppins(
+                              color: const Color(0xFFC70D00),
+                              fontSize: 15,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Color(0xFFC70D00),
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value)) {
+                              return 'Enter a valid email!';
+                            }
+                            return null;
                           },
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+
+                      PasswordField(
+                        controller: password,
+                        labelText: 'Password',
+                        hintText: 'Enter Password',
+                        prefixIcon: EvaIcons.lockOutline,
+                        keyvalue: 'password',
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            child: Text(
+                              'Forgot password?',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ForgotPassword(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      // Sign button
+                      Submit_Button(
+                        btntxt: 'SIGN IN',
+                        fontSize: 22,
+                        ontouch: () {
+                          if (_formKey.currentState!.validate()) {
+                            login();
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                        width: 150,
+                        child: Divider(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'New User?',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, color: Colors.white),
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Register Here!',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUp(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -207,7 +216,15 @@ class LoginState extends State<Login> {
     showDialog(
       context: context,
       builder: (context) {
-        return const Center(child: CircularProgressIndicator());
+        return Center(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Lottie.asset('assets/lottie/loading.json', width: 150),
+            ),
+          ),
+        );
       },
     );
     // Navigator.of(context).pop();

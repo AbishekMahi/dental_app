@@ -1,3 +1,4 @@
+import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/utils/future_appoints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,6 +69,21 @@ class _HistoryState extends State<History> {
                 child: tabBar,
               ),
             ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: const Color(0xFF00C75A),
+            child: const Icon(
+              Icons.add,
+              size: 32,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Booking(),
+                ),
+              );
+            },
           ),
           body: const TabBarView(
             children: [

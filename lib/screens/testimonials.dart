@@ -1,6 +1,7 @@
 import 'package:dental_app/services/remote_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../utils/feedback_model.dart';
 
 class Testimonials extends StatefulWidget {
@@ -84,10 +85,18 @@ class _TestimonialsState extends State<Testimonials> {
               padding: const EdgeInsets.all(15),
               child: Visibility(
                 visible: isLoaded,
-                replacement: const Center(
-                    child: CircularProgressIndicator(
-                  backgroundColor: Colors.amber,
-                )),
+                replacement: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Lottie.asset(
+                        'assets/lottie/skeleton-loading.json',
+                      ),
+                      Lottie.asset(
+                        'assets/lottie/skeleton-loading.json',
+                      ),
+                    ],
+                  ),
+                ),
                 child: ListView.builder(
                   itemCount: feedbacks?.length,
                   itemBuilder: (context, index) {

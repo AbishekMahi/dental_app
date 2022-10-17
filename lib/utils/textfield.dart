@@ -60,62 +60,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       this.validator);
   @override
   Widget build(BuildContext context) {
-    // return Padding(
-    //   padding: const EdgeInsets.all(10),
-    //   child: TextFormField(
-    //     // onSaved: onSaved,
-    //     textInputAction: TextInputAction.next,
-    //     autovalidateMode: AutovalidateMode.onUserInteraction,
-    //     style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
-    //     keyboardType: keyboardType,
-    //     obscureText: obscureText,
-    //     maxLength: maxlength,
-    //     decoration: InputDecoration(
-    //       prefixIcon: Icon(
-    //         prefixIcon,
-    //         color: Colors.white,
-    //       ),
-    //       border: InputBorder.none,
-    //       labelText: labelText,
-    //       labelStyle: const TextStyle(color: Colors.white),
-    //       hintText: hintText,
-    //       hintStyle: const TextStyle(color: Colors.white70),
-    //       focusedBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(
-    //           color: Colors.white,
-    //           width: 2.0,
-    //         ),
-    //       ),
-    //       enabledBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(
-    //           color: Colors.white,
-    //           width: 2.0,
-    //         ),
-    //       ),
-    //       focusedErrorBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(
-    //           color: Color.fromARGB(255, 227, 15, 0),
-    //           width: 2.0,
-    //         ),
-    //       ),
-    //       errorStyle: GoogleFonts.poppins(
-    //         color: const Color(0xFFC70D00),
-    //         fontSize: 15,
-    //       ),
-    //       errorBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(
-    //           color: Color(0xFFC70D00),
-    //           width: 2.0,
-    //         ),
-    //       ),
-    //     ),
-    //     validator: validator,
-    //   ),
-    // );
     return Padding(
       padding: const EdgeInsets.all(10),
       child: TextFormField(

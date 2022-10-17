@@ -37,7 +37,11 @@ class _AboutUsState extends State<AboutUs> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            margin: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(
+              bottom: 10,
+              left: 10,
+              right: 10,
+            ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -54,7 +58,14 @@ class _AboutUsState extends State<AboutUs> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Lottie.asset('assets/lottie/tooth.json', width: 200),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      height: 180,
+                    ),
+                  ),
+                  // Lottie.asset('assets/lottie/tooth.json', width: 200),
                 ),
                 Text(
                   "Who We Are?",

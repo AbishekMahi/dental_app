@@ -8,6 +8,7 @@ import 'package:dental_app/screens/prescription.dart';
 import 'package:dental_app/screens/profile.dart';
 import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
+import 'package:dental_app/screens/tips_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -202,8 +203,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/appointment.png',
-                      title: 'Appointment',
-                      ontouch: () {},
+                      title: 'Our Tips',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TipsPage(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/calendar.png',

@@ -27,6 +27,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController lname = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController age = TextEditingController();
+  String imageUrl = "";
 
   @override
   void dispose() {
@@ -37,11 +38,11 @@ class _SignUpState extends State<SignUp> {
     lname.dispose();
     phone.dispose();
     age.dispose();
+    // imageUrl.dispose();
     super.dispose();
   }
 
 // Profile Pic Upload
-  String imageUrl = "";
 
   void pickUploadImg() async {
     final image = await ImagePicker().pickImage(
@@ -72,7 +73,24 @@ class _SignUpState extends State<SignUp> {
             MaterialPageRoute(builder: (_) => const HomePage()),
             (route) => false);
       } catch (e) {
-        print(e);
+        // print(e);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(
+                e.toString(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                    color: Colors.black87),
+              ),
+            );
+          },
+        );
+        // print(e);
       }
       addUserDetails(
         imageUrl..trim(),
@@ -85,11 +103,10 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  final CollectionReference userList =
-      FirebaseFirestore.instance.collection("userInfo");
+  // final CollectionReference userList =
+  //     FirebaseFirestore.instance.document("userInfo");
   Future addUserDetails(String fname, String lname, String imageUrl,
       String email, int age, int phone) async {
-    // return await FirebaseFirestore.instance.collection('users').add({
     return await FirebaseFirestore.instance.collection('users').add({
       'first name': fname,
       'last name': lname,
@@ -158,6 +175,8 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,37 +196,56 @@ class _SignUpState extends State<SignUp> {
         child: Theme(
           data: Theme.of(context).copyWith(
               colorScheme: const ColorScheme.light(primary: Color(0xFF00C75A))),
-          child: Stepper(
-            currentStep: currentStep,
-            type: StepperType.horizontal,
-            steps: stepList(),
-            elevation: 0,
-            controlsBuilder: controlsBuilder,
-            onStepContinue: () {
-              final isLastStep = currentStep == stepList().length - 1;
+          child: Form(
+            key: _formKey,
+            child: Stepper(
+              currentStep: currentStep,
+              type: StepperType.horizontal,
+              steps: stepList(),
+              elevation: 0,
+              controlsBuilder: controlsBuilder,
+              onStepContinue: () {
+                final isLastStep = currentStep == stepList().length - 1;
 
-              if (isLastStep) {
-                print('Completed');
-                // send data to server
-                signup();
-              } else {
-                setState(() {
-                  currentStep += 1;
-                });
-              }
-              // (currentStep < (stepList().length - 1)) {
-              //   currentStep += 1;
-              // }
+                if (isLastStep) {
+                  print('Completed');
+                  // send data to server
+                  if (_formKey.currentState!.validate()) {
+                    signup();
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(
+                            "You missed to fill something",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                                color: Colors.black87),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                } else {
+                  setState(() {
+                    currentStep += 1;
+                  });
+                }
 
-              setState(() {});
-            },
-            onStepCancel: () {
-              if (currentStep == 0) {
-                return;
-              }
-              currentStep -= 1;
-              setState(() {});
-            },
+                setState(() {});
+              },
+              onStepCancel: () {
+                if (currentStep == 0) {
+                  return;
+                }
+                currentStep -= 1;
+                setState(() {});
+              },
+            ),
           ),
         ),
       ),
@@ -268,6 +306,11 @@ class _SignUpState extends State<SignUp> {
                 obscureText: false,
                 keyboardType: TextInputType.text,
                 controller: fname,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                },
               ),
               CustomTextField(
                 labelText: 'Last name',
@@ -276,6 +319,11 @@ class _SignUpState extends State<SignUp> {
                 obscureText: false,
                 keyboardType: TextInputType.text,
                 controller: lname,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                },
               ),
 
               CustomTextField(
@@ -302,6 +350,11 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.number,
                 controller: age,
                 maxlength: 2,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter age';
+                  }
+                },
               ),
               const SizedBox(
                 height: 20.0,
@@ -406,7 +459,7 @@ class _SignUpState extends State<SignUp> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Login(),
+                          builder: (context) => const Login(),
                         ),
                       );
                     },
