@@ -33,7 +33,6 @@ class _SignUpState extends State<SignUp> {
   TextEditingController phone = TextEditingController();
   TextEditingController age = TextEditingController();
   Uint8List? imageUrl;
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -55,9 +54,6 @@ class _SignUpState extends State<SignUp> {
   }
 
   void signUp() async {
-    // setState(() {
-    //   _isLoading = true;
-    // });
     showDialog(
       context: context,
       builder: (context) {
@@ -83,10 +79,11 @@ class _SignUpState extends State<SignUp> {
         age: age.text,
         phone: phone.text,
       );
-      // setState(() {
-      //   _isLoading = false;
-      // });
       if (res != 'Success') {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const HomePage()),
+            (route) => false);
         showSnackBar(res, context);
       } else {}
     }

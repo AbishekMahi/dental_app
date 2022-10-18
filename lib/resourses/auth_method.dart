@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/resourses/storage_method.dart';
@@ -23,6 +22,7 @@ class AuthMethods {
     String res = "Some error Occured";
     try {
       if (email.isNotEmpty ||
+          password.isNotEmpty ||
           fname.isNotEmpty ||
           lname.isNotEmpty ||
           file != null ||
@@ -31,7 +31,7 @@ class AuthMethods {
         // register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email.trim(), password: password.trim());
-        print(cred.user!.uid);
+        // print(cred.user!.uid);
 
         String photoUrl =
             await StorageMethod().uploadImgToStorage('profileimg', file);
@@ -50,6 +50,33 @@ class AuthMethods {
     }
     // on FirebaseAuthException catch (err) {
     //   if (err.code == 'invalid-email') {
+    //     res = 'the email is badly formatted';
+    //   }
+    // }
+    catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  // Login user
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = 'Some Error Occurred';
+
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "Success";
+      } else {
+        "please enter all the fields";
+      }
+    }
+    // on FirebaseAuthException catch (e) {
+    //   if (e.code == 'user-not-found') {
     //     res = 'the email is badly formatted';
     //   }
     // }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
 import 'package:dental_app/screens/booking.dart';
@@ -22,21 +23,41 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-String greetingMessage() {
-  var timeNow = DateTime.now().hour;
-  if (timeNow <= 12) {
-    return 'Good Morning';
-  } else if ((timeNow > 12) && (timeNow <= 16)) {
-    return 'Good Afternoon';
-  } else if ((timeNow > 16) && (timeNow < 20)) {
-    return 'Good Evening';
-  } else {
-    return 'Good Night';
-  }
-}
-
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
+  String userImg = "";
+  String userFname = "";
+
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
+
+  String greetingMessage() {
+    var timeNow = DateTime.now().hour;
+    if (timeNow <= 12) {
+      return 'Good Morning!';
+    } else if ((timeNow > 12) && (timeNow <= 16)) {
+      return 'Good Afternoon!';
+    } else if ((timeNow > 16) && (timeNow < 20)) {
+      return 'Good Evening!';
+    } else {
+      return 'Good Night!';
+    }
+  }
+
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    // print(snap.data());
+    setState(() {
+      userFname = (snap.data() as Map<String, dynamic>)['first name'];
+      userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,29 +78,48 @@ class _HomePageState extends State<HomePage> {
           title: Text(
             "Dental Care",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const ProfilePage(),
-                //   ),
-                // );
-              },
-              splashRadius: 26,
-              icon: const Icon(
-                Icons.notifications,
-                color: Colors.yellow,
-              ),
-              iconSize: 32,
-            ),
+            // IconButton(
+            //   onPressed: () {
+            //     // Navigator.push(
+            //     //   context,
+            //     //   MaterialPageRoute(
+            //     //     builder: (context) => const ProfilePage(),
+            //     //   ),
+            //     // );
+            //   },
+            //   splashRadius: 26,
+            //   icon: const Icon(
+            //     Icons.notifications,
+            //     color: Colors.yellow,
+            //   ),
+            //   iconSize: 32,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10),
+            //   child: IconButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => const ProfilePage(),
+            //         ),
+            //       );
+            //     },
+            //     splashRadius: 26,
+            //     icon: const Icon(
+            //       Icons.account_circle,
+            //       color: Colors.white,
+            //     ),
+            //     iconSize: 32,
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                onPressed: () {
+              padding: const EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -87,12 +127,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                splashRadius: 26,
-                icon: const Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  backgroundImage: const AssetImage(
+                    "assets/images/default-profile-pic.jpg",
+                  ),
+                  foregroundImage: NetworkImage(
+                    userImg,
+                  ),
                 ),
-                iconSize: 32,
               ),
             ),
           ],
@@ -102,9 +145,9 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Text(
-                greetingMessage(),
+                greetingMessage() + " " + userFname,
                 style: GoogleFonts.poppins(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),

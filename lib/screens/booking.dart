@@ -27,6 +27,8 @@ class _BookingState extends State<Booking> {
   String dropdownValue = list.first;
   String datetime = DateTime.now().toString();
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
+  // String tdata = DateFormat("ddMMMyyyyhhmma").format(DateTime.now());
+
   String cdate = DateFormat("dd MMM yyyy").format(DateTime.now());
 
   //text editing controller for text field
@@ -73,10 +75,10 @@ class _BookingState extends State<Booking> {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+      // print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
       String formattedDate = DateFormat('MMM dd yyyy').format(pickedDate);
-      print(
-          formattedDate); //formatted date output using intl package =>  2021-03-16
+      // print(formattedDate);
+      //formatted date output using intl package =>  2021-03-16
       //you can implement different kind of Date Format here according to your requirement
 
       setState(() {
@@ -251,7 +253,7 @@ class _BookingState extends State<Booking> {
                                 return AlertDialog(
                                   title: Text(
                                     textAlign: TextAlign.center,
-                                    "Plese Confirm Your Appointment Details",
+                                    "Please Confirm Your Appointment Details",
                                     style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,

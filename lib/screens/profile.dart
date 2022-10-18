@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:dental_app/screens/authentications/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/booking.dart';
 import 'package:extended_image/extended_image.dart';
@@ -19,25 +17,50 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-// Profile Pic Upload
-  String imageUrl = "";
+  String userFname = "";
+  String userLname = "";
+  String userAge = "";
+  String userPhone = "";
+  String userImg = "";
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
 
-  void pickUploadImg() async {
-    final image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 75,
-      maxHeight: 512,
-      maxWidth: 512,
-    );
-    Reference ref = FirebaseStorage.instance.ref().child("profilepic.jpg");
-    await ref.putFile(File(image!.path));
-    ref.getDownloadURL().then((value) {
-      print(value);
-      setState(() {
-        imageUrl = value;
-      });
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    // print(snap.data());
+    setState(() {
+      userFname = (snap.data() as Map<String, dynamic>)['first name'];
+      userLname = (snap.data() as Map<String, dynamic>)['last name'];
+      userPhone = (snap.data() as Map<String, dynamic>)['phone number'];
+      userAge = (snap.data() as Map<String, dynamic>)['age'];
+      userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
     });
   }
+
+// Profile Pic Upload
+  // String imageUrl = "";
+  // void pickUploadImg() async {
+  //   final image = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //     imageQuality: 75,
+  //     maxHeight: 512,
+  //     maxWidth: 512,
+  //   );
+  //   Reference ref = FirebaseStorage.instance.ref().child("profilepic.jpg");
+  //   await ref.putFile(File(image!.path));
+  //   ref.getDownloadURL().then((value) {
+  //     print(value);
+  //     setState(() {
+  //       imageUrl = value;
+  //     });
+  //   });
+  // }
 
   final user = FirebaseAuth.instance.currentUser!;
   @override
@@ -77,20 +100,27 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 85,
                         child: GestureDetector(
                           onTap: () {
-                            pickUploadImg();
+                            // pickUploadImg();
                           },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: imageUrl == ""
-                                ? Image.asset(
-                                    'assets/images/default-profile-pic.jpg',
-                                    fit: BoxFit.cover,
-                                  )
-                                : ExtendedImage.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
-                                    cache: true,
-                                  ),
+                          // child: ClipRRect(
+                          //   borderRadius: BorderRadius.circular(50),
+                          //   child: imageUrl == ""
+                          //       ? Image.asset(
+                          //           'assets/images/default-profile-pic.jpg',
+                          //           fit: BoxFit.cover,
+                          //         )
+                          //       : ExtendedImage.network(
+                          //           imageUrl,
+                          //           fit: BoxFit.cover,
+                          //           cache: true,
+                          //         ),
+                          // ),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            backgroundImage: const AssetImage(
+                              "assets/images/default-profile-pic.jpg",
+                            ),
+                            foregroundImage: NetworkImage(userImg),
                           ),
                         ),
                       ),
@@ -101,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Name',
+                            userFname,
                             textAlign: TextAlign.left,
                             style: GoogleFonts.poppins(
                               fontSize: 20,
@@ -149,38 +179,38 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Column(
-                        children: const [
+                        children: [
                           CustomProfileWidget(
                             title: 'Full Name',
-                            subtitle: 'Madhan Kumar',
-                            icon: Icon(
+                            subtitle: '$userFname $userLname',
+                            icon: const Icon(
                               Icons.person,
                               size: 24,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 1,
                           ),
                           CustomProfileWidget(
                             title: 'Phone Number',
-                            subtitle: '9867405231',
-                            icon: Icon(
+                            subtitle: userPhone,
+                            icon: const Icon(
                               Icons.phone,
                               size: 24,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 1,
                           ),
                           CustomProfileWidget(
                             title: 'Age',
-                            subtitle: 'Software Engineer',
-                            icon: Icon(
+                            subtitle: userAge,
+                            icon: const Icon(
                               Icons.numbers,
                               size: 24,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 1,
                           ),
                         ],
@@ -264,16 +294,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   },
                 ),
-                Text(
-                  user.uid,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                    color: Colors.white,
-                  ),
-                ),
+                // Text(
+                //   user.uid,
+                //   textAlign: TextAlign.left,
+                //   style: GoogleFonts.poppins(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w400,
+                //     height: 0,
+                //     color: Colors.white,
+                //   ),
+                // ),
               ],
             ),
           ),

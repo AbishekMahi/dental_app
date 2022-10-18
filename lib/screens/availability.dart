@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/submit_button.dart';
-import '../utils/textfield.dart';
 
 class Availability extends StatefulWidget {
   const Availability({super.key});

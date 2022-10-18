@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dental_app/resourses/auth_method.dart';
 import 'package:dental_app/screens/authentications/reset-password.dart';
 import 'package:dental_app/screens/authentications/signup.dart';
 import 'package:dental_app/screens/home-screen.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import '../../utils/img_picker.dart';
 import '../../utils/textfield.dart';
 
 class Login extends StatefulWidget {
@@ -23,6 +25,43 @@ class LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
   bool isObscure = false;
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  void loginUser() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Lottie.asset('assets/lottie/loading.json', width: 150),
+            ),
+          ),
+        );
+      },
+    );
+    String res = await AuthMethods().loginUser(
+      email: email.text,
+      password: password.text,
+    );
+    if (res == "Success") {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => const HomePage()),
+          (route) => false);
+    } else {
+      //
+      showSnackBar(res, context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +195,7 @@ class LoginState extends State<Login> {
                         fontSize: 22,
                         ontouch: () {
                           if (_formKey.currentState!.validate()) {
-                            login();
+                            loginUser();
                           }
                         },
                       ),
@@ -211,50 +250,51 @@ class LoginState extends State<Login> {
       ),
     );
   }
-
-  void login() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Center(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Lottie.asset('assets/lottie/loading.json', width: 150),
-            ),
-          ),
-        );
-      },
-    );
-    // Navigator.of(context).pop();
-    try {
-      var signup = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const HomePage(),
-          ),
-          (route) => false);
-    } catch (e) {
-      print(e);
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(
-              e.toString(),
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                  color: Colors.black87),
-            ),
-          );
-        },
-      );
-    }
-  }
 }
+
+//   void login() async {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return Center(
+//           child: Container(
+//             color: Colors.white,
+//             child: Padding(
+//               padding: const EdgeInsets.all(10),
+//               child: Lottie.asset('assets/lottie/loading.json', width: 150),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//     // Navigator.of(context).pop();
+//     try {
+//       var signup = await FirebaseAuth.instance.signInWithEmailAndPassword(
+//           email: email.text.trim(), password: password.text.trim());
+//       Navigator.pushAndRemoveUntil(
+//           context,
+//           MaterialPageRoute(
+//             builder: (_) => const HomePage(),
+//           ),
+//           (route) => false);
+//     } catch (e) {
+//       print(e);
+//       showDialog(
+//         context: context,
+//         builder: (context) {
+//           return AlertDialog(
+//             content: Text(
+//               e.toString(),
+//               textAlign: TextAlign.center,
+//               style: GoogleFonts.poppins(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w500,
+//                   height: 0,
+//                   color: Colors.black87),
+//             ),
+//           );
+//         },
+//       );
+//     }
+//   }
+// }
