@@ -232,6 +232,10 @@ class _SignUpState extends State<SignUp> {
       ),
       body: Container(
         decoration: const BoxDecoration(
+          image: DecorationImage(
+              opacity: 500,
+              image: AssetImage("assets/images/bg_pattern.jpg"),
+              fit: BoxFit.fitHeight),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

@@ -11,8 +11,17 @@ class PastAppoints extends StatefulWidget {
 class _PastAppointsState extends State<PastAppoints> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [],
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          opacity: 30,
+          image: AssetImage("assets/images/old.png"),
+          // fit: BoxFit.cover
+        ),
+      ),
+      child: Column(
+        children: [],
+      ),
     );
   }
 }

@@ -18,10 +18,14 @@ class _WelcomeState extends State<Welcome> {
       backgroundColor: const Color(0xFF262525),
       body: Container(
         decoration: const BoxDecoration(
+          image: DecorationImage(
+              opacity: 500,
+              image: AssetImage("assets/images/bg_pattern.jpg"),
+              fit: BoxFit.fitHeight),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF378CEC), Color(0xFF008CFF)],
+            colors: [Color(0xFF378CEC), Color(0xFF007EE6)],
           ),
         ),
         child: SafeArea(

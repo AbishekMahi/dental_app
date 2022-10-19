@@ -63,6 +63,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        image: DecorationImage(
+            opacity: 500,
+            image: AssetImage("assets/images/bg_pattern.jpg"),
+            fit: BoxFit.fitHeight),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -90,12 +94,12 @@ class _HomePageState extends State<HomePage> {
             //     //   ),
             //     // );
             //   },
-            //   splashRadius: 26,
-            //   icon: const Icon(
-            //     Icons.notifications,
-            //     color: Colors.yellow,
-            //   ),
-            //   iconSize: 32,
+            // splashRadius: 26,
+            // icon: const Icon(
+            //   Icons.notifications,
+            //   color: Colors.yellow,
+            // ),
+            // iconSize: 32,
             // ),
             // Padding(
             //   padding: const EdgeInsets.only(right: 10),

@@ -1,7 +1,10 @@
+import 'package:dental_app/resourses/appoint_method.dart';
+import 'package:dental_app/screens/home-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:intl/intl.dart';
+import '../utils/img_picker.dart';
 import '../utils/submit_button.dart';
 
 class Booking extends StatefulWidget {
@@ -25,10 +28,8 @@ const List<String> list = <String>[
 class _BookingState extends State<Booking> {
   final _formKey = GlobalKey<FormState>();
   String dropdownValue = list.first;
-  String datetime = DateTime.now().toString();
+  String datetime = DateFormat("dd MMM yyyy hh:mm a").format(DateTime.now());
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
-  // String tdata = DateFormat("ddMMMyyyyhhmma").format(DateTime.now());
-
   String cdate = DateFormat("dd MMM yyyy").format(DateTime.now());
 
   //text editing controller for text field
@@ -49,20 +50,15 @@ class _BookingState extends State<Booking> {
     );
 
     if (pickedTime != null) {
-      print(pickedTime.format(context)); //output 10:51 PM
       DateTime parsedTime =
           DateFormat.jm().parse(pickedTime.format(context).toString());
-      print(parsedTime); //output 1970-01-01 22:53:00.000
       String formattedTime = DateFormat('hh:mm a').format(parsedTime);
-      print(formattedTime); //output 14:59:00
-      //DateFormat() is from intl package, you can format the time on any pattern you need.
 
       setState(() {
         timeinput.text = formattedTime; //set the value of text field.
       });
     } else {
       return null;
-      // print("Time is not selected");
     }
   }
 
@@ -70,29 +66,26 @@ class _BookingState extends State<Booking> {
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime
-            .now(), //DateTime.now() - not to allow to choose before today.
+        firstDate: DateTime.now(),
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      // print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-      String formattedDate = DateFormat('MMM dd yyyy').format(pickedDate);
-      // print(formattedDate);
-      //formatted date output using intl package =>  2021-03-16
-      //you can implement different kind of Date Format here according to your requirement
+      String formattedDate = DateFormat('dd MMM yyyy').format(pickedDate);
 
       setState(() {
-        dateinput.text = formattedDate; //set output date to TextField value.
+        dateinput.text = formattedDate;
       });
-    } else {
-      print("Date is not selected");
-    }
+    } else {}
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        image: DecorationImage(
+            opacity: 500,
+            image: AssetImage("assets/images/bg_pattern.jpg"),
+            fit: BoxFit.fitHeight),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -184,7 +177,6 @@ class _BookingState extends State<Booking> {
                                 ),
                                 elevation: 16,
                                 onChanged: (String? value) {
-                                  // This is called when the user selects an item.
                                   setState(() {
                                     dropdownValue = value!;
                                   });
@@ -261,7 +253,7 @@ class _BookingState extends State<Booking> {
                                         color: Colors.black87),
                                   ),
                                   content: SizedBox(
-                                    height: 330,
+                                    height: 180,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -278,7 +270,7 @@ class _BookingState extends State<Booking> {
                                           textAlign: TextAlign.left,
                                         ),
                                         Text(
-                                          "2. Time : $timeinput",
+                                          "2. Time : ${timeinput.text}",
                                           style: GoogleFonts.poppins(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400,
@@ -287,7 +279,7 @@ class _BookingState extends State<Booking> {
                                           textAlign: TextAlign.left,
                                         ),
                                         Text(
-                                          "3. Date : $datetime",
+                                          "3. Date : ${dateinput.text}",
                                           style: GoogleFonts.poppins(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400,
@@ -299,9 +291,28 @@ class _BookingState extends State<Booking> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: MaterialButton(
-                                              onPressed: () {
-                                                print(timeinput);
-                                                print(datetime);
+                                              onPressed: () async {
+                                                String res =
+                                                    await AppointMethod()
+                                                        .createAppointment(
+                                                  appointmentTime:
+                                                      timeinput.text,
+                                                  currentTime: datetime,
+                                                  type: dropdownValue,
+                                                  appointmentDate:
+                                                      dateinput.text,
+                                                );
+                                                if (res == "Success") {
+                                                  Navigator.of(context)
+                                                      .pushAndRemoveUntil(
+                                                          MaterialPageRoute(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  const HomePage()),
+                                                          (route) => false);
+                                                } else {
+                                                  showSnackBar(res, context);
+                                                }
                                               },
                                               color: const Color(0xFF00C75A),
                                               child: Padding(

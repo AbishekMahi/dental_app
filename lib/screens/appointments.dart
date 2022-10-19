@@ -1,5 +1,5 @@
 import 'package:dental_app/screens/booking.dart';
-import 'package:dental_app/utils/future_appoints.dart';
+import 'package:dental_app/utils/upcoming_appoints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/past_appoints.dart';
@@ -28,7 +28,7 @@ TabBar get tabBar => TabBar(
         ),
         Tab(
           child: Text(
-            'PAST',
+            'OLD',
             style:
                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
           ),
@@ -41,6 +41,10 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        image: DecorationImage(
+            opacity: 500,
+            image: AssetImage("assets/images/bg_pattern.jpg"),
+            fit: BoxFit.fitHeight),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
