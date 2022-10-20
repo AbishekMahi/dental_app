@@ -33,8 +33,11 @@ class AppointMethod {
           'appointed time': currentTime,
           'appointment time': appointmentTime,
           'appointment date': appointmentDate,
-          'status': 'waiting',
-          'appoint id': datetime
+          'appoint id': datetime,
+          'appointment date full': DateTime.now(),
+          'status': 'pending',
+          'amount paid': '00.0',
+          'prescription': 'https://i.postimg.cc/66YVxvqN/prescription.jpg'
         });
         res = "Success";
       }

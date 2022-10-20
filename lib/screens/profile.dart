@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/booking.dart';
@@ -124,7 +125,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundImage: const AssetImage(
                               "assets/images/default-profile-pic.jpg",
                             ),
-                            foregroundImage: NetworkImage(userImg),
+                            foregroundImage:
+                                CachedNetworkImageProvider(userImg),
                           ),
                         ),
                       ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
@@ -136,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundImage: const AssetImage(
                     "assets/images/default-profile-pic.jpg",
                   ),
-                  foregroundImage: NetworkImage(
+                  foregroundImage: CachedNetworkImageProvider(
                     userImg,
                   ),
                 ),
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Text(
-                greetingMessage() + " " + userFname,
+                "${greetingMessage()} $userFname",
                 style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,

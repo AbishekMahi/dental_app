@@ -71,9 +71,9 @@ class _BookingState extends State<Booking> {
 
     if (pickedDate != null) {
       String formattedDate = DateFormat('dd MMM yyyy').format(pickedDate);
-
       setState(() {
         dateinput.text = formattedDate;
+        // dateinput.text = formattedDate;
       });
     } else {}
   }
