@@ -75,6 +75,7 @@ class _HistoryState extends State<History> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            tooltip: 'Book appointment',
             backgroundColor: const Color(0xFF00C75A),
             child: const Icon(
               Icons.add,

@@ -7,6 +7,7 @@ import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/screens/contact-page.dart';
 import 'package:dental_app/screens/gallery.dart';
 import 'package:dental_app/screens/appointments.dart';
+import 'package:dental_app/screens/notifications.dart';
 import 'package:dental_app/screens/prescription.dart';
 import 'package:dental_app/screens/profile.dart';
 import 'package:dental_app/screens/services.dart';
@@ -96,32 +97,31 @@ class _HomePageState extends State<HomePage> {
             //     //   ),
             //     // );
             //   },
-            // splashRadius: 26,
-            // icon: const Icon(
-            //   Icons.notifications,
-            //   color: Colors.yellow,
-            // ),
-            // iconSize: 32,
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 10),
-            //   child: IconButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => const ProfilePage(),
-            //         ),
-            //       );
-            //     },
-            //     splashRadius: 26,
-            //     icon: const Icon(
-            //       Icons.account_circle,
-            //       color: Colors.white,
-            //     ),
-            //     iconSize: 32,
+            //   splashRadius: 26,
+            //   icon: const Icon(
+            //     Icons.notifications,
+            //     color: Colors.yellow,
             //   ),
+            //   iconSize: 32,
             // ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Notifications(),
+                    ),
+                  );
+                },
+                splashRadius: 26,
+                icon: const Icon(
+                  Icons.mail_outline_rounded,
+                ),
+                iconSize: 32,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
@@ -273,30 +273,6 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ExtraFeatures(
-                      imageUrl: 'assets/images/calendar.png',
-                      title: 'Availability',
-                      ontouch: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Availability(),
-                          ),
-                        );
-                      },
-                    ),
-                    ExtraFeatures(
-                      imageUrl: 'assets/images/testimony.png',
-                      title: 'Testimonials',
-                      ontouch: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Testimonials(),
-                          ),
-                        );
-                      },
-                    ),
-                    ExtraFeatures(
                       imageUrl: 'assets/images/gallery.png',
                       title: 'Gallery',
                       ontouch: () {
@@ -328,6 +304,30 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Prescriptions(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/calendar.png',
+                      title: 'Availability',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Availability(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/testimony.png',
+                      title: 'Testimonials',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Testimonials(),
                           ),
                         );
                       },

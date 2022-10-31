@@ -69,7 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         keyboardType: keyboardType,
-        style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+        style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,
@@ -165,7 +165,7 @@ class _PasswordFieldState extends State<PasswordField> {
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
-        style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+        style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
         keyboardType: TextInputType.visiblePassword,
         obscureText: _isHidden,
         decoration: InputDecoration(
@@ -264,14 +264,15 @@ class SubjectField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextFormField(
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style:
-            GoogleFonts.poppins(fontSize: 18, color: const Color(0xFF252525)),
+            GoogleFonts.poppins(fontSize: 16, color: const Color(0xFF252525)),
         keyboardType: keyboardType,
         obscureText: obscureText,
+        textCapitalization: TextCapitalization.sentences,
         maxLines: maxlines,
         maxLength: maxlength,
         decoration: InputDecoration(

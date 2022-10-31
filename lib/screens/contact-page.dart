@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import '../resourses/message_method.dart';
+import '../utils/img_picker.dart';
 import '../utils/submit_button.dart';
 import '../utils/textfield.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'home-screen.dart';
 
 final Uri _phone = Uri.parse('tel:+918270514004');
 final Uri _email = Uri.parse('mailto:abishekmas0708@gmail.com');
@@ -24,6 +30,35 @@ void _launchMail() async {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  //text editing controller for text field
+  final subject = TextEditingController();
+  final message = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    subject.text = "";
+    message.text = "";
+    getUserName();
+    super.initState();
+  }
+
+  String userFname = "";
+  String userLname = "";
+  String userImg = "";
+
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      userFname = (snap.data() as Map<String, dynamic>)['first name'];
+      userLname = (snap.data() as Map<String, dynamic>)['last name'];
+      userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +113,7 @@ class _ContactUsState extends State<ContactUs> {
                   Expanded(
                     flex: 5,
                     child: Container(
-                      margin: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+                      margin: const EdgeInsets.fromLTRB(15, 10, 5, 10),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         onTap: (_launchPhone),
@@ -112,7 +147,7 @@ class _ContactUsState extends State<ContactUs> {
                                     Text(
                                       'Call Us:',
                                       style: GoogleFonts.poppins(
-                                          color: const Color(0xFF006DE9),
+                                          color: Color.fromRGBO(0, 109, 233, 1),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -125,7 +160,7 @@ class _ContactUsState extends State<ContactUs> {
                                   '+91 82563 45323',
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xFF181818),
-                                      fontSize: 16,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w400),
                                 )
                               ],
@@ -138,7 +173,7 @@ class _ContactUsState extends State<ContactUs> {
                   Expanded(
                     flex: 5,
                     child: Container(
-                      margin: const EdgeInsets.fromLTRB(0, 10, 15, 10),
+                      margin: const EdgeInsets.fromLTRB(5, 10, 15, 10),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         onTap: (_launchMail),
@@ -185,7 +220,7 @@ class _ContactUsState extends State<ContactUs> {
                                   'hello@dentalcare.com',
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xFF181818),
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w400),
                                 )
                               ],
@@ -213,64 +248,95 @@ class _ContactUsState extends State<ContactUs> {
                     ),
                   ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: Text(
-                        'Send Your Message:',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                            color: const Color(0xFF006DE9)),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        child: Text(
+                          'Send Your Message:',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                              color: const Color(0xFF006DE9)),
+                        ),
                       ),
-                    ),
-                    SubjectField(
-                      labelText: 'Email Address',
-                      hintText: 'Email Address',
-                      prefixIcon: Icons.account_circle_outlined,
-                      obscureText: false,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value!.isEmpty ||
-                            !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value)) {
-                          return 'Enter a valid input!';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SubjectField(
-                      labelText: 'Subject',
-                      hintText: 'Subject',
-                      prefixIcon: Icons.subject,
-                      obscureText: false,
-                    ),
-                    const SubjectField(
-                      labelText: 'Message',
-                      hintText: 'Write Your Message',
-                      prefixIcon: Icons.message_outlined,
-                      obscureText: false,
-                      maxlines: 4,
-                    ),
-                    Submit_Button(
-                      btntxt: 'Submit',
-                      fontSize: 22,
-                      ontouch: () {
-                        // _submit();
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const HomePage(),
-                        //   ),
-                        // );
-                      },
-                    ),
-                  ],
+                      // SubjectField(
+                      //   labelText: 'Email Address',
+                      //   hintText: 'Email Address',
+                      //   prefixIcon: Icons.account_circle_outlined,
+                      //   obscureText: false,
+                      //   keyboardType: TextInputType.emailAddress,
+                      // validator: (value) {
+                      //   if (value!.isEmpty ||
+                      //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      //           .hasMatch(value)) {
+                      //     return 'Enter a valid input!';
+                      //   }
+                      //   return null;
+                      // },
+                      // ),
+                      SubjectField(
+                        labelText: 'Subject',
+                        hintText: 'Subject',
+                        controller: subject,
+                        prefixIcon: Icons.subject,
+                        maxlength: 30,
+                        obscureText: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid input!';
+                          }
+                          return null;
+                        },
+                      ),
+                      SubjectField(
+                        labelText: 'Message',
+                        controller: message,
+                        hintText: 'Write Your Message',
+                        prefixIcon: Icons.message_outlined,
+                        obscureText: false,
+                        maxlines: 5,
+                        maxlength: 500,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid input!';
+                          }
+                          return null;
+                        },
+                      ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      Submit_Button(
+                        btntxt: 'Submit',
+                        fontSize: 18,
+                        ontouch: () async {
+                          String res = await MessageMethod().createMsg(
+                              subject: 'subject.text',
+                              message: 'message.text',
+                              userFname: userFname,
+                              userLname: userLname,
+                              userImg: userImg);
+                          if (res == "Success") {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const HomePage()),
+                                (route) => false);
+                          } else {
+                            showSnackBar(res, context);
+                            // print('message.text');
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

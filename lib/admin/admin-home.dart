@@ -1,3 +1,4 @@
+import 'package:dental_app/admin/messages_recived.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _AdminHomeState extends State<AdminHome> {
                     },
                   ),
                   ExtraFeatures(
-                    imageUrl: 'assets/images/appointment.png',
+                    imageUrl: 'assets/images/appointments.png',
                     title: 'Appointments',
                     ontouch: () {
                       Navigator.push(
@@ -82,14 +83,21 @@ class _AdminHomeState extends State<AdminHome> {
                     },
                   ),
                   ExtraFeatures(
-                    imageUrl: 'assets/images/tooth.png',
+                    imageUrl: 'assets/images/invoice.png',
                     title: 'Invoices',
                     ontouch: () {},
                   ),
                   ExtraFeatures(
-                    imageUrl: 'assets/images/calendar.png',
-                    title: 'Availability',
-                    ontouch: () {},
+                    imageUrl: 'assets/images/msgs.png',
+                    title: 'Messages',
+                    ontouch: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Messages(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
