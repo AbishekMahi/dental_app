@@ -13,7 +13,7 @@ class PastAppoints extends StatefulWidget {
 }
 
 class _PastAppointsState extends State<PastAppoints> {
-  String cdate = DateFormat("dd MMM yyyy").format(DateTime.now());
+  String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _PastAppointsState extends State<PastAppoints> {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
             .where('appointment date', isLessThan: cdate)
-            // .orderBy('amount paid', descending: true)
+            .orderBy('appointment date', descending: true)
             .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -84,38 +84,42 @@ class PastAppointContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Status',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: 60,
-                      height: 60,
-                      child: Image.asset(
-                        "assets/images/${snap['status']}.png",
-                        fit: BoxFit.cover,
+                SizedBox(
+                  width: 80,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Status',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      snap['status'],
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Image.asset(
+                          "assets/images/${snap['status']}.png",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        snap['status'],
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20.0,

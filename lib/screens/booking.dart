@@ -30,7 +30,7 @@ class _BookingState extends State<Booking> {
   String dropdownValue = list.first;
   String datetime = DateFormat("dd MMM yyyy hh:mm a").format(DateTime.now());
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
-  String cdate = DateFormat("dd MMM yyyy").format(DateTime.now());
+  String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
 
   //text editing controller for text field
   TextEditingController timeinput = TextEditingController();
@@ -70,7 +70,7 @@ class _BookingState extends State<Booking> {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      String formattedDate = DateFormat('dd MMM yyyy').format(pickedDate);
+      String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
       setState(() {
         dateinput.text = formattedDate;
         // dateinput.text = formattedDate;
@@ -148,7 +148,7 @@ class _BookingState extends State<Booking> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Text(
-                                'Select the type of Appointment:',
+                                'Select the type of Appointment :',
                                 style: GoogleFonts.poppins(
                                     color: Colors.black87,
                                     fontSize: 18,
@@ -202,7 +202,7 @@ class _BookingState extends State<Booking> {
                       ),
                       // Select time:
                       AppointFormField(
-                        labelText: 'Select Time',
+                        labelText: 'Select Time :',
                         hintText: "$tdata (Select time)",
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -218,8 +218,8 @@ class _BookingState extends State<Booking> {
 
                       // Select Date:
                       AppointFormField(
-                          labelText: 'Select Time',
-                          hintText: "$cdate (Select time)",
+                          labelText: 'Select Date (MM-dd-yyyy) :',
+                          hintText: "$cdate (Select Date)",
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please Select Date';

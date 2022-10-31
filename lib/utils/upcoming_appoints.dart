@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dental_app/resourses/appoint_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +12,7 @@ class UpcomingAppoints extends StatefulWidget {
 }
 
 class _UpcomingAppointsState extends State<UpcomingAppoints> {
-  String cdate = DateFormat("dd MMM yyyy").format(DateTime.now());
+  String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
 
   @override
@@ -102,41 +101,70 @@ class AppointmentContainer extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                'Do you really want to cancel the appointment?',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              MaterialButton(
-                                onPressed: () {},
-                                // async {
-                                //   await AppointMethod()
-                                //       .deleteAppointment(widget.snap!['appointId']);
-
-                                color: Colors.red.shade400,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(Icons.delete,
-                                          color: Colors.white),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Yes Delete",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            height: 0,
-                                            color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0),
+                                child: Text(
+                                  'Do you really want to delete the appointment?',
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
                                 ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: MaterialButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      color: Colors.grey.shade700,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "No",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                              height: 0,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  MaterialButton(
+                                    onPressed: () {},
+                                    color: Colors.red.shade400,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.delete,
+                                              color: Colors.white),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Yes",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                height: 0,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_app/admin/admin-home.dart';
 import 'package:dental_app/screens/aboutus.dart';
 import 'package:dental_app/screens/availability.dart';
 import 'package:dental_app/screens/booking.dart';
@@ -157,62 +158,72 @@ class _HomePageState extends State<HomePage> {
                     height: 0,
                     color: Colors.white),
               ),
-              Container(
-                margin: const EdgeInsets.all(15),
-                // height: 200,
-                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromARGB(255, 216, 255, 243),
-                      Color.fromARGB(255, 245, 255, 253),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AdminHome(),
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(15),
+                  // height: 200,
+                  padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(255, 216, 255, 243),
+                        Color.fromARGB(255, 245, 255, 253),
+                      ],
+                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x29000000),
+                        offset: Offset(0, 4),
+                        blurRadius: 3,
+                      ),
                     ],
                   ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x29000000),
-                      offset: Offset(0, 4),
-                      blurRadius: 3,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Dental Care',
-                            // user.email!,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                                color: const Color(0xFF006DE9)),
-                          ),
-                          Text(
-                            'Dental Care App helps dentists manage their patients and clinic.',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                                color: const Color(0xBD1B1B1B)),
-                          ),
-                        ],
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Column(
+                          children: [
+                            Text(
+                              'Dental Care',
+                              // user.email!,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                  color: const Color(0xFF006DE9)),
+                            ),
+                            Text(
+                              'Dental Care App helps dentists manage their patients and clinic.',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                  color: const Color(0xBD1B1B1B)),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Lottie.asset('assets/lottie/dental-clinic.json'),
-                    ),
-                  ],
+                      Expanded(
+                        flex: 5,
+                        child: Lottie.asset('assets/lottie/dental-clinic.json'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(

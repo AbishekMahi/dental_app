@@ -225,16 +225,121 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 15),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             MaterialButton(
-                              onPressed: () {
-                                FirebaseAuth.instance.signOut();
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Welcome(),
-                                  ),
+                              onPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        'Are you Sure?',
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      content: SizedBox(
+                                        height: 100,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Do you really want to Logout?',
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.black87,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8),
+                                                  child: MaterialButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    color: Colors.grey.shade700,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                height: 0,
+                                                                color: Colors
+                                                                    .white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    FirebaseAuth.instance
+                                                        .signOut();
+                                                    Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const Welcome(),
+                                                      ),
+                                                    );
+                                                  },
+                                                  color: Colors.red.shade400,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Icon(
+                                                            Icons
+                                                                .logout_outlined,
+                                                            color:
+                                                                Colors.white),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          "Yes",
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  height: 0,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                               color: Colors.red.shade400,
@@ -261,7 +366,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             MaterialButton(
                               onPressed: () {},
-                              color: const Color.fromARGB(255, 100, 100, 100),
+                              color: Colors.grey.shade700,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -271,7 +376,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "Edit Details",
+                                      "Edit details",
                                       style: GoogleFonts.poppins(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500,
