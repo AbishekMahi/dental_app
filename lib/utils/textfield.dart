@@ -243,6 +243,7 @@ class SubjectField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final bool obscureText;
+  final String? initialValue;
   final int? maxlength;
   final int? maxlines;
   final TextInputType? keyboardType;
@@ -259,6 +260,7 @@ class SubjectField extends StatelessWidget {
     this.maxlines,
     this.validator,
     this.keyboardType,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -272,6 +274,7 @@ class SubjectField extends StatelessWidget {
             GoogleFonts.poppins(fontSize: 16, color: const Color(0xFF252525)),
         keyboardType: keyboardType,
         obscureText: obscureText,
+        initialValue: initialValue,
         textCapitalization: TextCapitalization.sentences,
         maxLines: maxlines,
         maxLength: maxlength,

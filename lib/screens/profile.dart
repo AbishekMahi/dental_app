@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/booking.dart';
+import 'package:dental_app/screens/edit-profile.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -365,7 +366,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const EditProfile(),
+                                  ),
+                                );
+                              },
                               color: Colors.grey.shade700,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),

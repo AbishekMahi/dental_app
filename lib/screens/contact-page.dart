@@ -8,11 +8,10 @@ import '../utils/img_picker.dart';
 import '../utils/submit_button.dart';
 import '../utils/textfield.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'home-screen.dart';
 
-final Uri _phone = Uri.parse('tel:+918270514004');
-final Uri _email = Uri.parse('mailto:abishekmas0708@gmail.com');
+final Uri _phone = Uri.parse('tel:+918552085521');
+final Uri _email = Uri.parse('mailto:kiruvin4@gmail.com');
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
@@ -30,24 +29,29 @@ void _launchMail() async {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  //text editing controller for text field
-  final subject = TextEditingController();
-  final message = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    subject.text = "";
-    message.text = "";
-    getUserName();
-    super.initState();
-  }
-
+  //text editing controller for text field
+  final TextEditingController _subject = TextEditingController();
+  final TextEditingController _message = TextEditingController();
   String userFname = "";
   String userLname = "";
   String userImg = "";
 
-  void getUserName() async {
+  @override
+  void initState() {
+    _subject.text = "";
+    _message.text = "";
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subject.dispose();
+    _message.dispose();
+    super.dispose();
+  }
+
+  void getUserDetails() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -147,7 +151,7 @@ class _ContactUsState extends State<ContactUs> {
                                     Text(
                                       'Call Us:',
                                       style: GoogleFonts.poppins(
-                                          color: Color.fromRGBO(0, 109, 233, 1),
+                                          color: const Color(0xFF006DE9),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -284,7 +288,7 @@ class _ContactUsState extends State<ContactUs> {
                       SubjectField(
                         labelText: 'Subject',
                         hintText: 'Subject',
-                        controller: subject,
+                        controller: _subject,
                         prefixIcon: Icons.subject,
                         maxlength: 30,
                         obscureText: false,
@@ -297,7 +301,7 @@ class _ContactUsState extends State<ContactUs> {
                       ),
                       SubjectField(
                         labelText: 'Message',
-                        controller: message,
+                        controller: _message,
                         hintText: 'Write Your Message',
                         prefixIcon: Icons.message_outlined,
                         obscureText: false,
@@ -318,8 +322,8 @@ class _ContactUsState extends State<ContactUs> {
                         fontSize: 18,
                         ontouch: () async {
                           String res = await MessageMethod().createMsg(
-                              subject: 'subject.text',
-                              message: 'message.text',
+                              subject: _subject.text,
+                              message: _message.text,
                               userFname: userFname,
                               userLname: userLname,
                               userImg: userImg);
@@ -339,6 +343,8 @@ class _ContactUsState extends State<ContactUs> {
                   ),
                 ),
               ),
+              Text(_subject.text),
+              Text("subject.text")
             ],
           ),
         ),
