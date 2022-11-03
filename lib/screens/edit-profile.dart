@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_app/screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../resourses/storage_method.dart';
 import '../utils/img_picker.dart';
 import '../utils/submit_button.dart';
 import '../utils/textfield.dart';
@@ -26,13 +27,14 @@ class _EditProfileState extends State<EditProfile> {
   String userPhone = "";
   String userImg = "";
   Uint8List? imageUrl;
-  // void selectImg() async {
-  //   Uint8List img = await pickImg(ImageSource.gallery);
-  //   setState(() {
-  //     imageUrl = img;
-  //   });
-  // }
+
+  final fname = TextEditingController();
+  final lname = TextEditingController();
+  final age = TextEditingController();
+  final phone = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // late Uint8List file;
 
   void pickUploadImg() async {
     final image = await ImagePicker().pickImage(
@@ -42,17 +44,21 @@ class _EditProfileState extends State<EditProfile> {
       maxWidth: 512,
     );
     Reference ref = FirebaseStorage.instance
-        // .refFromURL(userImg)
-        // .child("profileimg/${_auth.currentUser!.uid}");
         .ref()
         .child("profileimg/${_auth.currentUser!.uid}");
-    // .child(_auth.currentUser!.uid);
     await ref.putFile(File(image!.path));
-    ref.getDownloadURL().then((value) {
-      print(value);
+    ref.getDownloadURL().then((file) {
+      print(file);
       setState(() {
-        imageUrl = value as Uint8List;
+        imageUrl = file as Uint8List;
       });
+    });
+  }
+
+  void selectImg() async {
+    Uint8List img = await pickImg(ImageSource.gallery);
+    setState(() {
+      imageUrl = img;
     });
   }
 
@@ -67,7 +73,6 @@ class _EditProfileState extends State<EditProfile> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    // print(snap.data());
     setState(() {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userLname = (snap.data() as Map<String, dynamic>)['last name'];
@@ -75,6 +80,31 @@ class _EditProfileState extends State<EditProfile> {
       userAge = (snap.data() as Map<String, dynamic>)['age'];
       userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
     });
+  }
+
+  void updateData() async {
+    String res = "Some error Occured";
+    try {
+      String photoUrl = imageUrl as String;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'first name': fname,
+        'last name': lname,
+        'age': age,
+        'profileimg': photoUrl,
+        'phone number': phone,
+      });
+      res = "Success";
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => const ProfilePage()),
+          (route) => false);
+    } catch (err) {
+      res = err.toString();
+    }
+    return;
   }
 
   @override
@@ -111,9 +141,10 @@ class _EditProfileState extends State<EditProfile> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
+                GestureDetector(
                   onTap: (() {
                     pickUploadImg();
+                    // selectImg();
                   }),
                   child: Padding(
                     padding: const EdgeInsets.all(8),
@@ -178,14 +209,14 @@ class _EditProfileState extends State<EditProfile> {
                               hintText: 'First Name',
                               prefixIcon: Icons.person,
                               obscureText: false,
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Invalid Phone number!';
                                 }
                                 return null;
                               },
-                              // controller: phone,
+                              controller: fname,
                             ),
                             const SizedBox(
                               height: 10,
@@ -197,14 +228,14 @@ class _EditProfileState extends State<EditProfile> {
                               hintText: 'Last name',
                               prefixIcon: Icons.person,
                               obscureText: false,
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Invalid Phone number!';
                                 }
                                 return null;
                               },
-                              // controller: phone,
+                              controller: lname,
                             ),
                             const SizedBox(
                               height: 10,
@@ -225,27 +256,26 @@ class _EditProfileState extends State<EditProfile> {
                                 }
                                 return null;
                               },
-                              // controller: phone,
+                              controller: phone,
                             ),
                             const SizedBox(
                               height: 10,
                             ),
                             SubjectField(
-                              key: Key(userAge.toString()),
-                              initialValue: userAge.toString(),
-                              labelText: 'Age',
-                              hintText: 'Your age',
-                              prefixIcon: Icons.phone,
-                              obscureText: false,
-                              keyboardType: TextInputType.phone,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Invalid Phone number!';
-                                }
-                                return null;
-                              },
-                              // controller: phone,
-                            ),
+                                key: Key(userAge.toString()),
+                                initialValue: userAge.toString(),
+                                labelText: 'Age',
+                                hintText: 'Your age',
+                                prefixIcon: Icons.phone,
+                                obscureText: false,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Invalid Phone number!';
+                                  }
+                                  return null;
+                                },
+                                controller: age),
                             const SizedBox(
                               height: 10,
                             ),
@@ -258,7 +288,7 @@ class _EditProfileState extends State<EditProfile> {
                 Submit_Button(
                   btntxt: 'Save',
                   fontSize: 22,
-                  ontouch: () {},
+                  ontouch: updateData,
                 ),
               ],
             ),

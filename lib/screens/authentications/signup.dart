@@ -25,13 +25,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController cpassword = TextEditingController();
-  TextEditingController fname = TextEditingController();
-  TextEditingController lname = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController age = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final cpassword = TextEditingController();
+  final fname = TextEditingController();
+  final lname = TextEditingController();
+  final phone = TextEditingController();
+  final age = TextEditingController();
   Uint8List? imageUrl;
 
   @override
