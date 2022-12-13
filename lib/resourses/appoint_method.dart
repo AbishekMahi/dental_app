@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AppointMethod {
@@ -23,12 +22,13 @@ class AppointMethod {
           appointmentDate.isNotEmpty) {
         // add Appointment to database
         await _firestore
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            // .collection('users')
+            // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
             // .doc(datetime)
             .doc(datetime)
             .set({
+          'appointed by': FirebaseAuth.instance.currentUser!.email,
           'appointment for': type,
           'appointed time': currentTime,
           'appointment time': appointmentTime,

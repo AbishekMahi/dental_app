@@ -28,8 +28,8 @@ class _UpcomingAppointsState extends State<UpcomingAppoints> {
       padding: const EdgeInsets.only(bottom: 10),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            // .collection('users')
+            // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
             .where('appointment date', isGreaterThanOrEqualTo: cdate)
             .orderBy('appointment date', descending: false)
@@ -139,7 +139,15 @@ class AppointmentContainer extends StatelessWidget {
                                     ),
                                   ),
                                   MaterialButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      var collection = FirebaseFirestore
+                                          .instance
+                                          .collection('appointments');
+                                      collection
+                                          .doc(
+                                              '13Dec20220336PM') // <-- Doc ID to be deleted.
+                                          .delete();
+                                    },
                                     color: Colors.red.shade400,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
