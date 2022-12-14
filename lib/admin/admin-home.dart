@@ -1,3 +1,5 @@
+import 'package:dental_app/admin/accepted_appoints.dart';
+import 'package:dental_app/admin/appoint_status.dart';
 import 'package:dental_app/admin/messages_recived.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
@@ -39,70 +41,115 @@ class _AdminHomeState extends State<AdminHome> {
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
-        body: Column(
-          children: [
-            Text(
-              "Welcome Back Admin!",
-              style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                  color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: GridView.count(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-                crossAxisCount: 2,
-                children: [
-                  ExtraFeatures(
-                    imageUrl: 'assets/images/users.png',
-                    title: 'User Details',
-                    ontouch: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UserBios(),
-                        ),
-                      );
-                    },
-                  ),
-                  ExtraFeatures(
-                    imageUrl: 'assets/images/appointments.png',
-                    title: 'Appointments',
-                    ontouch: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UserAppointments(),
-                        ),
-                      );
-                    },
-                  ),
-                  ExtraFeatures(
-                    imageUrl: 'assets/images/invoice.png',
-                    title: 'Invoices',
-                    ontouch: () {},
-                  ),
-                  ExtraFeatures(
-                    imageUrl: 'assets/images/msgs.png',
-                    title: 'Messages',
-                    ontouch: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Messages(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Text(
+                "Welcome Back Admin!",
+                style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                    color: Colors.white),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: GridView.count(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 15,
+                  crossAxisCount: 2,
+                  children: [
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/users.png',
+                      title: 'User Details',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UserBios(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/msgs.png',
+                      title: 'Messages',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Messages(),
+                          ),
+                        );
+                      },
+                    ),
+                    // ExtraFeatures(
+                    //   imageUrl: 'assets/images/invoice.png',
+                    //   title: 'Invoices',
+                    //   ontouch: () {},
+                    // ),
+                  ],
+                ),
+              ),
+              Text(
+                "Appointments",
+                style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                    color: Colors.white),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: GridView.count(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 15,
+                  crossAxisCount: 2,
+                  children: [
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/appointments.png',
+                      title: 'New Appointments',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UserAppointments(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/status.png',
+                      title: 'Appointments Status',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AppointStatus(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/invoice.png',
+                      title: 'Invoices',
+                      ontouch: () {},
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/sorry not available.png',
+                      title: 'Rejected',
+                      ontouch: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

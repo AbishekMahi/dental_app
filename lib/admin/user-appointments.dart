@@ -39,7 +39,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
         ),
-        body: UserAppoints(),
+        body: const UserAppoints(),
       ),
     );
   }
@@ -59,12 +59,12 @@ class _UserAppointsState extends State<UserAppoints> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          // image: DecorationImage(
-          //   opacity: 80,
-          //   image: AssetImage("assets/images/upcoming.png"),
-          //   // fit: BoxFit.cover
-          // ),
-          ),
+        image: DecorationImage(
+          opacity: 80,
+          image: AssetImage("assets/images/upcoming.png"),
+          // fit: BoxFit.cover
+        ),
+      ),
       padding: const EdgeInsets.only(bottom: 10),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance

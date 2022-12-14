@@ -25,7 +25,6 @@ class AppointMethod {
             // .collection('users')
             // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
-            // .doc(datetime)
             .doc(datetime)
             .set({
           'appointed by': FirebaseAuth.instance.currentUser!.email,
@@ -37,7 +36,8 @@ class AppointMethod {
           'appointment date full': DateTime.now(),
           'status': 'pending',
           'amount paid': '00.0',
-          'prescription': 'https://i.postimg.cc/66YVxvqN/prescription.jpg'
+          'prescription': 'https://i.postimg.cc/66YVxvqN/prescription.jpg',
+          'prescription added': "no",
         });
         res = "Success";
       }
