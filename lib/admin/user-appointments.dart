@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 class UserAppointments extends StatefulWidget {
@@ -68,11 +67,9 @@ class _UserAppointsState extends State<UserAppoints> {
       padding: const EdgeInsets.only(bottom: 10),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            // .collection('users')
-            // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
-            .where('appointment date', isGreaterThanOrEqualTo: cdate)
-            .orderBy('appointment date', descending: false)
+            .where('status', isEqualTo: 'pending')
+            // .orderBy('appointment date', descending: false)
             .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -87,10 +84,10 @@ class _UserAppointsState extends State<UserAppoints> {
               snap: snapshot.data!.docs[index].data(),
             ),
           );
-          //         itemBuilder: (context, index) {
-          // DocumentSnapshot ds = snapshot.data.docs[index];
-          // print(ds.id);
-          // return Text(ds['name']);
+          //itemBuilder: (context, index) {
+          //DocumentSnapshot ds = snapshot.data.docs[index];
+          //print(ds.id);
+          //return Text(ds['name']);
         },
       ),
     );
@@ -236,13 +233,13 @@ class UserAppointContainer extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
-                            'Status',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ),
+                          // Text(
+                          //   'Status',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.black87,
+                          //       fontSize: 14,
+                          //       fontWeight: FontWeight.w400),
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -360,6 +357,48 @@ class UserAppointContainer extends StatelessWidget {
                 const Divider(
                   color: Colors.black45,
                 ),
+                IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        // "By : ${snap['appointed by']}",
+                        'By Abishek',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const VerticalDivider(
+                        color: Colors.black87,
+                        thickness: .5,
+                      ),
+                      Text(
+                        // snap['appointed by'],
+                        snap['appointed by'],
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const VerticalDivider(
+                        color: Colors.black87,
+                        thickness: .5,
+                      ),
+                      Text(
+                        // snap['appointed by'],
+                        '9443399014',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.black45,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -369,6 +408,10 @@ class UserAppointContainer extends StatelessWidget {
                           color: Colors.black87,
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
+                    ),
+                    const VerticalDivider(
+                      color: Colors.black87,
+                      thickness: 1,
                     ),
                     Text(
                       snap['appointed time'],
@@ -380,10 +423,10 @@ class UserAppointContainer extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MaterialButton(
                       onPressed: () {
@@ -417,40 +460,37 @@ class UserAppointContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: MaterialButton(
-                        onPressed: () {
-                          // Navigator.of(context).pop();
+                    MaterialButton(
+                      onPressed: () {
+                        // Navigator.of(context).pop();
 
-                          var collection = FirebaseFirestore.instance
-                              .collection('appointments');
-                          collection
-                              .doc(
-                                  '13Dec20220303PM') // <-- Doc ID where data should be updated.
-                              .update({'status': "approved"});
-                          // approved
-                        },
-                        color: Colors.green.shade600,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.check_circle_outline_outlined,
+                        var collection = FirebaseFirestore.instance
+                            .collection('appointments');
+                        collection
+                            .doc(
+                                '13Dec20220303PM') // <-- Doc ID where data should be updated.
+                            .update({'status': "approved"});
+                        // approved
+                      },
+                      color: Colors.green.shade600,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.check_circle_outline_outlined,
+                                color: Colors.white),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Accept",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
                                   color: Colors.white),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Accept",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 0,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

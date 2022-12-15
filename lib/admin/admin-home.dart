@@ -1,6 +1,7 @@
 import 'package:dental_app/admin/accepted_appoints.dart';
 import 'package:dental_app/admin/appoint_status.dart';
 import 'package:dental_app/admin/messages_recived.dart';
+import 'package:dental_app/admin/payments.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
 import 'package:flutter/material.dart';
@@ -136,9 +137,16 @@ class _AdminHomeState extends State<AdminHome> {
                       },
                     ),
                     ExtraFeatures(
-                      imageUrl: 'assets/images/invoice.png',
-                      title: 'Invoices',
-                      ontouch: () {},
+                      imageUrl: 'assets/images/rupee.png',
+                      title: 'Payments',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Payments(),
+                          ),
+                        );
+                      },
                     ),
                     ExtraFeatures(
                       imageUrl: 'assets/images/sorry not available.png',

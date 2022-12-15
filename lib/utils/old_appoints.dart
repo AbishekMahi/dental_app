@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dental_app/utils/upcoming_appoints.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -28,8 +26,8 @@ class _PastAppointsState extends State<PastAppoints> {
       padding: const EdgeInsets.only(bottom: 10),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            // .collection('users')
+            // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
             .where('appointment date', isLessThan: cdate)
             .orderBy('appointment date', descending: true)

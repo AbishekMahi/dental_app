@@ -2,7 +2,7 @@ import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/utils/upcoming_appoints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/past_appoints.dart';
+import '../utils/old_appoints.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
