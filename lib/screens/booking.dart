@@ -101,7 +101,7 @@ class _BookingState extends State<Booking> {
           title: Text(
             "Book Appointment",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -131,7 +131,7 @@ class _BookingState extends State<Booking> {
                         'Please Select these Fields to Book Appointment.',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             height: 0,
                             color: Colors.black),
@@ -141,7 +141,7 @@ class _BookingState extends State<Booking> {
                         height: 10,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -151,11 +151,12 @@ class _BookingState extends State<Booking> {
                                 'Select the type of Appointment :',
                                 style: GoogleFonts.poppins(
                                     color: Colors.black87,
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w400),
                               ),
                             ),
                             Container(
+                              // padding: const EdgeInsets.all(0),
                               decoration: BoxDecoration(
                                 border: Border.all(width: 2),
                                 color: Colors.white,
@@ -172,7 +173,7 @@ class _BookingState extends State<Booking> {
                                 // isExpanded: false,
                                 icon: const Icon(
                                   Icons.arrow_downward,
-                                  size: 30,
+                                  size: 26,
                                   color: Colors.black87,
                                 ),
                                 elevation: 16,
@@ -190,7 +191,7 @@ class _BookingState extends State<Booking> {
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.poppins(
                                           color: Colors.black87,
-                                          fontSize: 18,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w400),
                                     ),
                                   );
@@ -379,7 +380,7 @@ class AppointFormField extends StatelessWidget {
             labelText,
             style: GoogleFonts.poppins(
                 color: Colors.black87,
-                fontSize: 18,
+                fontSize: 14,
                 fontWeight: FontWeight.w400),
           ),
         ),
@@ -388,7 +389,7 @@ class AppointFormField extends StatelessWidget {
 
           validator: validator,
           style: GoogleFonts.poppins(
-              color: Colors.black87, fontSize: 18, fontWeight: FontWeight.w400),
+              color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w400),
           controller: controller, //editing controller of this TextField
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -397,13 +398,13 @@ class AppointFormField extends StatelessWidget {
             ),
             hintStyle: const TextStyle(
                 color: Colors.black87,
-                fontSize: 18,
+                fontSize: 14,
                 fontWeight: FontWeight.w400),
             hintText: hintText,
             suffixIcon: Icon(
               suffixIcon,
               color: Colors.black87,
-              size: 30,
+              size: 26,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -421,7 +422,7 @@ class AppointFormField extends StatelessWidget {
             ),
             errorStyle: GoogleFonts.poppins(
               color: const Color(0xFFC70D00),
-              fontSize: 15,
+              fontSize: 14,
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),

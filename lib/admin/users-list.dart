@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserBios extends StatefulWidget {
   const UserBios({super.key});
@@ -150,7 +151,7 @@ class UserContainer extends StatelessWidget {
       onTap: (() {}),
       child: Flexible(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
@@ -164,27 +165,29 @@ class UserContainer extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CircleAvatar(
                 backgroundColor: Colors.grey,
-                radius: 38,
+                radius: 36,
                 backgroundImage: const AssetImage(
                   "assets/images/default-profile-pic.jpg",
                 ),
                 foregroundImage: CachedNetworkImageProvider(snap['profileimg']),
               ),
               const SizedBox(
-                height: 10.0,
+                height: 5,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     snap['first name'] + ' ' + snap['last name'],
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 5),
@@ -205,38 +208,52 @@ class UserContainer extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w400),
                   ),
-                  const SizedBox(
-                    height: 15.0,
-                    width: double.infinity,
-                    child: Divider(
-                      color: Colors.black45,
-                    ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.phone,
-                        size: 18,
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        snap['phone number'],
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            // color: Colors.black87,
-                            color: Colors.blue,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
+                  // const SizedBox(
+                  //   height: 15.0,
+                  //   width: double.infinity,
+                  //   child: Divider(
+                  //     color: Colors.black45,
+                  //   ),
+                  // ),
                 ],
-              )
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  final Uri launchUri = Uri(
+                    scheme: 'tel',
+                    path: snap['phone number'],
+                  );
+                  if (await canLaunch(launchUri.toString())) {
+                    await launch(launchUri.toString());
+                  } else {
+                    print('not supported');
+                  }
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.phone,
+                      size: 14,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      snap['phone number'],
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          // color: Colors.black87,
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

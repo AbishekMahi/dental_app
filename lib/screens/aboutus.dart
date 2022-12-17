@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dental_app/screens/booking.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,26 +64,30 @@ class _AboutUsState extends State<AboutUs> {
               children: [
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      height: 180,
-                    ),
-                  ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 40),
+                      child: CachedNetworkImage(
+                        imageUrl: 'http://saistoothcare.com/images/logoclr.png',
+                        // height: 180,
+                      )
+                      // Image.asset(
+                      //   "assets/images/logo.png",
+                      // ),
+                      ),
                   // Lottie.asset('assets/lottie/tooth.json', width: 200),
                 ),
                 Text(
                   "Who We Are?",
                   style: GoogleFonts.poppins(
                       color: const Color(0xFF006DE9),
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "Dental Care made those smiles perfect, took teeth back to their original, strong selves, gave teeth the care they deserve.",
+                  "SAI's Tooth Care is the most trusted dental clinic in Chennai, aiming to bring world class dental care within reach of everyone.",
                   style: GoogleFonts.poppins(
                       color: const Color(0xD5202020),
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500),
                 ),
                 Padding(
@@ -96,10 +101,10 @@ class _AboutUsState extends State<AboutUs> {
                           child: Column(
                             children: [
                               Text(
-                                "20k",
+                                "10k",
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF006DE9),
-                                    fontSize: 28,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
@@ -107,7 +112,7 @@ class _AboutUsState extends State<AboutUs> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xD5202020),
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -123,7 +128,7 @@ class _AboutUsState extends State<AboutUs> {
                                 "16",
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF006DE9),
-                                    fontSize: 28,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
@@ -131,7 +136,7 @@ class _AboutUsState extends State<AboutUs> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xD5202020),
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -147,7 +152,7 @@ class _AboutUsState extends State<AboutUs> {
                                 "14+",
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF006DE9),
-                                    fontSize: 28,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
@@ -155,7 +160,7 @@ class _AboutUsState extends State<AboutUs> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xD5202020),
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -169,7 +174,7 @@ class _AboutUsState extends State<AboutUs> {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Submit_Button(
                     btntxt: 'Book Appointment',
-                    fontSize: 22,
+                    fontSize: 20,
                     ontouch: () {
                       Navigator.push(
                         context,
@@ -181,17 +186,17 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                 ),
                 Text(
-                  "Who We Are Unique?",
+                  "Welcome To Multispeciality Dental Care.",
                   style: GoogleFonts.poppins(
                       color: const Color(0xFF006DE9),
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "Dental Care made those smiles perfect, took teeth back to their original, strong selves, gave teeth the care they deserve. \n\n Advanced smile makeovers, full mouth dental implants, zirconia and CAD CAM crowns, laser dentistry, invisible braces - we offer our patients the absolute best and latest in dental technology.\n\n We have our in house 3D CT scan ma chine, which ensures flawless accuracyWe have our in house 3D CT scan ma chine, which ensures flawless accuracy \n",
+                  "\nProviding the best of ambience, technological advancement and evidence based updated treatments, our clinic are equipped with the latest and most ergonomic Dental Chairs, Lasers, Dental Implants, branded consumables and Digital X-rays. \n\n At Sai's tooth care, we are passionate about providing our patients with a delightful experience with all treatments. Our staffs strive to build the patient's trust and are always ready to answer your queries. After examining and understanding your concerns, our dentists provide personal communication to demonstrate the entire treatment procedures from our dental doctors before the treatment.\n\n Ethical Practice and working with utmost care for patient's health and happiness has been the secret of success.\n",
                   style: GoogleFonts.poppins(
                       color: const Color(0xD5202020),
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500),
                 ),
               ],
@@ -202,3 +207,7 @@ class _AboutUsState extends State<AboutUs> {
     );
   }
 }
+
+// At Sai's tooth care, we are passionate about providing our patients with a delightful experience with all treatments. Our staffs strive to build the patient's trust and are always ready to answer your queries. After examining and understanding your concerns, our dentists provide personal communication to demonstrate the entire treatment procedures from our dental doctors before the treatment.
+
+// Ethical Practice and working with utmost care for patient's health and happiness has been the secret of success.

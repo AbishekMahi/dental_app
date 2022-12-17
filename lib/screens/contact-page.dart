@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class _ContactUsState extends State<ContactUs> {
           title: Text(
             "Contact Us",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -94,13 +95,16 @@ class _ContactUsState extends State<ContactUs> {
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                height: 200,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                // height: 200,
+                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                 decoration: BoxDecoration(
+                  image: const DecorationImage(
+                      // opacity: 50,
+                      image: AssetImage("assets/images/back.png"),
+                      fit: BoxFit.fill),
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(15),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x29000000),
@@ -109,7 +113,61 @@ class _ContactUsState extends State<ContactUs> {
                     ),
                   ],
                 ),
-                child: Lottie.asset('assets/lottie/contact.json'),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl:
+                                'http://saistoothcare.com/images/logoclr.png',
+                            height: 25,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            'SAI\'s Tooth Care is the most trusted dental clinic in Chennai, aiming to bring world',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                              // color:
+                              color: const Color(0xBD1B1B1B),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(),
+                              Text(
+                                '~ Dr. Indhumathy MDS',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    // height: 0,
+                                    color: const Color(0xFF006DE9)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        flex: 5,
+                        child: CachedNetworkImage(
+                          height: 180,
+                          imageUrl:
+                              'https://i.postimg.cc/J0d4DXv7/Untitled-design.png',
+                          fit: BoxFit.fitHeight,
+                        )
+                        // Lottie.asset('assets/lottie/dental-clinic.json'),
+                        ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,7 +210,7 @@ class _ContactUsState extends State<ContactUs> {
                                       'Call Us:',
                                       style: GoogleFonts.poppins(
                                           color: const Color(0xFF006DE9),
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -212,7 +270,7 @@ class _ContactUsState extends State<ContactUs> {
                                       'Mail Us:',
                                       style: GoogleFonts.poppins(
                                           color: const Color(0xFF006DE9),
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -221,7 +279,7 @@ class _ContactUsState extends State<ContactUs> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'hello@dentalcare.com',
+                                  'hello@dental.com',
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xFF181818),
                                       fontSize: 12,
@@ -264,7 +322,7 @@ class _ContactUsState extends State<ContactUs> {
                           'Send Your Message:',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.poppins(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                               height: 0,
                               color: const Color(0xFF006DE9)),
@@ -305,7 +363,7 @@ class _ContactUsState extends State<ContactUs> {
                         hintText: 'Write Your Message',
                         prefixIcon: Icons.message_outlined,
                         obscureText: false,
-                        maxlines: 5,
+                        maxlines: 4,
                         maxlength: 500,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -344,7 +402,7 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ),
               Text(_subject.text),
-              Text("subject.text")
+              // Text("subject.text")
             ],
           ),
         ),

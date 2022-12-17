@@ -200,128 +200,127 @@ class AcceptedAppointContainer extends StatelessWidget {
             ),
             Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: Image.asset(
-                              "assets/images/${snap['status']}.png",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            snap['status'],
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            style: GoogleFonts.poppins(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                      width: 1,
-                      child: Divider(
-                        color: Colors.black45,
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        // width: 80,
+                        child: Column(
                           children: [
-                            Text(
-                              'Appointment For',
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black87,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Image.asset(
+                                "assets/images/${snap['status']}.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 6,
                             ),
                             Text(
-                              snap['appointment for'],
+                              snap['status'],
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
                               style: GoogleFonts.poppins(
                                   color: Colors.black87,
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20.0,
-                          width: 250,
-                          child: Divider(
-                            color: Colors.black45,
+                      ),
+                      const VerticalDivider(
+                        color: Colors.black45,
+                        thickness: .5,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Appointment For',
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                snap['appointment for'],
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
                           ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Date :',
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  snap['appointment date'],
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Timing :',
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  snap['appointment time'],
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          // const SizedBox(
+                          //   height: 10.0,
+                          //   child: Divider(
+                          //     color: Colors.black45,
+                          //   ),
+                          // ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Date :',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black87,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  Text(
+                                    snap['appointment date'],
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black87,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Timing :',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black87,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  Text(
+                                    snap['appointment time'],
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black87,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(),
+                      Container(),
+                    ],
+                  ),
                 ),
                 const Divider(
                   color: Colors.black45,
@@ -335,7 +334,7 @@ class AcceptedAppointContainer extends StatelessWidget {
                         'By Abishek',
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
                       const VerticalDivider(
@@ -343,11 +342,10 @@ class AcceptedAppointContainer extends StatelessWidget {
                         thickness: .5,
                       ),
                       Text(
-                        // snap['appointed by'],
                         snap['appointed by'],
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
                       const VerticalDivider(
@@ -355,11 +353,10 @@ class AcceptedAppointContainer extends StatelessWidget {
                         thickness: .5,
                       ),
                       Text(
-                        // snap['appointed by'],
-                        '9443399014',
+                        '📞 9443399014',
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
                     ],
@@ -375,14 +372,18 @@ class AcceptedAppointContainer extends StatelessWidget {
                       "Amount : ₹ ${snap['amount paid']}",
                       style: GoogleFonts.poppins(
                           color: Colors.black87,
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400),
+                    ),
+                    const VerticalDivider(
+                      color: Colors.black87,
+                      thickness: 1,
                     ),
                     Text(
                       snap['appointed time'],
                       style: GoogleFonts.poppins(
                           color: Colors.black87,
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
                   ],

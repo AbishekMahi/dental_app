@@ -4,6 +4,7 @@ import 'package:dental_app/admin/messages_recived.dart';
 import 'package:dental_app/admin/payments.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
+import 'package:dental_app/admin/web_appointments.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -49,7 +50,7 @@ class _AdminHomeState extends State<AdminHome> {
               Text(
                 "Welcome Back Admin!",
                 style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -98,7 +99,7 @@ class _AdminHomeState extends State<AdminHome> {
               Text(
                 "Appointments",
                 style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -137,6 +138,18 @@ class _AdminHomeState extends State<AdminHome> {
                       },
                     ),
                     ExtraFeatures(
+                      imageUrl: 'assets/images/web.png',
+                      title: 'Web Appointments',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WebAppoints(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
                       imageUrl: 'assets/images/rupee.png',
                       title: 'Payments',
                       ontouch: () {
@@ -147,11 +160,6 @@ class _AdminHomeState extends State<AdminHome> {
                           ),
                         );
                       },
-                    ),
-                    ExtraFeatures(
-                      imageUrl: 'assets/images/sorry not available.png',
-                      title: 'Rejected',
-                      ontouch: () {},
                     ),
                   ],
                 ),
@@ -193,7 +201,7 @@ Widget ExtraFeatures({
             padding: const EdgeInsets.all(5),
             child: Image.asset(
               imageUrl,
-              height: 65,
+              height: 60,
             ),
           ),
           Flexible(

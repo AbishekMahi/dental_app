@@ -271,7 +271,7 @@ class SubjectField extends StatelessWidget {
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style:
-            GoogleFonts.poppins(fontSize: 16, color: const Color(0xFF252525)),
+            GoogleFonts.poppins(fontSize: 14, color: const Color(0xFF252525)),
         keyboardType: keyboardType,
         obscureText: obscureText,
         initialValue: initialValue,
@@ -311,7 +311,7 @@ class SubjectField extends StatelessWidget {
           ),
           errorStyle: GoogleFonts.poppins(
             color: const Color(0xFFC70D00),
-            fontSize: 15,
+            fontSize: 14,
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),

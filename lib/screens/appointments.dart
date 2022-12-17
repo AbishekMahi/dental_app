@@ -1,8 +1,9 @@
 import 'package:dental_app/screens/booking.dart';
-import 'package:dental_app/utils/upcoming_appoints.dart';
+import 'package:dental_app/utils/accepted_user_appoints.dart';
+import 'package:dental_app/utils/pending_user_appoints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/old_appoints.dart';
+import '../utils/rejected_user_appoints.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -21,16 +22,23 @@ TabBar get tabBar => TabBar(
       tabs: [
         Tab(
           child: Text(
-            'UPCOMING',
+            'Pending',
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
+                GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
           ),
         ),
         Tab(
           child: Text(
-            'OLD',
+            'Accepted',
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
+                GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Tab(
+          child: Text(
+            'Rejected',
+            style:
+                GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
           ),
         ),
       ],
@@ -52,7 +60,7 @@ class _HistoryState extends State<History> {
         ),
       ),
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -63,7 +71,7 @@ class _HistoryState extends State<History> {
               "Appointments",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
             bottom: PreferredSize(
@@ -92,8 +100,9 @@ class _HistoryState extends State<History> {
           ),
           body: const TabBarView(
             children: [
-              UpcomingAppoints(),
-              PastAppoints(),
+              PendingUserAppoints(),
+              AcceptedUserAppoints(),
+              RejectedUserAppoint(),
             ],
           ),
         ),

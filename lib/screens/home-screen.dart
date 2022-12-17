@@ -83,9 +83,9 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           title: Text(
-            "Dental Care",
+            "Sai's Tooth Care",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
           ),
           actions: [
             // IconButton(
@@ -122,6 +122,19 @@ class _HomePageState extends State<HomePage> {
                 iconSize: 32,
               ),
             ),
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: const CircleAvatar(
+            //     radius: 20,
+            //     backgroundColor: Color(0x4AFAFAFA),
+            //     backgroundImage: CachedNetworkImageProvider(
+            //       "https://i.scdn.co/image/ab6761610000e5eb1862c3c0429dee4bd19b57c0",
+            //     ),
+            //     foregroundImage: CachedNetworkImageProvider(
+            //       "https://i.scdn.co/image/ab6761610000e5eb1862c3c0429dee4bd19b57c0",
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
@@ -153,7 +166,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 "${greetingMessage()} $userFname",
                 style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -170,16 +183,20 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   margin: const EdgeInsets.all(15),
                   // height: 200,
-                  padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color.fromARGB(255, 216, 255, 243),
-                        Color.fromARGB(255, 245, 255, 253),
-                      ],
-                    ),
+                    // gradient: const LinearGradient(
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    //   colors: [
+                    //     Color.fromARGB(255, 216, 255, 243),
+                    //     Color.fromARGB(255, 245, 255, 253),
+                    //   ],
+                    // ),
+                    image: const DecorationImage(
+                        opacity: 50,
+                        image: AssetImage("assets/images/back.png"),
+                        fit: BoxFit.fill),
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: const [
@@ -193,24 +210,24 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 6,
                         child: Column(
                           children: [
                             Text(
-                              'Dental Care',
+                              'Welcome',
                               // user.email!,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
-                                  fontSize: 22,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   height: 0,
                                   color: const Color(0xFF006DE9)),
                             ),
                             Text(
-                              'Dental Care App helps dentists manage their patients and clinic.',
+                              'SAI\'s Tooth Care is the most trusted dental clinic in Chennai, aiming to bring world class dental care within reach of everyone.',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                   height: 0,
                                   color: const Color(0xBD1B1B1B)),
@@ -351,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Submit_Button(
                   btntxt: 'Book Appointment',
-                  fontSize: 22,
+                  fontSize: 20,
                   ontouch: () {
                     Navigator.push(
                       context,
@@ -399,7 +416,7 @@ Widget ExtraFeatures({
             padding: const EdgeInsets.all(5),
             child: Image.asset(
               imageUrl,
-              height: 50,
+              height: 45,
             ),
           ),
           Flexible(
@@ -410,7 +427,7 @@ Widget ExtraFeatures({
               style: GoogleFonts.poppins(
                   height: 1.1,
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: 10,
                   fontWeight: FontWeight.w400),
             ),
           ),

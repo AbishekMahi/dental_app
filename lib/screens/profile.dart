@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Text(
             "Profile",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             userFname,
                             textAlign: TextAlign.left,
                             style: GoogleFonts.poppins(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                               height: 0,
                               color: Colors.white,
@@ -176,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           'Your Details:',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.poppins(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                               height: 0,
                               color: Colors.black),
@@ -235,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         'Are you Sure?',
                                         style: GoogleFonts.poppins(
                                             color: Colors.black87,
-                                            fontSize: 20,
+                                            // fontSize: 20,
                                             fontWeight: FontWeight.w500),
                                       ),
                                       content: SizedBox(
@@ -248,13 +248,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                               'Do you really want to Logout?',
                                               style: GoogleFonts.poppins(
                                                   color: Colors.black87,
-                                                  fontSize: 16,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             const SizedBox(
                                               height: 8,
                                             ),
                                             Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Padding(
                                                   padding:
@@ -271,10 +273,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                                           const EdgeInsets.all(
                                                               8.0),
                                                       child: Text(
-                                                        "Cancel",
+                                                        "No",
                                                         style:
                                                             GoogleFonts.poppins(
-                                                                fontSize: 18,
+                                                                fontSize: 16,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -319,7 +321,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                           "Yes",
                                                           style: GoogleFonts
                                                               .poppins(
-                                                                  fontSize: 18,
+                                                                  fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -353,7 +355,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Text(
                                       "Logout",
                                       style: GoogleFonts.poppins(
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                           height: 0,
                                           color: Colors.white),
@@ -381,9 +383,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "Edit details",
+                                      "Edit",
                                       style: GoogleFonts.poppins(
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                           height: 0,
                                           color: Colors.white),
@@ -400,7 +402,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Submit_Button(
                   btntxt: 'Book Appointment',
-                  fontSize: 22,
+                  fontSize: 20,
                   ontouch: () {
                     Navigator.push(
                       context,
@@ -449,14 +451,14 @@ class CustomProfileWidget extends StatelessWidget {
       title: Text(
         title,
         style: GoogleFonts.poppins(
-            color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w500),
+            color: Colors.black54, fontSize: 14, fontWeight: FontWeight.w500),
         textAlign: TextAlign.start,
       ),
       subtitle: Flexible(
         child: Text(
           subtitle,
           style: GoogleFonts.poppins(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
           textAlign: TextAlign.start,
         ),
       ),
