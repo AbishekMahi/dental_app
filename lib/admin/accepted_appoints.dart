@@ -57,13 +57,28 @@ class _AcceptedAppointsProviderState extends State<AcceptedAppointsProvider> {
   }
 }
 
-class AcceptedAppointContainer extends StatelessWidget {
+class AcceptedAppointContainer extends StatefulWidget {
   final snap;
+  const AcceptedAppointContainer(
+      {super.key, required Map<String, dynamic> this.snap});
 
-  const AcceptedAppointContainer({
-    super.key,
-    this.snap,
-  });
+  @override
+  State<AcceptedAppointContainer> createState() =>
+      _AcceptedAppointContainerState(this.snap);
+}
+
+class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
+  final snap;
+  // final amount = TextEditingController();
+
+  _AcceptedAppointContainerState(this.snap);
+
+  final amount = TextEditingController();
+  @override
+  void dispose() {
+    amount.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +122,11 @@ class AcceptedAppointContainer extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const TextField(
+                              // Text(amount.text),
+                              TextFormField(
+                                controller: amount,
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Enter Amount',
                                   hintText: '₹ 00.0',
@@ -167,7 +184,18 @@ class AcceptedAppointContainer extends StatelessWidget {
                                     ),
                                   ),
                                   MaterialButton(
-                                    onPressed: () {},
+                                    // onPressed: () {},
+                                    onPressed: () {
+                                      // print(amount.text);
+                                      var collection = FirebaseFirestore
+                                          .instance
+                                          .collection('appointments');
+                                      var docid = snap['appoint id'];
+                                      collection
+                                          .doc(docid)
+                                          .update({'amount paid': amount.text});
+                                      Navigator.of(context).pop();
+                                    },
                                     color: Colors.green.shade400,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),

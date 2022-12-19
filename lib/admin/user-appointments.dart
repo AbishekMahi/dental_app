@@ -418,14 +418,22 @@ class UserAppointContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MaterialButton(
+                      // onPressed: () {
+                      //   var collection = FirebaseFirestore.instance
+                      //       .collection('appointments');
+                      //   collection
+                      //       .doc(
+                      //           '13Dec20220613PM') // <-- Doc ID where data should be updated.
+                      //       .update({'status': "sorry not available"});
+                      //   // approved
+                      // },
                       onPressed: () {
                         var collection = FirebaseFirestore.instance
                             .collection('appointments');
+                        var docid = snap['appoint id'];
                         collection
-                            .doc(
-                                '13Dec20220613PM') // <-- Doc ID where data should be updated.
+                            .doc(docid)
                             .update({'status': "sorry not available"});
-                        // approved
                       },
                       color: Colors.red.shade400,
                       child: Padding(
@@ -433,7 +441,8 @@ class UserAppointContainer extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.delete, color: Colors.white),
+                            const Icon(Icons.cancel_outlined,
+                                color: Colors.white),
                             const SizedBox(
                               width: 10,
                             ),
@@ -451,15 +460,10 @@ class UserAppointContainer extends StatelessWidget {
                     ),
                     MaterialButton(
                       onPressed: () {
-                        // Navigator.of(context).pop();
-
                         var collection = FirebaseFirestore.instance
                             .collection('appointments');
-                        collection
-                            .doc(
-                                '13Dec20220303PM') // <-- Doc ID where data should be updated.
-                            .update({'status': "approved"});
-                        // approved
+                        var docid = snap['appoint id'];
+                        collection.doc(docid).update({'status': "approved"});
                       },
                       color: Colors.green.shade600,
                       child: Padding(

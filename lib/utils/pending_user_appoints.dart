@@ -45,11 +45,19 @@ class _PendingUserAppointsState extends State<PendingUserAppoints> {
             );
           }
           return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => PendingUserAppointsContainer(
-              snap: snapshot.data!.docs[index].data(),
-            ),
-          );
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> snap =
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                return PendingUserAppointsContainer(
+                  snap: snap,
+                );
+              }
+              // => PendingUserAppointsContainer(
+              //   snap: snapshot.data!.docs[index].data(),
+              // itemBuilder: (context, index) => PendingUserAppointsContainer(
+              //   snap: snapshot.data!.docs[index].data(),
+              );
         },
       ),
     );
@@ -142,14 +150,21 @@ class PendingUserAppointsContainer extends StatelessWidget {
                                     ),
                                   ),
                                   MaterialButton(
+                                    // onPressed: () {
+                                    //   var collection = FirebaseFirestore
+                                    //       .instance
+                                    //       .collection('appointments');
+                                    //   collection
+                                    //       .doc(
+                                    //           '13Dec20220336PM') // <-- Doc ID to be deleted.
+                                    //       .delete();
+                                    // },
                                     onPressed: () {
                                       var collection = FirebaseFirestore
                                           .instance
                                           .collection('appointments');
-                                      collection
-                                          .doc(
-                                              '13Dec20220336PM') // <-- Doc ID to be deleted.
-                                          .delete();
+                                      var docid = snap['appoint id'];
+                                      collection.doc(docid).delete();
                                     },
                                     color: Colors.red.shade400,
                                     child: Padding(
