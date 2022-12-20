@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_app/admin/full_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,7 +51,7 @@ class _UserBiosState extends State<UserBios> {
                     "Users",
                     style: GoogleFonts.poppins(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500),
                   ),
                 ],
@@ -97,23 +98,6 @@ class _UsersListState extends State<UsersList> {
           .collection('users')
           .orderBy('first name', descending: false)
           .snapshots(),
-      // builder: (context, snapshot) {
-      //   if (snapshot.hasError) {
-      //     return const Text('Error');
-      //   }
-      //   if (snapshot.connectionState == ConnectionState.waiting) {
-      //     return const Text('loading');
-      //   }
-      //   if (snapshot.hasData) {
-      //     return ListView.builder(
-      //       itemCount: snapshot.data!.docs.length,
-      //       itemBuilder: (context, index) {
-      //         return Text('${snapshot.data!.docs[index].data()['age']}');
-      //       },
-      //     );
-      //   }
-      //   return Text('loading');
-      // },
       builder: (context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -148,113 +132,124 @@ class UserContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (() {}),
-      child: Flexible(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x29000000),
-                offset: Offset(0, 4),
-                blurRadius: 3,
-              ),
-            ],
+      onTap: (() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (builder) => FullProfile(snap: snap),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey,
-                radius: 36,
-                backgroundImage: const AssetImage(
-                  "assets/images/default-profile-pic.jpg",
+        );
+      }),
+      child: Flexible(
+        child: Hero(
+          tag: snap['uid'],
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x29000000),
+                  offset: Offset(0, 4),
+                  blurRadius: 3,
                 ),
-                foregroundImage: CachedNetworkImageProvider(snap['profileimg']),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    snap['first name'] + ' ' + snap['last name'],
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  radius: 36,
+                  backgroundImage: const AssetImage(
+                    "assets/images/default-profile-pic.jpg",
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    snap['email'],
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    snap['age'] + ' years old',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  // const SizedBox(
-                  //   height: 15.0,
-                  //   width: double.infinity,
-                  //   child: Divider(
-                  //     color: Colors.black45,
-                  //   ),
-                  // ),
-                ],
-              ),
-              MaterialButton(
-                color: Colors.blue,
-                onPressed: () async {
-                  final Uri launchUri = Uri(
-                    scheme: 'tel',
-                    path: snap['phone number'],
-                  );
-                  if (await canLaunch(launchUri.toString())) {
-                    await launch(launchUri.toString());
-                  } else {
-                    print('not supported');
-                  }
-                },
-                child: Row(
+                  foregroundImage:
+                      CachedNetworkImageProvider(snap['profileimg']),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Icon(
-                      Icons.phone,
-                      size: 14,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
                     Text(
-                      snap['phone number'],
+                      snap['first name'] + ' ' + snap['last name'],
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
-                          // color: Colors.black87,
-                          color: Colors.white,
+                          color: Colors.black87,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      snap['email'],
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
+                    const SizedBox(height: 5),
+                    Text(
+                      snap['age'] + ' years old',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    // const SizedBox(
+                    //   height: 15.0,
+                    //   width: double.infinity,
+                    //   child: Divider(
+                    //     color: Colors.black45,
+                    //   ),
+                    // ),
                   ],
                 ),
-              ),
-            ],
+                MaterialButton(
+                  color: Colors.blue,
+                  onPressed: () async {
+                    final Uri launchUri = Uri(
+                      scheme: 'tel',
+                      path: snap['phone number'],
+                    );
+                    if (await canLaunch(launchUri.toString())) {
+                      await launch(launchUri.toString());
+                    } else {
+                      print('not supported');
+                    }
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.phone,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        snap['phone number'],
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            // color: Colors.black87,
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

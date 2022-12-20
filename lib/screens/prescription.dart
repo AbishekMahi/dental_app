@@ -36,7 +36,7 @@ class _PrescriptionsState extends State<Prescriptions> {
           title: Text(
             "Prescriptions",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: const Padding(
@@ -116,21 +116,23 @@ class PrescriptionContainer extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FullScreenWidget(
-                child: Hero(
-                  tag: "smallImage",
-                  child: SafeArea(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        topRight: Radius.circular(8.0),
-                      ),
-                      child: ExtendedImage.network(
-                        snap['prescription'],
-                        width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.fitWidth,
-                        cache: true,
+              Expanded(
+                child: FullScreenWidget(
+                  child: Hero(
+                    tag: snap['appoint id'],
+                    child: SafeArea(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
+                        ),
+                        child: ExtendedImage.network(
+                          snap['prescription'],
+                          width: double.infinity,
+                          // height: 200,
+                          fit: BoxFit.fitWidth,
+                          cache: true,
+                        ),
                       ),
                     ),
                   ),
@@ -140,17 +142,14 @@ class PrescriptionContainer extends StatelessWidget {
                 snap['appointment for'],
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                    // color: Colors.black87,
-                    // color: Colors.blue,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600),
+                    fontSize: 14, fontWeight: FontWeight.w600),
               ),
               Text(
                 snap['appointment date'],
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                     color: Colors.black87,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w400),
               ),
               Container()
@@ -161,272 +160,3 @@ class PrescriptionContainer extends StatelessWidget {
     );
   }
 }
-
-
-// SingleChildScrollView(
-//           scrollDirection: Axis.vertical,
-//           child: Column(
-//             children: [
-//               Container(
-//                 margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-//                 padding:
-//                     const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.stretch,
-//                   children: [
-//                     StaggeredGrid.count(
-//                       crossAxisCount: 6,
-//                       mainAxisSpacing: 8,
-//                       crossAxisSpacing: 8,
-//                       children: [
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         StaggeredGridTile.count(
-//                           crossAxisCellCount: 3,
-//                           mainAxisCellCount: 3.3,
-//                           child: InkWell(
-//                             child: Ink(
-//                               padding: const EdgeInsets.only(top: 15),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(12),
-//                                 boxShadow: const [
-//                                   BoxShadow(
-//                                     color: Color(0x29000000),
-//                                     offset: Offset(2, 4),
-//                                     blurRadius: 6,
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Column(
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/images/pin.png',
-//                                     width: 125,
-//                                   ),
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(10),
-//                                     child: Text(
-//                                       '2nd January 2019\n  12:34 PM',
-//                                       textAlign: TextAlign.center,
-//                                       style: GoogleFonts.poppins(
-//                                           fontSize: 18,
-//                                           fontWeight: FontWeight.w500,
-//                                           height: 0,
-//                                           color: Colors.black87),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),

@@ -19,6 +19,54 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/submit_button.dart';
 
+class DecideHome extends StatefulWidget {
+  DecideHome({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
+
+  @override
+  State<DecideHome> createState() => _DecideHomeState();
+}
+
+class _DecideHomeState extends State<DecideHome> {
+  final user = FirebaseAuth.instance.currentUser!;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .snapshots(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('${snapshot.error}'),
+          );
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Scaffold(
+                body: Center(
+              child: Lottie.asset('assets/lottie/loading.json', width: 150),
+            ));
+          default:
+            return checkRole(snapshot.data!);
+        }
+      },
+    );
+  }
+
+  Widget checkRole(DocumentSnapshot snapshot) {
+    if (snapshot.get('role') == 'admin') {
+      return const AdminHome();
+    } else {
+      return const HomePage();
+    }
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -85,25 +133,9 @@ class _HomePageState extends State<HomePage> {
           title: Text(
             "Sai's Tooth Care",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           actions: [
-            // IconButton(
-            //   onPressed: () {
-            //     // Navigator.push(
-            //     //   context,
-            //     //   MaterialPageRoute(
-            //     //     builder: (context) => const ProfilePage(),
-            //     //   ),
-            //     // );
-            //   },
-            //   splashRadius: 26,
-            //   icon: const Icon(
-            //     Icons.notifications,
-            //     color: Colors.yellow,
-            //   ),
-            //   iconSize: 32,
-            // ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
@@ -122,19 +154,6 @@ class _HomePageState extends State<HomePage> {
                 iconSize: 32,
               ),
             ),
-            // GestureDetector(
-            //   onTap: () {},
-            //   child: const CircleAvatar(
-            //     radius: 20,
-            //     backgroundColor: Color(0x4AFAFAFA),
-            //     backgroundImage: CachedNetworkImageProvider(
-            //       "https://i.scdn.co/image/ab6761610000e5eb1862c3c0429dee4bd19b57c0",
-            //     ),
-            //     foregroundImage: CachedNetworkImageProvider(
-            //       "https://i.scdn.co/image/ab6761610000e5eb1862c3c0429dee4bd19b57c0",
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(

@@ -71,7 +71,7 @@ class _TestimonialsState extends State<Testimonials> {
               "Testimonials",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
           ),

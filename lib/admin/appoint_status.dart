@@ -24,14 +24,14 @@ TabBar get tabBar => TabBar(
           child: Text(
             'Accepted',
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
+                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
         Tab(
           child: Text(
             'Rejected',
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
+                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
       ],
@@ -64,7 +64,7 @@ class _AppointStatusState extends State<AppointStatus> {
               "Appointments Status",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
             bottom: PreferredSize(

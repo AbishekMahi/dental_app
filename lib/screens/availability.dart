@@ -35,7 +35,7 @@ class _AvailabilityState extends State<Availability> {
           title: Text(
             "Availability",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -44,12 +44,12 @@ class _AvailabilityState extends State<Availability> {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                height: 220,
+                height: 200,
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(110),
+                  borderRadius: BorderRadius.circular(100),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x29000000),
@@ -85,7 +85,7 @@ class _AvailabilityState extends State<Availability> {
                         'We are available on',
                         textAlign: TextAlign.left,
                         style: GoogleFonts.poppins(
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w500,
                           height: 0,
                           color: const Color(0xFF006DE9),
@@ -133,7 +133,7 @@ class _AvailabilityState extends State<Availability> {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Submit_Button(
                   btntxt: 'Book Appointment',
-                  fontSize: 22,
+                  fontSize: 20,
                   ontouch: () {
                     Navigator.push(
                       context,
@@ -167,7 +167,7 @@ Widget AvailTime({
             day,
             textAlign: TextAlign.left,
             style: GoogleFonts.poppins(
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
               height: 0,
               color: const Color(0xFF202020),
@@ -182,7 +182,7 @@ Widget AvailTime({
                 mortime,
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   height: 0,
                   color: const Color(0xD5202020),
@@ -192,7 +192,7 @@ Widget AvailTime({
                 evetime,
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   height: 0,
                   color: const Color(0xD5202020),

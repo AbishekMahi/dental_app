@@ -73,7 +73,9 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
 
   _AcceptedAppointContainerState(this.snap);
 
-  final amount = TextEditingController();
+  final amount = TextEditingController(text: "1000");
+  // final controller = TextEditingController();
+
   @override
   void dispose() {
     amount.dispose();
@@ -125,6 +127,7 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                               // Text(amount.text),
                               TextFormField(
                                 controller: amount,
+                                // initialValue: snap!['amount paid'],
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
@@ -191,9 +194,10 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                                           .instance
                                           .collection('appointments');
                                       var docid = snap['appoint id'];
-                                      collection
-                                          .doc(docid)
-                                          .update({'amount paid': amount.text});
+                                      collection.doc(docid).update({
+                                        'amount paid': amount.text,
+                                        'prescription added': 'yes'
+                                      });
                                       Navigator.of(context).pop();
                                     },
                                     color: Colors.green.shade400,
@@ -376,17 +380,17 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      const VerticalDivider(
-                        color: Colors.black87,
-                        thickness: .5,
-                      ),
-                      Text(
-                        '📞 9443399014',
-                        style: GoogleFonts.poppins(
-                            color: Colors.black87,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
+                      // const VerticalDivider(
+                      //   color: Colors.black87,
+                      //   thickness: .5,
+                      // ),
+                      // Text(
+                      //   '📞 9443399014',
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.black87,
+                      //       fontSize: 12,
+                      //       fontWeight: FontWeight.w400),
+                      // ),
                     ],
                   ),
                 ),

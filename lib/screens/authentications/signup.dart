@@ -315,7 +315,7 @@ class _SignUpState extends State<SignUp> {
               Text(
                 'Enter your details',
                 style: GoogleFonts.poppins(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -430,7 +430,7 @@ class _SignUpState extends State<SignUp> {
               Text(
                 'Signup Here!',
                 style: GoogleFonts.poppins(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500,
                     height: 0,
                     color: Colors.white),
@@ -474,7 +474,7 @@ class _SignUpState extends State<SignUp> {
               // Sign button
               // Submit_Button(
               //   btntxt: 'SIGN UP',
-              //   fontSize: 22,
+              //   fontSize: 20,
               //   ontouch: () {
               //     signUp();
               //   },
@@ -533,7 +533,7 @@ class _SignUpState extends State<SignUp> {
                   textAlign: TextAlign.center,
                   'Check Your Details Here',
                   style: GoogleFonts.poppins(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500,
                       height: 0,
                       color: Colors.white),

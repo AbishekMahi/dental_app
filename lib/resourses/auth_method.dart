@@ -2,6 +2,10 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/resourses/storage_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../admin/admin-home.dart';
+import '../screens/home-screen.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -69,6 +73,7 @@ class AuthMethods {
         await _auth.signInWithEmailAndPassword(
             email: email, password: password);
         res = "Success";
+        // route();
       } else {
         "please enter all the fields";
       }
@@ -84,3 +89,28 @@ class AuthMethods {
     return res;
   }
 }
+
+// void route() {
+//   User? user = FirebaseAuth.instance.currentUser;
+//   var kk = FirebaseFirestore.instance
+//       .collection('users')
+//       .doc(user!.uid)
+//       .get()
+//       .then((DocumentSnapshot documentSnapshot) {
+//     if (documentSnapshot.exists) {
+//       if (documentSnapshot.get('rool') == "admin") {
+//         Navigator.of(context).pushAndRemoveUntil(
+//             MaterialPageRoute(
+//                 builder: (BuildContext context) => const AdminHome()),
+//             (route) => false);
+//       } else {
+//         Navigator.of(context).pushAndRemoveUntil(
+//             MaterialPageRoute(
+//                 builder: (BuildContext context) => const HomePage()),
+//             (route) => false);
+//       }
+//     } else {
+//       print('Document does not exist on the database');
+//     }
+//   });
+// }

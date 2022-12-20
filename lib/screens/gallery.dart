@@ -37,7 +37,7 @@ class _GalleryState extends State<Gallery> {
           title: Text(
             "Gallery",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(

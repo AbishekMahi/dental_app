@@ -172,7 +172,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     // Sign button
                     Submit_Button(
                       btntxt: 'Reset Password',
-                      fontSize: 22,
+                      fontSize: 20,
                       ontouch: () {
                         resetPassword();
                       },

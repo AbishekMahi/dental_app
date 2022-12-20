@@ -35,7 +35,7 @@ class _PaymentsState extends State<Payments> {
           title: Text(
             "Payments",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: const PaymentProvider(),
@@ -147,7 +147,7 @@ class PaymentContainer extends StatelessWidget {
                         ),
                       ),
                       const VerticalDivider(
-                        color: Colors.black87,
+                        color: Colors.black45,
                         thickness: .5,
                       ),
                       Column(
@@ -248,10 +248,10 @@ class PaymentContainer extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      const VerticalDivider(
-                        color: Colors.black87,
-                        thickness: .5,
-                      ),
+                      // const VerticalDivider(
+                      //   color: Colors.black87,
+                      //   thickness: .5,
+                      // ),
                       Text(
                         snap['appointed by'],
                         style: GoogleFonts.poppins(
@@ -259,18 +259,18 @@ class PaymentContainer extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      const VerticalDivider(
-                        color: Colors.black87,
-                        thickness: .5,
-                      ),
-                      Text(
-                        // snap['appointed by'],
-                        '📞 9443399014',
-                        style: GoogleFonts.poppins(
-                            color: Colors.black87,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
+                      // const VerticalDivider(
+                      //   color: Colors.black87,
+                      //   thickness: .5,
+                      // ),
+                      // Text(
+                      //   // snap['appointed by'],
+                      //   '📞 9443399014',
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.black87,
+                      //       fontSize: 12,
+                      //       fontWeight: FontWeight.w400),
+                      // ),
                     ],
                   ),
                 ),

@@ -38,7 +38,7 @@ class _TipsPageState extends State<TipsPage> {
           title: Text(
             "Tips",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -75,7 +75,7 @@ class _TipsPageState extends State<TipsPage> {
                     // textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         color: const Color(0xFF006DE9),
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -419,7 +419,7 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 Submit_Button(
                   btntxt: 'Book Appointment',
-                  fontSize: 22,
+                  fontSize: 20,
                   ontouch: () {
                     Navigator.push(
                       context,

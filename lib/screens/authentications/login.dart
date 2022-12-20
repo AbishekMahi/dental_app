@@ -196,7 +196,7 @@ class LoginState extends State<Login> {
                       // Sign button
                       Submit_Button(
                         btntxt: 'SIGN IN',
-                        fontSize: 22,
+                        fontSize: 20,
                         ontouch: () {
                           if (_formKey.currentState!.validate()) {
                             loginUser();

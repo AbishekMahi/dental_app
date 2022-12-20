@@ -5,8 +5,11 @@ import 'package:dental_app/admin/payments.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
 import 'package:dental_app/admin/web_appointments.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../screens/authentications/welcome.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -37,10 +40,31 @@ class _AdminHomeState extends State<AdminHome> {
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text(
-            "Admin Panel",
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(),
+              Container(),
+              Text(
+                "Admin Panel",
+                style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+              IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Welcome(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.logout_outlined, color: Colors.white),
+              ),
+            ],
           ),
         ),
         body: SingleChildScrollView(

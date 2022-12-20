@@ -35,7 +35,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
           title: Text(
             "Appointments",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: const UserAppoints(),
@@ -121,107 +121,6 @@ class UserAppointContainer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Stack(
           children: [
-            // Positioned(
-            //   top: -10,
-            //   right: -10,
-            //   child: IconButton(
-            //     onPressed: () async {
-            //       showDialog(
-            //         context: context,
-            //         builder: (context) {
-            //           return AlertDialog(
-            //             title: Text(
-            //               'Are you Sure?',
-            //               style: GoogleFonts.poppins(
-            //                   color: Colors.black87,
-            //                   fontSize: 20,
-            //                   fontWeight: FontWeight.w500),
-            //             ),
-            //             content: SizedBox(
-            //               height: 120,
-            //               child: Column(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //                 children: [
-            //                   Padding(
-            //                     padding: const EdgeInsets.only(top: 0),
-            //                     child: Text(
-            //                       'Do you really want to delete the appointment?',
-            //                       style: GoogleFonts.poppins(
-            //                           color: Colors.black87,
-            //                           fontSize: 16,
-            //                           fontWeight: FontWeight.w400),
-            //                     ),
-            //                   ),
-            //                   const SizedBox(
-            //                     height: 10,
-            //                   ),
-            //                   Row(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceEvenly,
-            //                     children: [
-            //                       Padding(
-            //                         padding: const EdgeInsets.only(right: 8),
-            //                         child: MaterialButton(
-            //                           onPressed: () {
-            //                             Navigator.of(context).pop();
-            //                           },
-            //                           color: Colors.grey.shade700,
-            //                           child: Padding(
-            //                             padding: const EdgeInsets.all(8.0),
-            //                             child: Text(
-            //                               "No",
-            //                               style: GoogleFonts.poppins(
-            //                                   fontSize: 18,
-            //                                   fontWeight: FontWeight.w500,
-            //                                   height: 0,
-            //                                   color: Colors.white),
-            //                             ),
-            //                           ),
-            //                         ),
-            //                       ),
-            //                       MaterialButton(
-            //                         onPressed: () {},
-            //                         color: Colors.red.shade400,
-            //                         child: Padding(
-            //                           padding: const EdgeInsets.all(8.0),
-            //                           child: Row(
-            //                             mainAxisAlignment:
-            //                                 MainAxisAlignment.center,
-            //                             children: [
-            //                               const Icon(Icons.delete,
-            //                                   color: Colors.white),
-            //                               const SizedBox(
-            //                                 width: 10,
-            //                               ),
-            //                               Text(
-            //                                 "Yes",
-            //                                 style: GoogleFonts.poppins(
-            //                                     fontSize: 18,
-            //                                     fontWeight: FontWeight.w500,
-            //                                     height: 0,
-            //                                     color: Colors.white),
-            //                               ),
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           );
-            //         },
-            //       );
-            //     },
-            //     splashRadius: 26,
-            //     icon: const Icon(
-            //       Icons.delete,
-            //       color: Colors.redAccent,
-            //     ),
-            //     iconSize: 32,
-            //   ),
-            // ),
             Column(
               children: [
                 IntrinsicHeight(
@@ -360,23 +259,8 @@ class UserAppointContainer extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      const VerticalDivider(
-                        color: Colors.black87,
-                        thickness: .5,
-                      ),
                       Text(
                         snap['appointed by'],
-                        style: GoogleFonts.poppins(
-                            color: Colors.black87,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const VerticalDivider(
-                        color: Colors.black87,
-                        thickness: .5,
-                      ),
-                      Text(
-                        '📞 9443399014',
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
@@ -418,15 +302,6 @@ class UserAppointContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MaterialButton(
-                      // onPressed: () {
-                      //   var collection = FirebaseFirestore.instance
-                      //       .collection('appointments');
-                      //   collection
-                      //       .doc(
-                      //           '13Dec20220613PM') // <-- Doc ID where data should be updated.
-                      //       .update({'status': "sorry not available"});
-                      //   // approved
-                      // },
                       onPressed: () {
                         var collection = FirebaseFirestore.instance
                             .collection('appointments');

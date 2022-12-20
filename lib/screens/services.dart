@@ -36,7 +36,7 @@ class _ServicesState extends State<Services> {
           title: Text(
             "Services",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -65,7 +65,7 @@ class _ServicesState extends State<Services> {
                         "Followings are our services:",
                         style: GoogleFonts.poppins(
                             color: const Color(0xFF006DE9),
-                            fontSize: 22,
+                            fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
                     ),

@@ -36,7 +36,7 @@ class _MessagesState extends State<Messages> {
           title: Text(
             "Messages",
             style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: StreamBuilder(

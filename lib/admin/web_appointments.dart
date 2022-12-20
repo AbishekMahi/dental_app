@@ -67,7 +67,7 @@ class _WebAppointsState extends State<WebAppoints> {
               "Web Appointments",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
           ),
