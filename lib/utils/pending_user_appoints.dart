@@ -151,7 +151,7 @@ class PendingUserAppointsContainer extends StatelessWidget {
                                       var docid = snap['appoint id'];
                                       collection
                                           .doc(docid)
-                                          .update({'status': "delete"});
+                                          .update({'status': "Deleted"});
                                     },
                                     color: Colors.red.shade400,
                                     child: Padding(

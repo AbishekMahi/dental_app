@@ -13,10 +13,12 @@ import 'package:dental_app/screens/profile.dart';
 import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
 import 'package:dental_app/screens/tips_page.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import '../utils/menu_list.dart';
 import '../utils/submit_button.dart';
 
 class DecideHome extends StatefulWidget {
@@ -40,11 +42,6 @@ class _DecideHomeState extends State<DecideHome> {
           .snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('${snapshot.error}'),
-          );
-        }
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return Scaffold(
@@ -75,6 +72,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
   final user = FirebaseAuth.instance.currentUser!;
   String userImg = "";
   String userFname = "";
@@ -126,6 +124,8 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        key: _scaffoldkey,
+        endDrawer: const MenuList(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -154,16 +154,25 @@ class _HomePageState extends State<HomePage> {
                 iconSize: 32,
               ),
             ),
+            // StatefulBuilder(
+            //   builder: (BuildContext context, setState) {
+            //     return IconButton(
+            //       splashRadius: 26,
+            //       icon: const Icon(
+            //         EvaIcons.menu2,
+            //       ),
+            //       iconSize: 32,
+            //       onPressed: () {
+            //         _scaffoldkey.currentState!.openEndDrawer();
+            //       },
+            //     );
+            //   },
+            // ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ),
-                  );
+                  _scaffoldkey.currentState!.openEndDrawer();
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.grey,

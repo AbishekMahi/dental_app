@@ -1,21 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/resourses/auth_method.dart';
 import 'package:dental_app/screens/authentications/login.dart';
 import 'package:dental_app/screens/home-screen.dart';
 import 'package:dental_app/utils/img_picker.dart';
-import 'package:dental_app/utils/submit_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import '../../utils/textfield.dart';
+import 'package:intl/intl.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -31,8 +26,16 @@ class _SignUpState extends State<SignUp> {
   final fname = TextEditingController();
   final lname = TextEditingController();
   final phone = TextEditingController();
-  final age = TextEditingController();
+  // final age = TextEditingController();
   Uint8List? imageUrl;
+  final dateinput = TextEditingController();
+  // String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
+
+  @override
+  void initState() {
+    dateinput.text = "";
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -42,7 +45,7 @@ class _SignUpState extends State<SignUp> {
     fname.dispose();
     lname.dispose();
     phone.dispose();
-    age.dispose();
+    // age.dispose();
     super.dispose();
   }
 
@@ -76,8 +79,9 @@ class _SignUpState extends State<SignUp> {
         email: email.text,
         password: password.text,
         cpassword: cpassword.text,
-        age: age.text,
-        phone: phone.text,
+        // age: age.text,
+        dateinput: dateinput.text,
+        phone: phone.text, gender: dropdownValue,
       );
       if (res != 'Success') {
         Navigator.of(context).pushAndRemoveUntil(
@@ -89,79 +93,6 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-// Profile Pic Upload
-
-  // void pickUploadImg() async {
-  //   final image = await ImagePicker().pickImage(
-  //   source: ImageSource.gallery,
-  //   imageQuality: 75,
-  //   maxHeight: 512,
-  //   maxWidth: 512,
-  // );
-  //   Reference ref =
-  //       FirebaseStorage.instance.ref().child("users_imgs/profilepic.jpg");
-  //   await ref.putFile(File(image!.path));
-  //   ref.getDownloadURL().then((value) {
-  //     print(value);
-  //     setState(() {
-  //       imageUrl = value as Uint8List;
-  //     });
-  //   });
-  // }
-
-// Sign up and store Data to DB
-  // Future signup() async {
-  //   if (passwordConfirmed()) {
-  //     try {
-  //       var signup = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //           email: email.text.trim(), password: password.text.trim());
-  // Navigator.pushAndRemoveUntil(
-  //     context,
-  //     MaterialPageRoute(builder: (_) => const HomePage()),
-  //     (route) => false);
-  //     } catch (e) {
-  //       // print(e);
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             content: Text(
-  //               e.toString(),
-  //               textAlign: TextAlign.center,
-  //               style: GoogleFonts.poppins(
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w500,
-  //                   height: 0,
-  //                   color: Colors.black87),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //       // print(e);
-  //     }
-  //     addUserDetails(
-  //       fname.text.trim(),
-  //       lname.text.trim(),
-  //       imageUrl,
-  //       email.text.trim(),
-  //       int.parse(age.text.trim()),
-  //       int.parse(phone.text.trim()),
-  //     );
-  //   }
-  // }
-
-  // Future addUserDetails(String fname, String lname, Uint8List imageUrl,
-  //     String email, int age, int phone) async {
-  //   return await FirebaseFirestore.instance.collection('users').add({
-  //     'first name': fname,
-  //     'last name': lname,
-  //     'email': email,
-  //     'age': age,
-  //     'imgUrl': imageUrl,
-  //     'phone number': phone,
-  //   });
-  // }
-
 // confirm Password
   bool passwordConfirmed() {
     if (password.text.trim() == cpassword.text.trim()) {
@@ -171,6 +102,11 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  static const List<String> list = <String>[
+    'Male',
+    'Female',
+    'Other',
+  ];
   Widget controlsBuilder(context, details) {
     final isLastStep = currentStep == stepList().length - 1;
 
@@ -222,6 +158,7 @@ class _SignUpState extends State<SignUp> {
 
   final _formKey = GlobalKey<FormState>();
 
+  String dropdownValue = list.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -303,6 +240,21 @@ class _SignUpState extends State<SignUp> {
   }
 
   int currentStep = 0;
+  void getDate() async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now());
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('dd MMM yyyy').format(pickedDate);
+      setState(() {
+        dateinput.text = formattedDate;
+      });
+    } else {}
+  }
+
   List<Step> stepList() => [
         Step(
           state: currentStep <= 0 ? StepState.editing : StepState.complete,
@@ -326,23 +278,45 @@ class _SignUpState extends State<SignUp> {
               SizedBox(
                 height: 100,
                 width: 100,
-                child: GestureDetector(
-                  onTap: () {
-                    // pickUploadImg();
-                    selectImg();
-                  },
-                  child: imageUrl != null
-                      ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage: MemoryImage(
-                            imageUrl!,
-                          ))
-                      : const CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage(
-                            'assets/images/default-profile-pic.jpg',
-                          ),
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // pickUploadImg();
+                        selectImg();
+                      },
+                      child: imageUrl != null
+                          ? CircleAvatar(
+                              radius: 50,
+                              backgroundImage: MemoryImage(
+                                imageUrl!,
+                              ),
+                            )
+                          : const CircleAvatar(
+                              radius: 50,
+                              backgroundImage: AssetImage(
+                                'assets/images/default-profile-pic.jpg',
+                              ),
+                            ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color(0x841F1F1F),
                         ),
+                        child: const Icon(
+                          Icons.add_a_photo_rounded,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
@@ -369,17 +343,16 @@ class _SignUpState extends State<SignUp> {
                 obscureText: false,
                 keyboardType: TextInputType.text,
                 controller: lname,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter some text';
+                //   }
+                // },
               ),
-
               CustomTextField(
                 labelText: 'Phone number',
                 hintText: 'Phone number',
-                prefixIcon: Icons.phone,
+                prefixIcon: EvaIcons.phoneOutline,
                 obscureText: false,
                 keyboardType: TextInputType.phone,
                 validator: (value) {
@@ -392,20 +365,85 @@ class _SignUpState extends State<SignUp> {
                 },
                 controller: phone,
               ),
-              CustomTextField(
-                labelText: 'Your age',
-                hintText: 'Your age',
-                prefixIcon: Icons.numbers_rounded,
-                obscureText: false,
-                keyboardType: TextInputType.number,
-                controller: age,
-                maxlength: 2,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter age';
-                  }
-                },
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.white),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: DropdownButtonFormField<String>(
+                  dropdownColor: Colors.blue,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.transgender,
+                      color: Colors.white,
+                    ),
+                    focusColor: Colors.black,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  value: dropdownValue,
+                  // isExpanded: false,
+                  icon: const Icon(
+                    Icons.arrow_downward,
+                    size: 26,
+                    color: Colors.white,
+                  ),
+                  // elevation: 16,
+                  onChanged: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                  items: list.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      // value: 'Gender',
+                      child: Text(
+                        value,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
+              // Select Date:
+              AppointFormField(
+                  labelText: 'Select Date (MM-dd-yyyy) :',
+                  hintText: "Date Of Birth",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Select Date';
+                    }
+                  },
+                  controller: dateinput,
+                  suffixIcon: Icons.calendar_month_outlined,
+                  onTap: () {
+                    getDate();
+                  }),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // CustomTextField(
+              //   labelText: 'Your age',
+              //   hintText: 'Your age',
+              //   prefixIcon: EvaIcons.calendarOutline,
+              //   obscureText: false,
+              //   keyboardType: TextInputType.number,
+              //   controller: age,
+              //   maxlength: 2,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter age';
+              //     }
+              //   },
+              // ),
               const SizedBox(
                 height: 20.0,
                 width: 150,
@@ -501,7 +539,7 @@ class _SignUpState extends State<SignUp> {
                     child: Text(
                       'Login Here!',
                       style: GoogleFonts.poppins(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.w500),
                     ),
@@ -530,55 +568,65 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  textAlign: TextAlign.center,
-                  'Check Your Details Here',
+                  // textAlign: TextAlign.center,
+                  'Check Your Details Here and Click Submit to Signup',
                   style: GoogleFonts.poppins(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.w500,
                       height: 0,
                       color: Colors.white),
                 ),
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: imageUrl != null
-                      ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage: MemoryImage(
-                            imageUrl!,
-                          ))
-                      : const CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage(
-                            'assets/images/default-profile-pic.jpg',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: SizedBox(
+                    height: 90,
+                    width: 90,
+                    child: imageUrl != null
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundImage: MemoryImage(
+                              imageUrl!,
+                            ))
+                        : const CircleAvatar(
+                            radius: 50,
+                            backgroundImage: AssetImage(
+                              'assets/images/default-profile-pic.jpg',
+                            ),
                           ),
-                        ),
+                  ),
                 ),
                 Text(
                   'Full Name : ${fname.text} ${lname.text}',
                   style: GoogleFonts.poppins(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Your Age : ${age.text}',
+                  'DOB : ${dateinput.text}',
                   style: GoogleFonts.poppins(
-                      fontSize: 18,
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  'Gender : $dropdownValue',
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   'Phone Number : ${phone.text}',
                   style: GoogleFonts.poppins(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   'Email : ${email.text}',
                   style: GoogleFonts.poppins(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
                 ),

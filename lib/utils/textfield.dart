@@ -247,7 +247,7 @@ class SubjectField extends StatelessWidget {
   final int? maxlength;
   final int? maxlines;
   final TextInputType? keyboardType;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FormFieldValidator<String>? validator;
   const SubjectField({
     Key? key,
@@ -255,7 +255,7 @@ class SubjectField extends StatelessWidget {
     required this.hintText,
     required this.prefixIcon,
     required this.obscureText,
-    this.controller,
+    required this.controller,
     this.maxlength,
     this.maxlines,
     this.validator,
@@ -268,6 +268,7 @@ class SubjectField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextFormField(
+        controller: controller,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style:
@@ -323,6 +324,174 @@ class SubjectField extends StatelessWidget {
         ),
         validator: validator,
       ),
+    );
+  }
+}
+
+class MsgField extends StatelessWidget {
+  final String labelText;
+  final String hintText;
+  final IconData prefixIcon;
+  // final bool obscureText;
+  final int? maxlength;
+  final int? maxlines;
+  final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
+  const MsgField({
+    Key? key,
+    required this.labelText,
+    required this.hintText,
+    required this.prefixIcon,
+    // required this.obscureText,
+    required this.controller,
+    this.maxlength,
+    this.maxlines,
+    this.validator,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: TextFormField(
+        textInputAction: TextInputAction.next,
+        controller: controller,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
+        style:
+            GoogleFonts.poppins(fontSize: 14, color: const Color(0xFF252525)),
+        // keyboardType: keyboardType,
+        // obscureText: obscureText,
+        textCapitalization: TextCapitalization.sentences,
+        maxLines: maxlines,
+        maxLength: maxlength,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            prefixIcon,
+            color: const Color(0xDA252525),
+          ),
+          border: InputBorder.none,
+          labelText: labelText,
+          labelStyle: const TextStyle(color: Color(0xDA252525)),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color(0xDA252525)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(
+              color: Color(0xDA252525),
+              width: 2.0,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(
+              color: Color(0xDA252525),
+              width: 2.0,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(
+              color: Color(0xFFE30F00),
+              width: 2.0,
+            ),
+          ),
+          errorStyle: GoogleFonts.poppins(
+            color: const Color(0xFFC70D00),
+            fontSize: 14,
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(
+              color: Color(0xFFC70D00),
+              width: 2.0,
+            ),
+          ),
+        ),
+        validator: validator,
+      ),
+    );
+  }
+}
+
+class AppointFormField extends StatelessWidget {
+  final String hintText;
+  final String? labelText;
+  final IconData suffixIcon;
+  final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
+  final Function() onTap;
+
+  const AppointFormField(
+      {super.key,
+      required this.onTap,
+      required this.hintText,
+      required this.suffixIcon,
+      required this.controller,
+      this.validator,
+      this.labelText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: validator,
+          style: GoogleFonts.poppins(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
+          controller: controller, //editing controller of this TextField
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            hintStyle: const TextStyle(
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
+            hintText: hintText,
+            prefixIcon: Icon(
+              suffixIcon,
+              color: Colors.white,
+              size: 26,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(
+                color: Colors.white,
+                width: 2.0,
+              ),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(
+                color: Color.fromARGB(255, 227, 15, 0),
+                width: 2.0,
+              ),
+            ),
+            errorStyle: GoogleFonts.poppins(
+              color: const Color(0xFFC70D00),
+              fontSize: 14,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(
+                color: Color(0xFFC70D00),
+                width: 2.0,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(
+                color: Colors.white,
+                width: 2.0,
+              ),
+            ),
+          ),
+
+          readOnly: true, //set it true, so that user will not able to edit text
+          onTap: onTap,
+        ),
+      ]),
     );
   }
 }

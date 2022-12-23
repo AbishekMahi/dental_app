@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/admin/full_profile.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,7 +66,7 @@ class _UserBiosState extends State<UserBios> {
                   },
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
-                      Icons.search,
+                      EvaIcons.search,
                       color: Colors.black87,
                     ),
                     hintText: 'Search users',
@@ -96,7 +97,8 @@ class _UsersListState extends State<UsersList> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('users')
-          .orderBy('first name', descending: false)
+          .where('role', isEqualTo: "user")
+          // .orderBy('first name', descending: false)
           .snapshots(),
       builder: (context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -202,13 +204,6 @@ class UserContainer extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
-                    // const SizedBox(
-                    //   height: 15.0,
-                    //   width: double.infinity,
-                    //   child: Divider(
-                    //     color: Colors.black45,
-                    //   ),
-                    // ),
                   ],
                 ),
                 MaterialButton(

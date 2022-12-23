@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/admin/accepted_appoints.dart';
 import 'package:dental_app/admin/rejected_appoints.dart';
 import 'package:flutter/material.dart';

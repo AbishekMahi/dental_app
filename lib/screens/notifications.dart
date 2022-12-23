@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../utils/msg_sent.dart';
+
 class Notifications extends StatefulWidget {
   const Notifications({super.key});
 
@@ -74,27 +76,13 @@ class _NotificationsState extends State<Notifications> {
           ),
           body: const TabBarView(
             children: [
-              MsgSent(),
               MsgReceived(),
+              MsgUserSent(),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class MsgSent extends StatefulWidget {
-  const MsgSent({super.key});
-
-  @override
-  State<MsgSent> createState() => _MsgSentState();
-}
-
-class _MsgSentState extends State<MsgSent> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 

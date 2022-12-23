@@ -6,7 +6,6 @@ import 'package:dental_app/screens/authentications/signup.dart';
 import 'package:dental_app/screens/home-screen.dart';
 import 'package:dental_app/utils/submit_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -91,7 +90,7 @@ class LoginState extends State<Login> {
                       Text(
                         'Login Here!',
                         style: GoogleFonts.poppins(
-                            fontSize: 30,
+                            fontSize: 25,
                             fontWeight: FontWeight.w500,
                             height: 0,
                             color: Colors.white),
@@ -108,10 +107,10 @@ class LoginState extends State<Login> {
                           controller: email,
                           keyboardType: TextInputType.emailAddress,
                           style: GoogleFonts.poppins(
-                              fontSize: 18, color: Colors.white),
+                              fontSize: 16, color: Colors.white),
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
-                              Icons.account_circle_outlined,
+                              EvaIcons.emailOutline,
                               color: Colors.white,
                             ),
                             border: InputBorder.none,
@@ -178,7 +177,7 @@ class LoginState extends State<Login> {
                             child: Text(
                               'Forgot password?',
                               style: GoogleFonts.poppins(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -213,7 +212,6 @@ class LoginState extends State<Login> {
                       const SizedBox(
                         height: 10,
                       ),
-
                       const SizedBox(
                         height: 16,
                       ),
@@ -229,7 +227,7 @@ class LoginState extends State<Login> {
                             child: Text(
                               'Register Here!',
                               style: GoogleFonts.poppins(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500),
                             ),

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/profile.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,15 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
   String userFname = "";
   String userLname = "";
   String userAge = "";
   String userPhone = "";
   String userImg = "";
   Uint8List? imageUrl;
+  final amount = TextEditingController(text: "1000");
 
   final fname = TextEditingController();
   final lname = TextEditingController();
@@ -82,31 +86,6 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  void updateData() async {
-    String res = "Some error Occured";
-    try {
-      String photoUrl = imageUrl as String;
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({
-        'first name': fname,
-        'last name': lname,
-        'age': age,
-        'profileimg': photoUrl,
-        'phone number': phone,
-      });
-      res = "Success";
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (BuildContext context) => const ProfilePage()),
-          (route) => false);
-    } catch (err) {
-      res = err.toString();
-    }
-    return;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,7 +122,7 @@ class _EditProfileState extends State<EditProfile> {
               children: [
                 GestureDetector(
                   onTap: (() {
-                    pickUploadImg();
+                    // pickUploadImg();
                     // selectImg();
                   }),
                   child: Padding(
@@ -157,22 +136,22 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         foregroundImage: CachedNetworkImageProvider(userImg),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.black54,
-                          ),
-                          child: const Icon(
-                            Icons.camera_alt_rounded,
-                            color: Colors.white,
-                            size: 22,
-                          ),
-                        ),
-                      )
+                      // Positioned(
+                      //   bottom: 0,
+                      //   right: 0,
+                      //   child: Container(
+                      //     padding: const EdgeInsets.all(5),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(18),
+                      //       color: Colors.black54,
+                      //     ),
+                      //     child: const Icon(
+                      //       Icons.camera_alt_rounded,
+                      //       color: Colors.white,
+                      //       size: 22,
+                      //     ),
+                      //   ),
+                      // )
                     ]),
                   ),
                 ),
@@ -200,13 +179,15 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       Form(
+                        key: _formKey,
                         child: Column(
                           children: [
                             SubjectField(
                               key: Key(userFname.toString()),
-                              initialValue: userFname.toString(),
+                              // initialValue: userFname.toString(),
                               labelText: 'First Name',
-                              hintText: 'First Name',
+                              // hintText: 'First Name',
+                              hintText: userFname.toString(),
                               prefixIcon: Icons.person,
                               obscureText: false,
                               keyboardType: TextInputType.text,
@@ -223,9 +204,11 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             SubjectField(
                               key: Key(userLname.toString()),
-                              initialValue: userLname,
+                              // initialValue: userLname,
                               labelText: 'Last Name',
-                              hintText: 'Last name',
+                              // hintText: 'Last name',
+                              hintText: userLname.toString(),
+
                               prefixIcon: Icons.person,
                               obscureText: false,
                               keyboardType: TextInputType.text,
@@ -242,9 +225,10 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             SubjectField(
                               key: Key(userPhone.toString()),
-                              initialValue: userPhone.toString(),
+                              // initialValue: userPhone.toString(),
                               labelText: 'Phone number',
-                              hintText: '+91 00000 00000',
+                              // hintText: '+91 00000 00000',
+                              hintText: userPhone.toString(),
                               prefixIcon: Icons.phone,
                               obscureText: false,
                               keyboardType: TextInputType.phone,
@@ -263,10 +247,11 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             SubjectField(
                                 key: Key(userAge.toString()),
-                                initialValue: userAge.toString(),
+                                // initialValue: userAge.toString(),
                                 labelText: 'Age',
-                                hintText: 'Your age',
-                                prefixIcon: Icons.phone,
+                                // hintText: 'Your age',
+                                hintText: userAge.toString(),
+                                prefixIcon: EvaIcons.calendar,
                                 obscureText: false,
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
@@ -288,7 +273,34 @@ class _EditProfileState extends State<EditProfile> {
                 Submit_Button(
                   btntxt: 'Save',
                   fontSize: 20,
-                  ontouch: updateData,
+                  ontouch: () async {
+                    if (_formKey.currentState!.validate()) {
+                      String message;
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .update({
+                          'first name': fname.text,
+                          'last name': lname.text,
+                          'age': age.text,
+                          // 'profileimg': photoUrl,
+                          'phone number': phone.text,
+                          'last edited': FieldValue.serverTimestamp(),
+                        });
+                        message = 'Profile edited successfully';
+                      } catch (e) {
+                        message = 'Error when editing profile';
+                      }
+
+                      // Show a snackbar with the result
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: const Color(0xFF00C75A),
+                        content: Text(message),
+                      ));
+                      Navigator.pop(context);
+                    }
+                  },
                 ),
               ],
             ),

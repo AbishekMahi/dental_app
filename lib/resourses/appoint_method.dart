@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class AppointMethod {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String datetime = DateFormat("ddMMMyyyyhhmma").format(DateTime.now());
+  String datetime = DateFormat("ddMMMyyyyhhmmssa").format(DateTime.now());
 
   // book and store Appointment
   Future createAppointment({

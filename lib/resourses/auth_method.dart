@@ -2,10 +2,6 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/resourses/storage_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
-import '../admin/admin-home.dart';
-import '../screens/home-screen.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -18,8 +14,9 @@ class AuthMethods {
     required String email,
     required String password,
     required String cpassword,
-    required String age,
+    required String gender,
     required String phone,
+    required String dateinput,
   }) async {
     String res = "Some error Occured";
     try {
@@ -29,7 +26,8 @@ class AuthMethods {
           lname.isNotEmpty ||
           file != null ||
           phone.isNotEmpty ||
-          age.isNotEmpty) {
+          gender.isNotEmpty ||
+          dateinput.isNotEmpty) {
         // register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email.trim(), password: password.trim());
@@ -43,9 +41,11 @@ class AuthMethods {
           'last name': lname,
           'uid': cred.user!.uid,
           'email': email,
-          'age': age,
+          'age': dateinput,
+          'gender': gender,
           'profileimg': photoUrl,
           'phone number': phone,
+          'role': 'User',
         });
         res = "Success";
       }

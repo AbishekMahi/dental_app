@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/screens/edit-profile.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -91,16 +92,28 @@ class _ProfilePageState extends State<ProfilePage> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
+                Container(
+                  width: double.maxFinite,
+                  // height: 140,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          // opacity: 50,
+                          image: AssetImage("assets/images/back.png"),
+                          fit: BoxFit.fill),
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white),
+                  child: Column(
                     children: [
                       SizedBox(
-                        width: 85,
-                        height: 85,
+                        width: 100,
+                        height: 100,
                         child: GestureDetector(
                           onTap: () {
                             // pickUploadImg();
@@ -128,34 +141,33 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userFname,
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            user.email!,
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              height: 0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     Text(
+                      //       userFname,
+                      //       textAlign: TextAlign.center,
+                      //       style: GoogleFonts.poppins(
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w500,
+                      //         height: 0,
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       user.email!,
+                      //       textAlign: TextAlign.center,
+                      //       style: GoogleFonts.poppins(
+                      //         fontSize: 12,
+                      //         fontWeight: FontWeight.w400,
+                      //         height: 0,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -196,6 +208,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             thickness: 1,
                           ),
                           CustomProfileWidget(
+                            title: 'Email Address',
+                            subtitle: user.email!,
+                            icon: const Icon(
+                              Icons.mail_rounded,
+                              size: 24,
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1,
+                          ),
+                          CustomProfileWidget(
                             title: 'Phone Number',
                             subtitle: userPhone,
                             icon: const Icon(
@@ -210,7 +233,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: 'Age',
                             subtitle: userAge,
                             icon: const Icon(
-                              Icons.numbers,
+                              EvaIcons.calendar,
+                              size: 24,
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1,
+                          ),
+                          CustomProfileWidget(
+                            title: 'User id',
+                            subtitle: user.uid,
+                            icon: const Icon(
+                              EvaIcons.hash,
                               size: 24,
                             ),
                           ),
@@ -400,27 +434,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                Submit_Button(
-                  btntxt: 'Book Appointment',
-                  fontSize: 20,
-                  ontouch: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Booking(),
-                      ),
-                    );
-                  },
-                ),
-                // Text(
-                //   user.uid,
-                //   textAlign: TextAlign.left,
-                //   style: GoogleFonts.poppins(
-                //     fontSize: 14,
-                //     fontWeight: FontWeight.w400,
-                //     height: 0,
-                //     color: Colors.white,
-                //   ),
+                // Submit_Button(
+                //   btntxt: 'Book Appointment',
+                //   fontSize: 20,
+                //   ontouch: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => const Booking(),
+                //       ),
+                //     );
+                //   },
                 // ),
               ],
             ),
@@ -451,14 +475,14 @@ class CustomProfileWidget extends StatelessWidget {
       title: Text(
         title,
         style: GoogleFonts.poppins(
-            color: Colors.black54, fontSize: 14, fontWeight: FontWeight.w500),
+            color: Colors.black54, fontSize: 12, fontWeight: FontWeight.w500),
         textAlign: TextAlign.start,
       ),
       subtitle: Flexible(
         child: Text(
           subtitle,
           style: GoogleFonts.poppins(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
+              color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           textAlign: TextAlign.start,
         ),
       ),

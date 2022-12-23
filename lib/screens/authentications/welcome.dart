@@ -38,7 +38,7 @@ class _WelcomeState extends State<Welcome> {
                   children: [
                     Text(
                       textAlign: TextAlign.center,
-                      'Dental Care',
+                      'Sai\'s Tooth Care',
                       style: GoogleFonts.poppins(
                           fontSize: 34,
                           fontWeight: FontWeight.w500,
@@ -70,7 +70,7 @@ class _WelcomeState extends State<Welcome> {
                     ),
                     Text(
                       textAlign: TextAlign.center,
-                      'Dental Care helps dentists manage their patients and clinic. Dentists can keep a database of their patient\'s record.',
+                      'Sai\'s Tooth Care App helps dentists manage their patients and clinic. Dentists can keep a database of their patient\'s record.',
                       style: GoogleFonts.poppins(
                           fontSize: 18, height: 1.5, color: Colors.white),
                     ),
@@ -87,7 +87,7 @@ class _WelcomeState extends State<Welcome> {
                 ontouch: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Login()),
+                    MaterialPageRoute(builder: (context) => const Login()),
                   );
                 },
               ),

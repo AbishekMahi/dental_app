@@ -94,8 +94,8 @@ class MsgContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: SizedBox(
-                  width: 65,
-                  height: 65,
+                  width: 60,
+                  height: 60,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl: snap['user img'],
@@ -111,11 +111,11 @@ class MsgContainer extends StatelessWidget {
                     maxLines: 2,
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    snap['messaged time'],
+                    "~ ${snap['user fname']}" " " '${snap['user lname']}',
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
                         fontSize: 12,
@@ -155,10 +155,10 @@ class MsgContainer extends StatelessWidget {
             children: [
               Container(),
               Text(
-                "~ ${snap['user fname']}" " " '${snap['user lname']}',
+                snap['messaged time'],
                 style: GoogleFonts.poppins(
                     color: Colors.black87,
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: FontWeight.w400),
               ),
             ],

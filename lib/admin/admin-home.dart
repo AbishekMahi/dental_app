@@ -1,15 +1,15 @@
-import 'package:dental_app/admin/accepted_appoints.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/admin/appoint_status.dart';
 import 'package:dental_app/admin/messages_recived.dart';
 import 'package:dental_app/admin/payments.dart';
 import 'package:dental_app/admin/user-appointments.dart';
 import 'package:dental_app/admin/users-list.dart';
 import 'package:dental_app/admin/web_appointments.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../screens/authentications/welcome.dart';
+import '../utils/menu_list.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -19,6 +19,26 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
+  final user = FirebaseAuth.instance.currentUser!;
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+  String userFname = "";
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
+
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    // print(snap.data());
+    setState(() {
+      userFname = (snap.data() as Map<String, dynamic>)['first name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,36 +55,33 @@ class _AdminHomeState extends State<AdminHome> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        key: _scaffoldkey,
+        endDrawer: const MenuList(),
         appBar: AppBar(
           automaticallyImplyLeading: true,
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(),
-              Container(),
-              Text(
-                "Admin Panel",
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              ),
-              IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Welcome(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.logout_outlined, color: Colors.white),
-              ),
-            ],
+          actions: [
+            StatefulBuilder(
+              builder: (BuildContext context, setState) {
+                return IconButton(
+                  splashRadius: 26,
+                  icon: const Icon(
+                    EvaIcons.menu2,
+                  ),
+                  iconSize: 32,
+                  onPressed: () {
+                    _scaffoldkey.currentState!.openEndDrawer();
+                  },
+                );
+              },
+            )
+          ],
+          title: Text(
+            "Admin Panel",
+            style: GoogleFonts.poppins(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
@@ -72,7 +89,7 @@ class _AdminHomeState extends State<AdminHome> {
           child: Column(
             children: [
               Text(
-                "Welcome Back Admin!",
+                "Welcome Back $userFname!",
                 style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -112,11 +129,6 @@ class _AdminHomeState extends State<AdminHome> {
                         );
                       },
                     ),
-                    // ExtraFeatures(
-                    //   imageUrl: 'assets/images/invoice.png',
-                    //   title: 'Invoices',
-                    //   ontouch: () {},
-                    // ),
                   ],
                 ),
               ),

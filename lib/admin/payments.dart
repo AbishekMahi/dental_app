@@ -173,13 +173,6 @@ class PaymentContainer extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // const SizedBox(
-                          //   height: 20.0,
-                          //   width: 250,
-                          //   child: Divider(
-                          //     color: Colors.black45,
-                          //   ),
-                          // ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
