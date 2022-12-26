@@ -81,7 +81,8 @@ class _SignUpState extends State<SignUp> {
         cpassword: cpassword.text,
         // age: age.text,
         dateinput: dateinput.text,
-        phone: phone.text, gender: dropdownValue,
+        phone: phone.text,
+        gender: dropdownValue,
       );
       if (res != 'Success') {
         Navigator.of(context).pushAndRemoveUntil(
@@ -105,7 +106,6 @@ class _SignUpState extends State<SignUp> {
   static const List<String> list = <String>[
     'Male',
     'Female',
-    'Other',
   ];
   Widget controlsBuilder(context, details) {
     final isLastStep = currentStep == stepList().length - 1;

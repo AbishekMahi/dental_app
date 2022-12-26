@@ -237,7 +237,30 @@ class _MenuListState extends State<MenuList> {
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
                     ),
-                    onTap: () {},
+                    // onTap: () async {
+                    //   String url =
+                    //       "https://abishekmahi.github.io/sais-dental-clinic";
+                    //   if (await canLaunch(url)) {
+                    //     await launch(url, forceSafariVC: false);
+                    //   } else {
+                    //     print('not supported');
+                    //   }
+                    // },
+                    onTap: () async {
+                      String url = "https://saistoothcare.com/";
+                      if (await canLaunch(url)) {
+                        await launch(
+                          url,
+                          forceSafariVC: true,
+                          forceWebView: true,
+                          enableJavaScript: true,
+                          enableDomStorage: true,
+                          webOnlyWindowName: '_self',
+                        );
+                      } else {
+                        print('not supported');
+                      }
+                    },
                   ),
                   ListTile(
                     visualDensity: const VisualDensity(vertical: -3),

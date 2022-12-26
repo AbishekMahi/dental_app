@@ -239,28 +239,33 @@ class _PasswordFieldState extends State<PasswordField> {
 }
 
 class SubjectField extends StatelessWidget {
-  final String labelText;
+  final String? labelText;
   final String hintText;
   final IconData prefixIcon;
   final bool obscureText;
+  final bool readOnly;
   final String? initialValue;
   final int? maxlength;
   final int? maxlines;
   final TextInputType? keyboardType;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
+  final Function()? onTap;
+
   const SubjectField({
     Key? key,
-    required this.labelText,
+    this.labelText,
     required this.hintText,
     required this.prefixIcon,
     required this.obscureText,
+    required this.readOnly,
     required this.controller,
     this.maxlength,
     this.maxlines,
     this.validator,
     this.keyboardType,
     this.initialValue,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -323,6 +328,8 @@ class SubjectField extends StatelessWidget {
           ),
         ),
         validator: validator,
+        onTap: onTap,
+        readOnly: readOnly,
       ),
     );
   }
@@ -361,7 +368,7 @@ class MsgField extends StatelessWidget {
             GoogleFonts.poppins(fontSize: 14, color: const Color(0xFF252525)),
         // keyboardType: keyboardType,
         // obscureText: obscureText,
-        textCapitalization: TextCapitalization.sentences,
+        textCapitalization: TextCapitalization.words,
         maxLines: maxlines,
         maxLength: maxlength,
         decoration: InputDecoration(

@@ -6,6 +6,7 @@ import 'package:dental_app/screens/edit-profile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/submit_button.dart';
 
@@ -19,9 +20,11 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String userFname = "";
   String userLname = "";
-  String userAge = "";
   String userPhone = "";
   String userImg = "";
+  String userGender = "";
+  String userDob = "";
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,8 @@ class _ProfilePageState extends State<ProfilePage> {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userLname = (snap.data() as Map<String, dynamic>)['last name'];
       userPhone = (snap.data() as Map<String, dynamic>)['phone number'];
-      userAge = (snap.data() as Map<String, dynamic>)['age'];
+      userDob = (snap.data() as Map<String, dynamic>)['dob'];
+      userGender = (snap.data() as Map<String, dynamic>)['gender'];
       userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
     });
   }
@@ -118,27 +122,33 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () {
                             // pickUploadImg();
                           },
-                          // child: ClipRRect(
-                          //   borderRadius: BorderRadius.circular(50),
-                          //   child: imageUrl == ""
-                          //       ? Image.asset(
-                          //           'assets/images/default-profile-pic.jpg',
-                          //           fit: BoxFit.cover,
-                          //         )
-                          //       : ExtendedImage.network(
-                          //           imageUrl,
-                          //           fit: BoxFit.cover,
-                          //           cache: true,
-                          //         ),
-                          // ),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            backgroundImage: const AssetImage(
-                              "assets/images/default-profile-pic.jpg",
+                          child: FullScreenWidget(
+                            child: Hero(
+                              tag: userImg,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: userImg == ""
+                                    ? Image.asset(
+                                        'assets/images/default-profile-pic.jpg',
+                                        fit: BoxFit.fitWidth,
+                                      )
+                                    : CachedNetworkImage(
+                                        imageUrl: userImg,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                              ),
                             ),
-                            foregroundImage:
-                                CachedNetworkImageProvider(userImg),
                           ),
+                          // child: FullScreenWidget(
+                          //   child: CircleAvatar(
+                          //     backgroundColor: Colors.grey,
+                          //     backgroundImage: const AssetImage(
+                          //       "assets/images/default-profile-pic.jpg",
+                          //     ),
+                          //     foregroundImage:
+                          //         CachedNetworkImageProvider(userImg),
+                          //   ),
+                          // ),
                         ),
                       ),
                       // const SizedBox(
@@ -230,10 +240,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             thickness: 1,
                           ),
                           CustomProfileWidget(
-                            title: 'Age',
-                            subtitle: userAge,
+                            title: 'Date Of Birth',
+                            subtitle: userDob,
                             icon: const Icon(
-                              EvaIcons.calendar,
+                              Icons.cake,
                               size: 24,
                             ),
                           ),
@@ -241,10 +251,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             thickness: 1,
                           ),
                           CustomProfileWidget(
-                            title: 'User id',
-                            subtitle: user.uid,
-                            icon: const Icon(
-                              EvaIcons.hash,
+                            title: 'Gender',
+                            subtitle: userGender,
+                            icon: Icon(
+                              userGender == 'Male'
+                                  ? Icons.male_outlined
+                                  : Icons.female_outlined,
                               size: 24,
                             ),
                           ),

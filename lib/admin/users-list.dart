@@ -97,14 +97,16 @@ class _UsersListState extends State<UsersList> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('users')
-          .where('role', isEqualTo: "user")
+          .where('role', isEqualTo: "User")
           // .orderBy('first name', descending: false)
           .snapshots(),
       builder: (context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
           );
         }
         return GridView.builder(
@@ -195,15 +197,15 @@ class UserContainer extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      snap['age'] + ' years old',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    // const SizedBox(height: 5),
+                    // Text(
+                    //   snap['age'] + ' years old',
+                    //   textAlign: TextAlign.center,
+                    //   style: GoogleFonts.poppins(
+                    //       color: Colors.black87,
+                    //       fontSize: 12,
+                    //       fontWeight: FontWeight.w400),
+                    // ),
                   ],
                 ),
                 MaterialButton(

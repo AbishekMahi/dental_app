@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_app/admin/admin_lists.dart';
 import 'package:dental_app/admin/appoint_status.dart';
 import 'package:dental_app/admin/messages_recived.dart';
 import 'package:dental_app/admin/payments.dart';
@@ -9,6 +10,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import '../utils/menu_list.dart';
 
 class AdminHome extends StatefulWidget {
@@ -61,7 +63,7 @@ class _AdminHomeState extends State<AdminHome> {
           automaticallyImplyLeading: true,
           centerTitle: true,
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          // backgroundColor: Colors.transparent,
           actions: [
             StatefulBuilder(
               builder: (BuildContext context, setState) {
@@ -88,6 +90,7 @@ class _AdminHomeState extends State<AdminHome> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
+              const SizedBox(height: 10),
               Text(
                 "Welcome Back $userFname!",
                 style: GoogleFonts.poppins(
@@ -105,14 +108,30 @@ class _AdminHomeState extends State<AdminHome> {
                   crossAxisSpacing: 15,
                   crossAxisCount: 2,
                   children: [
+                    Hero(
+                      tag: 'users',
+                      child: ExtraFeatures(
+                        imageUrl: 'assets/images/users.png',
+                        title: 'User Details',
+                        ontouch: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                child: const UserBios(),
+                              ));
+                        },
+                      ),
+                    ),
                     ExtraFeatures(
-                      imageUrl: 'assets/images/users.png',
-                      title: 'User Details',
+                      imageUrl: 'assets/images/admin.png',
+                      title: 'Admins',
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserBios(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const AdminBio(),
                           ),
                         );
                       },
@@ -123,8 +142,9 @@ class _AdminHomeState extends State<AdminHome> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Messages(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Messages(),
                           ),
                         );
                       },
@@ -155,8 +175,9 @@ class _AdminHomeState extends State<AdminHome> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserAppointments(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const UserAppointments(),
                           ),
                         );
                       },
@@ -167,8 +188,9 @@ class _AdminHomeState extends State<AdminHome> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const AppointStatus(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const AppointStatus(),
                           ),
                         );
                       },
@@ -179,8 +201,9 @@ class _AdminHomeState extends State<AdminHome> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const WebAppoints(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const WebAppoints(),
                           ),
                         );
                       },
@@ -191,8 +214,9 @@ class _AdminHomeState extends State<AdminHome> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Payments(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Payments(),
                           ),
                         );
                       },

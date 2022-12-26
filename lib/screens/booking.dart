@@ -30,7 +30,7 @@ class _BookingState extends State<Booking> {
   String dropdownValue = list.first;
   String datetime = DateFormat("dd MMM yyyy hh:mm a").format(DateTime.now());
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
-  String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
+  String cdate = DateFormat("MMM dd yyyy").format(DateTime.now());
 
   //text editing controller for text field
   TextEditingController timeinput = TextEditingController();
@@ -70,7 +70,7 @@ class _BookingState extends State<Booking> {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
+      String formattedDate = DateFormat('MMM dd yyyy').format(pickedDate);
       setState(() {
         dateinput.text = formattedDate;
         // dateinput.text = formattedDate;
@@ -219,18 +219,19 @@ class _BookingState extends State<Booking> {
 
                       // Select Date:
                       AppointFormField(
-                          labelText: 'Select Date (MM-dd-yyyy) :',
-                          hintText: "$cdate (Select Date)",
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please Select Date';
-                            }
-                          },
-                          controller: dateinput,
-                          suffixIcon: Icons.calendar_month_outlined,
-                          onTap: () {
-                            getDate();
-                          }),
+                        labelText: 'Select Date (MMM dd yyyy) :',
+                        hintText: "$cdate (Select Date)",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Select Date';
+                          }
+                        },
+                        controller: dateinput,
+                        suffixIcon: Icons.calendar_month_outlined,
+                        onTap: () {
+                          getDate();
+                        },
+                      ),
                       const SizedBox(
                         height: 10,
                       ),

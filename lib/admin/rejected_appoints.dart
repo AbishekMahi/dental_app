@@ -95,7 +95,7 @@ class RejectedAppointContainer extends StatelessWidget {
                     builder: (context) {
                       return AlertDialog(
                         title: Text(
-                          'Are you Sure?',
+                          'Accept the Appointment',
                           style: GoogleFonts.poppins(
                               color: Colors.black87,
                               fontSize: 20,
@@ -109,7 +109,7 @@ class RejectedAppointContainer extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 0),
                                 child: Text(
-                                  'Do you really want to delete the appointment?',
+                                  'Do you really want to accept the appointment?',
                                   style: GoogleFonts.poppins(
                                       color: Colors.black87,
                                       fontSize: 16,
@@ -144,21 +144,30 @@ class RejectedAppointContainer extends StatelessWidget {
                                     ),
                                   ),
                                   MaterialButton(
-                                    onPressed: () {},
-                                    color: Colors.red.shade400,
+                                    onPressed: () {
+                                      var collection = FirebaseFirestore
+                                          .instance
+                                          .collection('appointments');
+                                      var docid = snap['appoint id'];
+                                      collection
+                                          .doc(docid)
+                                          .update({'status': 'approved'});
+                                      Navigator.of(context).pop();
+                                    },
+                                    color: Colors.green.shade400,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.delete,
+                                          const Icon(Icons.repeat_rounded,
                                               color: Colors.white),
                                           const SizedBox(
                                             width: 10,
                                           ),
                                           Text(
-                                            "Yes",
+                                            "Accept",
                                             style: GoogleFonts.poppins(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500,
@@ -180,10 +189,10 @@ class RejectedAppointContainer extends StatelessWidget {
                 },
                 splashRadius: 26,
                 icon: const Icon(
-                  Icons.delete,
-                  color: Colors.redAccent,
+                  Icons.more_vert_outlined,
+                  color: Colors.black87,
                 ),
-                iconSize: 32,
+                iconSize: 28,
               ),
             ),
             Column(

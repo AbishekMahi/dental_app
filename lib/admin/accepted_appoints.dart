@@ -187,9 +187,7 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                                     ),
                                   ),
                                   MaterialButton(
-                                    // onPressed: () {},
                                     onPressed: () {
-                                      // print(amount.text);
                                       var collection = FirebaseFirestore
                                           .instance
                                           .collection('appointments');

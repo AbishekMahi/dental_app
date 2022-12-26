@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dental_app/utils/accepted_user_appoints.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +62,7 @@ class _FullProfileState extends State<FullProfile> {
                 tag: widget.snap['uid'],
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                  height: 160,
+                  height: 165,
                   width: double.maxFinite,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
@@ -73,104 +72,233 @@ class _FullProfileState extends State<FullProfile> {
                         fit: BoxFit.fill),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Row(
+                  child: Stack(
                     children: [
-                      Expanded(
-                        flex: 4,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10)),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.snap['profileimg'],
-                            height: double.infinity,
-                            // width: 120,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.person_outline_rounded,
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    widget.snap['first name'] +
-                                        " " +
-                                        widget.snap['last name'],
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: IconButton(
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Make Admin',
                                     style: GoogleFonts.poppins(
                                         color: Colors.black87,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    EvaIcons.emailOutline,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Flexible(
-                                    child: Text(
-                                      widget.snap['email'],
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black87,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
+                                  content: SizedBox(
+                                    height: 170,
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          'Do you really want to make this user as admin?',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              height: 0,
+                                              color: Colors.black),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8),
+                                              child: MaterialButton(
+                                                minWidth: 100,
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                color: Colors.grey.shade700,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    "No",
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        height: 0,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            MaterialButton(
+                                              // onPressed: () {},
+                                              onPressed: () {
+                                                var collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection('users');
+                                                var docid = widget.snap['uid'];
+                                                collection
+                                                    .doc(docid)
+                                                    .update({'role': 'Admin'});
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                              color: Colors.green.shade400,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "Yes",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      height: 0,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    EvaIcons.calendarOutline,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    widget.snap['age'],
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black87,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    EvaIcons.phoneOutline,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    widget.snap['phone number'],
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black87,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                              Container(),
-                            ],
-                          ),
+                                );
+                              },
+                            );
+                          },
+                          splashRadius: 26,
+                          icon: const Icon(Icons.more_vert_rounded,
+                              color: Colors.black87),
+                          iconSize: 30,
                         ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.snap['profileimg'],
+                                height: double.infinity,
+                                // width: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 8,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.person_outline_rounded,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        widget.snap['first name'] +
+                                            " " +
+                                            widget.snap['last name'],
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Icon(
+                                        EvaIcons.emailOutline,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Flexible(
+                                        child: Text(
+                                          widget.snap['email'],
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.black87,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.cake_outlined,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        widget.snap['dob'],
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        widget.snap['gender'] == 'Male'
+                                            ? Icons.male_outlined
+                                            : Icons.female_outlined,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        widget.snap['gender'],
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        EvaIcons.phoneOutline,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        widget.snap['phone number'],
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -422,7 +550,7 @@ class UserAppointContainer extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(
-                                width: 20,
+                                width: 40,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -849,7 +977,7 @@ class AcceptedUserAppointContainer extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            width: 20,
+                            width: 40,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

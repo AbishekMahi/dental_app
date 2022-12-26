@@ -2,17 +2,16 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dental_app/screens/profile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import '../resourses/storage_method.dart';
 import '../utils/img_picker.dart';
 import '../utils/submit_button.dart';
 import '../utils/textfield.dart';
+import 'package:intl/intl.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -22,23 +21,50 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  static const List<String> list = <String>[
+    'Male',
+    'Female',
+  ];
   final GlobalKey<FormState> _formKey = GlobalKey();
-
+  String dropdownValue = list.first;
   String userFname = "";
   String userLname = "";
   String userAge = "";
   String userPhone = "";
   String userImg = "";
+  String userGender = "";
+  String userDob = "";
   Uint8List? imageUrl;
-  final amount = TextEditingController(text: "1000");
 
+  final amount = TextEditingController(text: "1000");
   final fname = TextEditingController();
   final lname = TextEditingController();
-  final age = TextEditingController();
   final phone = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController dateinput = TextEditingController();
 
-  // late Uint8List file;
+  @override
+  void initState() {
+    dateinput.text = "";
+    getUserName();
+    super.initState();
+  }
+
+  void getDate() async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime(2005),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2006));
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('dd MMM yyyy').format(pickedDate);
+      setState(() {
+        dateinput.text = formattedDate;
+        // dateinput.text = formattedDate;
+      });
+    } else {}
+  }
 
   void pickUploadImg() async {
     final image = await ImagePicker().pickImage(
@@ -66,11 +92,11 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getUserName();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUserName();
+  // }
 
   void getUserName() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
@@ -81,7 +107,8 @@ class _EditProfileState extends State<EditProfile> {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userLname = (snap.data() as Map<String, dynamic>)['last name'];
       userPhone = (snap.data() as Map<String, dynamic>)['phone number'];
-      userAge = (snap.data() as Map<String, dynamic>)['age'];
+      userDob = (snap.data() as Map<String, dynamic>)['dob'];
+      userGender = (snap.data() as Map<String, dynamic>)['gender'];
       userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
     });
   }
@@ -184,10 +211,7 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             SubjectField(
                               key: Key(userFname.toString()),
-                              // initialValue: userFname.toString(),
-                              labelText: 'First Name',
-                              // hintText: 'First Name',
-                              hintText: userFname.toString(),
+                              hintText: '$userFname (First Name)',
                               prefixIcon: Icons.person,
                               obscureText: false,
                               keyboardType: TextInputType.text,
@@ -198,17 +222,14 @@ class _EditProfileState extends State<EditProfile> {
                                 return null;
                               },
                               controller: fname,
+                              readOnly: false,
                             ),
                             const SizedBox(
                               height: 10,
                             ),
                             SubjectField(
                               key: Key(userLname.toString()),
-                              // initialValue: userLname,
-                              labelText: 'Last Name',
-                              // hintText: 'Last name',
-                              hintText: userLname.toString(),
-
+                              hintText: '$userLname (Last Name)',
                               prefixIcon: Icons.person,
                               obscureText: false,
                               keyboardType: TextInputType.text,
@@ -219,16 +240,14 @@ class _EditProfileState extends State<EditProfile> {
                                 return null;
                               },
                               controller: lname,
+                              readOnly: false,
                             ),
                             const SizedBox(
                               height: 10,
                             ),
                             SubjectField(
                               key: Key(userPhone.toString()),
-                              // initialValue: userPhone.toString(),
-                              labelText: 'Phone number',
-                              // hintText: '+91 00000 00000',
-                              hintText: userPhone.toString(),
+                              hintText: '$userPhone (Mobile Number)',
                               prefixIcon: Icons.phone,
                               obscureText: false,
                               keyboardType: TextInputType.phone,
@@ -241,28 +260,81 @@ class _EditProfileState extends State<EditProfile> {
                                 return null;
                               },
                               controller: phone,
+                              readOnly: false,
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 8,
                             ),
                             SubjectField(
-                                key: Key(userAge.toString()),
-                                // initialValue: userAge.toString(),
-                                labelText: 'Age',
-                                // hintText: 'Your age',
-                                hintText: userAge.toString(),
-                                prefixIcon: EvaIcons.calendar,
-                                obscureText: false,
-                                keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Invalid Phone number!';
-                                  }
-                                  return null;
+                              hintText: '$userDob (Select DOB)',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Select Date';
+                                }
+                              },
+                              controller: dateinput,
+                              prefixIcon: Icons.cake,
+                              onTap: () {
+                                getDate();
+                              },
+                              obscureText: false,
+                              readOnly: true,
+                            ),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 13),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black87),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: DropdownButtonFormField<String>(
+                                dropdownColor: Colors.white,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    dropdownValue == 'Male'
+                                        ? Icons.male_outlined
+                                        : Icons.female_outlined,
+                                    color: Colors.black87,
+                                  ),
+                                  focusColor: Colors.black,
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                value: dropdownValue,
+                                // isExpanded: false,
+                                icon: const Icon(
+                                  Icons.arrow_downward,
+                                  size: 25,
+                                  // color: Colors.white,
+                                ),
+                                // elevation: 16,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    dropdownValue = value!;
+                                  });
                                 },
-                                controller: age),
-                            const SizedBox(
-                              height: 10,
+                                items: list.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    // value: 'Gender',
+                                    child: Text(
+                                      value,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black87,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ],
                         ),
@@ -283,8 +355,8 @@ class _EditProfileState extends State<EditProfile> {
                             .update({
                           'first name': fname.text,
                           'last name': lname.text,
-                          'age': age.text,
-                          // 'profileimg': photoUrl,
+                          'dob': dateinput.text,
+                          'gender': dropdownValue,
                           'phone number': phone.text,
                           'last edited': FieldValue.serverTimestamp(),
                         });

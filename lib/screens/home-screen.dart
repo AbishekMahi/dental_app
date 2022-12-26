@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/admin/admin-home.dart';
@@ -9,17 +11,16 @@ import 'package:dental_app/screens/gallery.dart';
 import 'package:dental_app/screens/appointments.dart';
 import 'package:dental_app/screens/notifications.dart';
 import 'package:dental_app/screens/prescription.dart';
-import 'package:dental_app/screens/profile.dart';
 import 'package:dental_app/screens/services.dart';
 import 'package:dental_app/screens/testimonials.dart';
 import 'package:dental_app/screens/tips_page.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/menu_list.dart';
 import '../utils/submit_button.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DecideHome extends StatefulWidget {
   DecideHome({super.key});
@@ -56,7 +57,7 @@ class _DecideHomeState extends State<DecideHome> {
   }
 
   Widget checkRole(DocumentSnapshot snapshot) {
-    if (snapshot.get('role') == 'admin') {
+    if (snapshot.get('role') == 'Admin') {
       return const AdminHome();
     } else {
       return const HomePage();
@@ -287,8 +288,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const AboutUs(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const AboutUs(),
                           ),
                         );
                       },
@@ -299,8 +301,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Services(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Services(),
                           ),
                         );
                       },
@@ -311,8 +314,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const TipsPage(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const TipsPage(),
                           ),
                         );
                       },
@@ -323,8 +327,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Gallery(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Gallery(),
                           ),
                         );
                       },
@@ -335,8 +340,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const History(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const History(),
                           ),
                         );
                       },
@@ -347,8 +353,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Prescriptions(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Prescriptions(),
                           ),
                         );
                       },
@@ -359,8 +366,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Availability(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Availability(),
                           ),
                         );
                       },
@@ -371,8 +379,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const Testimonials(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Testimonials(),
                           ),
                         );
                       },
@@ -383,8 +392,9 @@ class _HomePageState extends State<HomePage> {
                       ontouch: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const ContactUs(),
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const ContactUs(),
                           ),
                         );
                       },
@@ -398,10 +408,17 @@ class _HomePageState extends State<HomePage> {
                   btntxt: 'Book Appointment',
                   fontSize: 20,
                   ontouch: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const Booking(),
+                    //   ),
+                    // );
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const Booking(),
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: const Booking(),
                       ),
                     );
                   },

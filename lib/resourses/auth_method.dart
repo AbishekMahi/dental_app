@@ -41,7 +41,7 @@ class AuthMethods {
           'last name': lname,
           'uid': cred.user!.uid,
           'email': email,
-          'age': dateinput,
+          'dob': dateinput,
           'gender': gender,
           'profileimg': photoUrl,
           'phone number': phone,

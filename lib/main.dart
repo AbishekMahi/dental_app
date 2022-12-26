@@ -1,4 +1,3 @@
-import 'package:dental_app/screens/authentications/login.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
 import 'package:dental_app/screens/home-screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

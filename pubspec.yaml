@@ -55,6 +55,7 @@ dependencies:
   firebase_core: ^1.24.0
   firebase_database: ^9.1.6
   firebase_storage: ^10.3.11
+  page_transition: ^2.0.9
 
 
 dev_dependencies:
