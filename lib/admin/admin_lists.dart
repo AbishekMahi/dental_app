@@ -193,9 +193,10 @@ class AdminContainer extends StatelessWidget {
                                             .instance
                                             .collection('users');
                                         var docid = snap['uid'];
-                                        collection
-                                            .doc(docid)
-                                            .update({'role': 'User'});
+                                        collection.doc(docid).update({
+                                          'role': 'User',
+                                          'ex-admin': 'Yes'
+                                        });
                                         Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },

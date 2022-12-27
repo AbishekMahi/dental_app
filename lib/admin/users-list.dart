@@ -97,7 +97,7 @@ class _UsersListState extends State<UsersList> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('users')
-          .where('role', isEqualTo: "User")
+          .where('role', isNotEqualTo: "Admin")
           // .orderBy('first name', descending: false)
           .snapshots(),
       builder: (context,

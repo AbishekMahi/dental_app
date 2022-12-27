@@ -115,11 +115,12 @@ class _AdminHomeState extends State<AdminHome> {
                         title: 'User Details',
                         ontouch: () {
                           Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.leftToRight,
-                                child: const UserBios(),
-                              ));
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.leftToRight,
+                              child: const UserBios(),
+                            ),
+                          );
                         },
                       ),
                     ),

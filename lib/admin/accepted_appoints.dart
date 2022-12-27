@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'dart:typed_data';
+import '../utils/img_picker.dart';
 
 class AcceptedAppoints extends StatefulWidget {
   const AcceptedAppoints({super.key});
@@ -73,13 +78,35 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
 
   _AcceptedAppointContainerState(this.snap);
 
-  final amount = TextEditingController(text: "1000");
+  // final amount = TextEditingController(text: "1000");
+  final amount = TextEditingController();
   // final controller = TextEditingController();
+  Uint8List? imageUrl;
 
   @override
   void dispose() {
     amount.dispose();
     super.dispose();
+  }
+
+  void selectImg() async {
+    Uint8List img = await pickImg(ImageSource.gallery);
+    setState(() {
+      imageUrl = img;
+    });
+  }
+
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<String> uploadPresToStorage(String childname, Uint8List file) async {
+    Reference ref = _storage
+        .ref()
+        .child(childname)
+        .child(_auth.currentUser!.uid + snap['appoint id']);
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   @override
@@ -129,11 +156,11 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                                 controller: amount,
                                 // initialValue: snap!['amount paid'],
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Enter Amount',
-                                  hintText: '₹ 00.0',
-                                  prefixIcon: Align(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  // labelText: 'Enter Amount',
+                                  hintText: "₹ " + snap!['amount paid'],
+                                  prefixIcon: const Align(
                                     widthFactor: 1.0,
                                     heightFactor: 1.0,
                                     child: Icon(
@@ -142,22 +169,50 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                                   ),
                                 ),
                               ),
+
                               const SizedBox(
                                 height: 5,
                               ),
-                              const TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Prescription',
-                                  prefixIcon: Align(
-                                    widthFactor: 1.0,
-                                    heightFactor: 1.0,
-                                    child: Icon(
-                                      Icons.note_add_outlined,
-                                    ),
+                              InkWell(
+                                onTap: (() {
+                                  selectImg();
+                                }),
+                                child: Ink(
+                                  color: Colors.blue,
+                                  padding: const EdgeInsets.all(13),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.add_a_photo_outlined,
+                                          color: Colors.white),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                          child: Text(
+                                        'Add Prescription',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            height: 0,
+                                            color: Colors.white),
+                                      )),
+                                    ],
                                   ),
                                 ),
                               ),
+                              // const TextField(
+                              //   decoration: InputDecoration(
+                              //     border: OutlineInputBorder(),
+                              //     labelText: 'Prescription',
+                              //     prefixIcon: Align(
+                              //       widthFactor: 1.0,
+                              //       heightFactor: 1.0,
+                              //       child: Icon(
+                              //         Icons.note_add_outlined,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -187,14 +242,18 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                                     ),
                                   ),
                                   MaterialButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      String photoUrl =
+                                          await uploadPresToStorage(
+                                              'prescription', imageUrl!);
                                       var collection = FirebaseFirestore
                                           .instance
                                           .collection('appointments');
                                       var docid = snap['appoint id'];
                                       collection.doc(docid).update({
                                         'amount paid': amount.text,
-                                        'prescription added': 'yes'
+                                        'prescription added': 'yes',
+                                        'prescription': photoUrl
                                       });
                                       Navigator.of(context).pop();
                                     },

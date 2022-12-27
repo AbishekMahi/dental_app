@@ -26,7 +26,6 @@ class _SignUpState extends State<SignUp> {
   final fname = TextEditingController();
   final lname = TextEditingController();
   final phone = TextEditingController();
-  // final age = TextEditingController();
   Uint8List? imageUrl;
   final dateinput = TextEditingController();
   // String cdate = DateFormat("MM-dd-yyyy").format(DateTime.now());
@@ -45,7 +44,6 @@ class _SignUpState extends State<SignUp> {
     fname.dispose();
     lname.dispose();
     phone.dispose();
-    // age.dispose();
     super.dispose();
   }
 
@@ -79,7 +77,6 @@ class _SignUpState extends State<SignUp> {
         email: email.text,
         password: password.text,
         cpassword: cpassword.text,
-        // age: age.text,
         dateinput: dateinput.text,
         phone: phone.text,
         gender: dropdownValue,
