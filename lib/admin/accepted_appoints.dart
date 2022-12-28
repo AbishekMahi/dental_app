@@ -132,159 +132,278 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
             Positioned(
               top: -10,
               right: -10,
-              child: IconButton(
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Add Amount and Prescription here:',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black87,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        content: SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              // Text(amount.text),
-                              TextFormField(
-                                controller: amount,
-                                // initialValue: snap!['amount paid'],
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  // labelText: 'Enter Amount',
-                                  hintText: "₹ " + snap!['amount paid'],
-                                  prefixIcon: const Align(
-                                    widthFactor: 1.0,
-                                    heightFactor: 1.0,
-                                    child: Icon(
-                                      Icons.payments_outlined,
-                                    ),
-                                  ),
-                                ),
+              child: PopupMenuButton(
+                color: Colors.blue.shade50,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    onTap: () async {
+                      Future.delayed(const Duration(seconds: 0), () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                'Add Amount',
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
                               ),
-
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              InkWell(
-                                onTap: (() {
-                                  selectImg();
-                                }),
-                                child: Ink(
-                                  color: Colors.blue,
-                                  padding: const EdgeInsets.all(13),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.add_a_photo_outlined,
-                                          color: Colors.white),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        'Add Prescription',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            height: 0,
-                                            color: Colors.white),
-                                      )),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              // const TextField(
-                              //   decoration: InputDecoration(
-                              //     border: OutlineInputBorder(),
-                              //     labelText: 'Prescription',
-                              //     prefixIcon: Align(
-                              //       widthFactor: 1.0,
-                              //       heightFactor: 1.0,
-                              //       child: Icon(
-                              //         Icons.note_add_outlined,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: MaterialButton(
-                                      minWidth: 100,
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      color: Colors.grey.shade700,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "No",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              height: 0,
-                                              color: Colors.white),
+                              content: SizedBox(
+                                height: 120,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextFormField(
+                                      controller: amount,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(),
+                                        hintText: "₹ " + snap!['amount paid'],
+                                        prefixIcon: const Align(
+                                          widthFactor: 1.0,
+                                          heightFactor: 1.0,
+                                          child: Icon(
+                                            Icons.payments_outlined,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  MaterialButton(
-                                    onPressed: () async {
-                                      String photoUrl =
-                                          await uploadPresToStorage(
-                                              'prescription', imageUrl!);
-                                      var collection = FirebaseFirestore
-                                          .instance
-                                          .collection('appointments');
-                                      var docid = snap['appoint id'];
-                                      collection.doc(docid).update({
-                                        'amount paid': amount.text,
-                                        'prescription added': 'yes',
-                                        'prescription': photoUrl
-                                      });
-                                      Navigator.of(context).pop();
-                                    },
-                                    color: Colors.green.shade400,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Submit",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            height: 0,
-                                            color: Colors.white),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8),
+                                          child: MaterialButton(
+                                            minWidth: 100,
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            color: Colors.grey.shade700,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "No",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 0,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        MaterialButton(
+                                          onPressed: () async {
+                                            var collection = FirebaseFirestore
+                                                .instance
+                                                .collection('appointments');
+                                            var docid = snap['appoint id'];
+                                            collection.doc(docid).update({
+                                              'amount paid': amount.text,
+                                              'amount edited by': {
+                                                'email': FirebaseAuth.instance
+                                                    .currentUser!.email,
+                                                'uid': FirebaseAuth
+                                                    .instance.currentUser!.uid,
+                                                'last edited': FieldValue
+                                                    .serverTimestamp(),
+                                              },
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.green.shade400,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Submit",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 0,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.currency_rupee_rounded,
+                          size: 22,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          'Add Amount',
+                          style: GoogleFonts.poppins(
+                              color: Colors.black87,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    onTap: () async {
+                      Future.delayed(const Duration(seconds: 0), () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                'Add Prescription',
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              content: SizedBox(
+                                height: 120,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: (() {
+                                        selectImg();
+                                      }),
+                                      child: Ink(
+                                        color: Colors.blue,
+                                        padding: const EdgeInsets.all(13),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                                Icons.add_a_photo_outlined,
+                                                color: Colors.white),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                'Add Prescription',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 0,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8),
+                                          child: MaterialButton(
+                                            minWidth: 100,
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            color: Colors.grey.shade700,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "No",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 0,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        MaterialButton(
+                                          onPressed: () async {
+                                            String photoUrl =
+                                                await uploadPresToStorage(
+                                                    'prescription', imageUrl!);
+                                            var collection = FirebaseFirestore
+                                                .instance
+                                                .collection('appointments');
+                                            var docid = snap['appoint id'];
+                                            collection.doc(docid).update({
+                                              'prescription': photoUrl,
+                                              'prescription added': 'yes',
+                                              'prescription edited by': {
+                                                'email': FirebaseAuth.instance
+                                                    .currentUser!.email,
+                                                'uid': FirebaseAuth
+                                                    .instance.currentUser!.uid,
+                                                'last edited': FieldValue
+                                                    .serverTimestamp(),
+                                              },
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.green.shade400,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Submit",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 0,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      );
+                            );
+                          },
+                        );
+                      });
                     },
-                  );
-                },
-                splashRadius: 26,
-                icon: Icon(
-                  Icons.edit_note_rounded,
-                  color: Colors.blue.shade800,
-                ),
-                iconSize: 32,
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.edit_note_rounded,
+                          size: 22,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          'Add Prescription',
+                          style: GoogleFonts.poppins(
+                              color: Colors.black87,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             Column(
@@ -351,12 +470,6 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                               ),
                             ],
                           ),
-                          // const SizedBox(
-                          //   height: 10.0,
-                          //   child: Divider(
-                          //     color: Colors.black45,
-                          //   ),
-                          // ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -437,17 +550,6 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      // const VerticalDivider(
-                      //   color: Colors.black87,
-                      //   thickness: .5,
-                      // ),
-                      // Text(
-                      //   '📞 9443399014',
-                      //   style: GoogleFonts.poppins(
-                      //       color: Colors.black87,
-                      //       fontSize: 12,
-                      //       fontWeight: FontWeight.w400),
-                      // ),
                     ],
                   ),
                 ),
@@ -485,3 +587,155 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
     );
   }
 }
+            // Positioned(
+            //   top: -10,
+            //   right: -10,
+            //   child: IconButton(
+            //     onPressed: () async {
+            //       showDialog(
+            //         context: context,
+            //         builder: (context) {
+            //           return AlertDialog(
+            //             title: Text(
+            //               'Add Amount and Prescription here:',
+            //               style: GoogleFonts.poppins(
+            //                   color: Colors.black87,
+            //                   fontSize: 18,
+            //                   fontWeight: FontWeight.w500),
+            //             ),
+            //             content: SizedBox(
+            //               height: 200,
+            //               width: double.infinity,
+            //               child: Column(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //                 children: [
+            //                   // Text(amount.text),
+            //                   TextFormField(
+            //                     controller: amount,
+            //                     // initialValue: snap!['amount paid'],
+            //                     keyboardType: TextInputType.number,
+            //                     decoration: InputDecoration(
+            //                       border: const OutlineInputBorder(),
+            //                       // labelText: 'Enter Amount',
+            //                       hintText: "₹ " + snap!['amount paid'],
+            //                       prefixIcon: const Align(
+            //                         widthFactor: 1.0,
+            //                         heightFactor: 1.0,
+            //                         child: Icon(
+            //                           Icons.payments_outlined,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                   const SizedBox(
+            //                     height: 5,
+            //                   ),
+            //                   InkWell(
+            //                     onTap: (() {
+            //                       selectImg();
+            //                     }),
+            //                     child: Ink(
+            //                       color: Colors.blue,
+            //                       padding: const EdgeInsets.all(13),
+            //                       child: Row(
+            //                         children: [
+            //                           const Icon(Icons.add_a_photo_outlined,
+            //                               color: Colors.white),
+            //                           const SizedBox(
+            //                             width: 5,
+            //                           ),
+            //                           Expanded(
+            //                               child: Text(
+            //                             'Add Prescription',
+            //                             style: GoogleFonts.poppins(
+            //                                 fontSize: 18,
+            //                                 fontWeight: FontWeight.w500,
+            //                                 height: 0,
+            //                                 color: Colors.white),
+            //                           )),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   ),
+            //                   const SizedBox(
+            //                     height: 5,
+            //                   ),
+            //                   Row(
+            //                     mainAxisAlignment:
+            //                         MainAxisAlignment.spaceEvenly,
+            //                     children: [
+            //                       Padding(
+            //                         padding: const EdgeInsets.only(right: 8),
+            //                         child: MaterialButton(
+            //                           minWidth: 100,
+            //                           onPressed: () {
+            //                             Navigator.of(context).pop();
+            //                           },
+            //                           color: Colors.grey.shade700,
+            //                           child: Padding(
+            //                             padding: const EdgeInsets.all(8.0),
+            //                             child: Text(
+            //                               "No",
+            //                               style: GoogleFonts.poppins(
+            //                                   fontSize: 18,
+            //                                   fontWeight: FontWeight.w500,
+            //                                   height: 0,
+            //                                   color: Colors.white),
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ),
+            //                       MaterialButton(
+            //                         onPressed: () async {
+            //                           String photoUrl =
+            //                               await uploadPresToStorage(
+            //                                   'prescription', imageUrl!);
+            //                           var collection = FirebaseFirestore
+            //                               .instance
+            //                               .collection('appointments');
+            //                           var docid = snap['appoint id'];
+            //                           collection.doc(docid).update({
+            //                             'amount paid': amount.text,
+            //                             'prescription added': 'yes',
+            //                             'last edited':
+            //                                 FieldValue.serverTimestamp(),
+            //                             'edited by': {
+            //                               'email': FirebaseAuth
+            //                                   .instance.currentUser!.email,
+            //                               'uid': FirebaseAuth
+            //                                   .instance.currentUser!.uid,
+            //                             },
+            //                             'prescription': photoUrl
+            //                           });
+            //                           Navigator.of(context).pop();
+            //                         },
+            //                         color: Colors.green.shade400,
+            //                         child: Padding(
+            //                           padding: const EdgeInsets.all(8.0),
+            //                           child: Text(
+            //                             "Submit",
+            //                             style: GoogleFonts.poppins(
+            //                                 fontSize: 18,
+            //                                 fontWeight: FontWeight.w500,
+            //                                 height: 0,
+            //                                 color: Colors.white),
+            //                           ),
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       );
+            //     },
+            //     splashRadius: 26,
+            //     icon: Icon(
+            //       Icons.edit_note_rounded,
+            //       color: Colors.blue.shade800,
+            //     ),
+            //     iconSize: 32,
+            //   ),
+            // ),

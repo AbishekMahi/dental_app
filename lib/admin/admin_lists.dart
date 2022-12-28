@@ -138,22 +138,22 @@ class AdminContainer extends StatelessWidget {
                       builder: (context) {
                         return AlertDialog(
                           title: Text(
-                            'Remove Admin',
+                            'Remove Admin Access',
                             style: GoogleFonts.poppins(
                                 color: Colors.black87,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           ),
                           content: SizedBox(
-                            height: 170,
+                            height: 150,
                             width: double.infinity,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  'Do you really want to make this user as admin?',
+                                  'Do you really want to change this account as User?',
                                   style: GoogleFonts.poppins(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w400,
                                       height: 0,
                                       color: Colors.black),
@@ -200,16 +200,25 @@ class AdminContainer extends StatelessWidget {
                                         Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },
-                                      color: Colors.green.shade400,
+                                      color: Colors.red.shade400,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "Yes",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              height: 0,
-                                              color: Colors.white),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                                Icons
+                                                    .remove_circle_outline_outlined,
+                                                color: Colors.white),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              "Yes",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 0,
+                                                  color: Colors.white),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

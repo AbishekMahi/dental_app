@@ -4,6 +4,7 @@ import 'package:dental_app/admin/full_profile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserBios extends StatefulWidget {
@@ -139,114 +140,114 @@ class UserContainer extends StatelessWidget {
       onTap: (() {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (builder) => FullProfile(snap: snap),
+          PageTransition(
+            type: PageTransitionType.bottomToTop,
+            child: FullProfile(snap: snap),
           ),
+          // MaterialPageRoute(
+          //   builder: (builder) => FullProfile(snap: snap),
+          // ),
         );
       }),
       child: Flexible(
-        child: Hero(
-          tag: snap['uid'],
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x29000000),
-                  offset: Offset(0, 4),
-                  blurRadius: 3,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x29000000),
+                offset: Offset(0, 4),
+                blurRadius: 3,
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: 36,
+                backgroundImage: const AssetImage(
+                  "assets/images/default-profile-pic.jpg",
                 ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  radius: 36,
-                  backgroundImage: const AssetImage(
-                    "assets/images/default-profile-pic.jpg",
+                foregroundImage: CachedNetworkImageProvider(snap['profileimg']),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    snap['first name'] + ' ' + snap['last name'],
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        color: Colors.black87,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
                   ),
-                  foregroundImage:
-                      CachedNetworkImageProvider(snap['profileimg']),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Column(
+                  const SizedBox(height: 5),
+                  Text(
+                    snap['email'],
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        color: Colors.black87,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  // const SizedBox(height: 5),
+                  // Text(
+                  //   snap['age'] + ' years old',
+                  //   textAlign: TextAlign.center,
+                  //   style: GoogleFonts.poppins(
+                  //       color: Colors.black87,
+                  //       fontSize: 12,
+                  //       fontWeight: FontWeight.w400),
+                  // ),
+                ],
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  final Uri launchUri = Uri(
+                    scheme: 'tel',
+                    path: snap['phone number'],
+                  );
+                  if (await canLaunch(launchUri.toString())) {
+                    await launch(launchUri.toString());
+                  } else {
+                    print('not supported');
+                  }
+                },
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      snap['first name'] + ' ' + snap['last name'],
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
+                    const Icon(
+                      Icons.phone,
+                      size: 14,
+                      color: Colors.white,
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Text(
-                      snap['email'],
+                      snap['phone number'],
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
-                          color: Colors.black87,
+                          // color: Colors.black87,
+                          color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
-                    // const SizedBox(height: 5),
-                    // Text(
-                    //   snap['age'] + ' years old',
-                    //   textAlign: TextAlign.center,
-                    //   style: GoogleFonts.poppins(
-                    //       color: Colors.black87,
-                    //       fontSize: 12,
-                    //       fontWeight: FontWeight.w400),
-                    // ),
                   ],
                 ),
-                MaterialButton(
-                  color: Colors.blue,
-                  onPressed: () async {
-                    final Uri launchUri = Uri(
-                      scheme: 'tel',
-                      path: snap['phone number'],
-                    );
-                    if (await canLaunch(launchUri.toString())) {
-                      await launch(launchUri.toString());
-                    } else {
-                      print('not supported');
-                    }
-                  },
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.phone,
-                        size: 14,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        snap['phone number'],
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            // color: Colors.black87,
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

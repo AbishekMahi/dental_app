@@ -91,7 +91,7 @@ class _FullProfileState extends State<FullProfile> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   content: SizedBox(
-                                    height: 170,
+                                    height: 150,
                                     width: double.infinity,
                                     child: Column(
                                       mainAxisAlignment:
@@ -100,7 +100,7 @@ class _FullProfileState extends State<FullProfile> {
                                         Text(
                                           'Do you really want to make this user as admin?',
                                           style: GoogleFonts.poppins(
-                                              fontSize: 18,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.w400,
                                               height: 0,
                                               color: Colors.black),
@@ -415,7 +415,7 @@ class _UserAppointsState extends State<UserAppoints> {
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.white),
             );
           }
           return ListView.builder(
@@ -729,7 +729,7 @@ class _PrescriptionListState extends State<PrescriptionList> {
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Colors.white),
           );
         }
         return GridView.builder(
@@ -850,7 +850,7 @@ class _AcceptedUserAppointsState extends State<AcceptedUserAppoints> {
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.white),
             );
           }
           return ListView.builder(

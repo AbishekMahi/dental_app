@@ -112,7 +112,7 @@ class _AdminHomeState extends State<AdminHome> {
                       tag: 'users',
                       child: ExtraFeatures(
                         imageUrl: 'assets/images/users.png',
-                        title: 'User Details',
+                        title: 'Users',
                         ontouch: () {
                           Navigator.push(
                             context,
@@ -146,6 +146,19 @@ class _AdminHomeState extends State<AdminHome> {
                           PageTransition(
                             type: PageTransitionType.leftToRight,
                             child: const Messages(),
+                          ),
+                        );
+                      },
+                    ),
+                    ExtraFeatures(
+                      imageUrl: 'assets/images/rupee.png',
+                      title: 'Payments',
+                      ontouch: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: const Payments(),
                           ),
                         );
                       },
@@ -205,19 +218,6 @@ class _AdminHomeState extends State<AdminHome> {
                           PageTransition(
                             type: PageTransitionType.leftToRight,
                             child: const WebAppoints(),
-                          ),
-                        );
-                      },
-                    ),
-                    ExtraFeatures(
-                      imageUrl: 'assets/images/rupee.png',
-                      title: 'Payments',
-                      ontouch: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.leftToRight,
-                            child: const Payments(),
                           ),
                         );
                       },
