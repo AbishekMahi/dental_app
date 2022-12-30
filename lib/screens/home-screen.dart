@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/admin/admin-home.dart';
@@ -102,7 +100,6 @@ class _HomePageState extends State<HomePage> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    // print(snap.data());
     setState(() {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userImg = (snap.data() as Map<String, dynamic>)['profileimg'];
@@ -155,20 +152,6 @@ class _HomePageState extends State<HomePage> {
                 iconSize: 32,
               ),
             ),
-            // StatefulBuilder(
-            //   builder: (BuildContext context, setState) {
-            //     return IconButton(
-            //       splashRadius: 26,
-            //       icon: const Icon(
-            //         EvaIcons.menu2,
-            //       ),
-            //       iconSize: 32,
-            //       onPressed: () {
-            //         _scaffoldkey.currentState!.openEndDrawer();
-            //       },
-            //     );
-            //   },
-            // ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
@@ -201,27 +184,18 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AdminHome(),
-                    ),
-                  );
-                },
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const AdminHome(),
+                //     ),
+                //   );
+                // },
                 child: Container(
                   margin: const EdgeInsets.all(15),
-                  // height: 200,
                   padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
                   decoration: BoxDecoration(
-                    // gradient: const LinearGradient(
-                    //   begin: Alignment.topLeft,
-                    //   end: Alignment.bottomRight,
-                    //   colors: [
-                    //     Color.fromARGB(255, 216, 255, 243),
-                    //     Color.fromARGB(255, 245, 255, 253),
-                    //   ],
-                    // ),
                     image: const DecorationImage(
                         opacity: 50,
                         image: AssetImage("assets/images/back.png"),
@@ -244,7 +218,6 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               'Welcome',
-                              // user.email!,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                   fontSize: 18,

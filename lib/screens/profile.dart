@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/screens/authentications/welcome.dart';
-import 'package:dental_app/screens/booking.dart';
 import 'package:dental_app/screens/edit-profile.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/submit_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -118,66 +115,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(
                         width: 100,
                         height: 100,
-                        child: GestureDetector(
-                          onTap: () {
-                            // pickUploadImg();
-                          },
-                          child: FullScreenWidget(
-                            child: Hero(
-                              tag: userImg,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: userImg == ""
-                                    ? Image.asset(
-                                        'assets/images/default-profile-pic.jpg',
-                                        fit: BoxFit.fitWidth,
-                                      )
-                                    : CachedNetworkImage(
-                                        imageUrl: userImg,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                              ),
+                        child: FullScreenWidget(
+                          child: Hero(
+                            tag: userImg,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: userImg == ""
+                                  ? Image.asset(
+                                      'assets/images/default-profile-pic.jpg',
+                                      fit: BoxFit.fitWidth,
+                                    )
+                                  : CachedNetworkImage(
+                                      imageUrl: userImg,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                             ),
                           ),
-                          // child: FullScreenWidget(
-                          //   child: CircleAvatar(
-                          //     backgroundColor: Colors.grey,
-                          //     backgroundImage: const AssetImage(
-                          //       "assets/images/default-profile-pic.jpg",
-                          //     ),
-                          //     foregroundImage:
-                          //         CachedNetworkImageProvider(userImg),
-                          //   ),
-                          // ),
                         ),
                       ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.center,
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     Text(
-                      //       userFname,
-                      //       textAlign: TextAlign.center,
-                      //       style: GoogleFonts.poppins(
-                      //         fontSize: 14,
-                      //         fontWeight: FontWeight.w500,
-                      //         height: 0,
-                      //       ),
-                      //     ),
-                      //     Text(
-                      //       user.email!,
-                      //       textAlign: TextAlign.center,
-                      //       style: GoogleFonts.poppins(
-                      //         fontSize: 12,
-                      //         fontWeight: FontWeight.w400,
-                      //         height: 0,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),

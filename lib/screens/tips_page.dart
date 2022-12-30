@@ -125,16 +125,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://mymagnoliadental.com/wp-content/uploads/sites/247/2020/07/shutterstock_341762891-min.jpg.optimal.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '1',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://mymagnoliadental.com/wp-content/uploads/sites/247/2020/07/shutterstock_341762891-min.jpg.optimal.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -160,16 +163,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://media.istockphoto.com/photos/new-and-worn-old-toothbrush-in-contrast-on-marble-background-picture-id1194110570?k=20&m=1194110570&s=612x612&w=0&h=RlPSqDnkHg0P7ryMAAYzmayDGFRGfJiU-8dCxtHZeiw=',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '2',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://media.istockphoto.com/photos/new-and-worn-old-toothbrush-in-contrast-on-marble-background-picture-id1194110570?k=20&m=1194110570&s=612x612&w=0&h=RlPSqDnkHg0P7ryMAAYzmayDGFRGfJiU-8dCxtHZeiw=',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -195,16 +201,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://media.istockphoto.com/vectors/dentist-office-tooth-care-and-treatment-theme-vector-id1091797100?k=20&m=1091797100&s=612x612&w=0&h=UFdJ_2oCVrN65M2LEkfi46N12V33Nd1d-jXRbiY87M8=',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '3',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://media.istockphoto.com/vectors/dentist-office-tooth-care-and-treatment-theme-vector-id1091797100?k=20&m=1091797100&s=612x612&w=0&h=UFdJ_2oCVrN65M2LEkfi46N12V33Nd1d-jXRbiY87M8=',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -230,16 +239,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://mydentistburbank.com/wp-content/uploads/2021/06/teeth_damaging_foods.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '4`',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://mydentistburbank.com/wp-content/uploads/2021/06/teeth_damaging_foods.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -265,16 +277,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://d1kw0nx8pk9xzh.cloudfront.net/0001/ce5b05a7/resize-crop(w=1027;h=578):sharpen(level=0):output(format=jpeg)/up/dt/2021/10/The-good-the-bad-and-the-unproven.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '69',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://d1kw0nx8pk9xzh.cloudfront.net/0001/ce5b05a7/resize-crop(w=1027;h=578):sharpen(level=0):output(format=jpeg)/up/dt/2021/10/The-good-the-bad-and-the-unproven.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -300,16 +315,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://www.intimina.com/blog/wp-content/uploads/2018/01/INTIMINA-blog-146-tips-stay-hydrated-drink-water.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '27',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://www.intimina.com/blog/wp-content/uploads/2018/01/INTIMINA-blog-146-tips-stay-hydrated-drink-water.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -335,16 +353,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://nollfamilydentistry.com/wp-content/uploads/2020/06/smoking-dental-health.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '62',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://nollfamilydentistry.com/wp-content/uploads/2020/06/smoking-dental-health.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),
@@ -370,16 +391,19 @@ class _TipsPageState extends State<TipsPage> {
                 ),
                 FullScreenWidget(
                   backgroundColor: Colors.white,
-                  child: SafeArea(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: ExtendedImage.network(
-                            'https://www.esidentistry.com/wp-content/uploads/sites/61/2020/04/dental-fillings-sealants-dental-service-1024x768.jpg',
-                            fit: BoxFit.cover,
-                            cache: true,
+                  child: Hero(
+                    tag: '72',
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: ExtendedImage.network(
+                              'https://www.esidentistry.com/wp-content/uploads/sites/61/2020/04/dental-fillings-sealants-dental-service-1024x768.jpg',
+                              fit: BoxFit.cover,
+                              cache: true,
+                            ),
                           ),
                         ),
                       ),

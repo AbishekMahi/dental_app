@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../screens/authentications/welcome.dart';
 import '../screens/profile.dart';
 
@@ -33,7 +32,6 @@ class _MenuListState extends State<MenuList> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    // print(snap.data());
     setState(() {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userLname = (snap.data() as Map<String, dynamic>)['last name'];
@@ -70,8 +68,6 @@ class _MenuListState extends State<MenuList> {
                       "assets/images/default-profile-pic.jpg",
                     ),
                     foregroundImage: CachedNetworkImageProvider(userImg),
-                    // backgroundImage: AssetImage('assets/images/man.jpg'),
-                    // backgroundColor: Colors.grey,
                   ),
                   const SizedBox(
                     height: 5,
@@ -387,7 +383,7 @@ class _MenuListState extends State<MenuList> {
           Column(
             children: [
               CachedNetworkImage(
-                imageUrl: 'http://saistoothcare.com/images/logoclr.png',
+                imageUrl: 'https://saistoothcare.com/images/logoclr.png',
                 height: 50,
               ),
               const SizedBox(

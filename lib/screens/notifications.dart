@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../utils/msg_sent.dart';
 
 class Notifications extends StatefulWidget {
@@ -96,6 +95,12 @@ class MsgReceived extends StatefulWidget {
 class _MsgReceivedState extends State<MsgReceived> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text(
+        'Empty',
+        style: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+      ),
+    );
   }
 }

@@ -144,9 +144,6 @@ class UserContainer extends StatelessWidget {
             type: PageTransitionType.bottomToTop,
             child: FullProfile(snap: snap),
           ),
-          // MaterialPageRoute(
-          //   builder: (builder) => FullProfile(snap: snap),
-          // ),
         );
       }),
       child: Flexible(
@@ -199,15 +196,6 @@ class UserContainer extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w400),
                   ),
-                  // const SizedBox(height: 5),
-                  // Text(
-                  //   snap['age'] + ' years old',
-                  //   textAlign: TextAlign.center,
-                  //   style: GoogleFonts.poppins(
-                  //       color: Colors.black87,
-                  //       fontSize: 12,
-                  //       fontWeight: FontWeight.w400),
-                  // ),
                 ],
               ),
               MaterialButton(
@@ -239,7 +227,6 @@ class UserContainer extends StatelessWidget {
                       snap['phone number'],
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
-                          // color: Colors.black87,
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),

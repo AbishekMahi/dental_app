@@ -25,7 +25,7 @@ class _MsgUserSentState extends State<MsgUserSent> {
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.white),
             );
           }
           return ListView.builder(

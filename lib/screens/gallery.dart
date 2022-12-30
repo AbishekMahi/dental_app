@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
-import 'package:lottie/lottie.dart';
-import '../utils/submit_button.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({super.key});
