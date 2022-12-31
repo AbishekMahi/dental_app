@@ -322,7 +322,7 @@ class RejectedAppointContainer extends StatelessWidget {
                     children: [
                       Text(
                         // "By : ${snap['appointed by']}",
-                        'By Abishek',
+                        "By ${snap['user fname']}",
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
@@ -333,23 +333,12 @@ class RejectedAppointContainer extends StatelessWidget {
                         thickness: .5,
                       ),
                       Text(
-                        snap['appointed by'],
+                        snap['user mail'],
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
-                      // const VerticalDivider(
-                      //   color: Colors.black87,
-                      //   thickness: .5,
-                      // ),
-                      // Text(
-                      //   '📞 9443399014',
-                      //   style: GoogleFonts.poppins(
-                      //       color: Colors.black87,
-                      //       fontSize: 12,
-                      //       fontWeight: FontWeight.w400),
-                      // ),
                     ],
                   ),
                 ),

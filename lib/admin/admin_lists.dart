@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -196,7 +197,15 @@ class AdminContainer extends StatelessWidget {
                                           'role': 'User',
                                           'ex-admin': 'Yes'
                                         });
-                                        Navigator.of(context).pop();
+                                        // Show a snackbar with the result
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor:
+                                              const Color(0xFF00C75A),
+                                          content: Text(snap['first name'] +
+                                              ' changed as User'),
+                                        ));
+                                        Navigator.pop(context);
                                         Navigator.of(context).pop();
                                       },
                                       color: Colors.red.shade400,
@@ -313,7 +322,6 @@ class AdminContainer extends StatelessWidget {
                           snap['phone number'],
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
-                              // color: Colors.black87,
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),

@@ -33,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    // print(snap.data());
     setState(() {
       userFname = (snap.data() as Map<String, dynamic>)['first name'];
       userLname = (snap.data() as Map<String, dynamic>)['last name'];
@@ -322,13 +321,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                           "Yes",
                                                           style: GoogleFonts
                                                               .poppins(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  height: 0,
-                                                                  color: Colors
-                                                                      .white),
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            height: 0,
+                                                            color: Colors.white,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -386,10 +384,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Text(
                                       "Edit",
                                       style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          height: 0,
-                                          color: Colors.white),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        height: 0,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -423,12 +422,12 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class CustomProfileWidget extends StatelessWidget {
-  const CustomProfileWidget(
-      {Key? key,
-      required this.title,
-      required this.subtitle,
-      required this.icon})
-      : super(key: key);
+  const CustomProfileWidget({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  }) : super(key: key);
   final String title;
   final String subtitle;
   final Icon icon;

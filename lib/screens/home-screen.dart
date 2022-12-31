@@ -184,14 +184,14 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white),
               ),
               GestureDetector(
-                // onTap: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => const AdminHome(),
-                //     ),
-                //   );
-                // },
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AdminHome(),
+                    ),
+                  );
+                },
                 child: Container(
                   margin: const EdgeInsets.all(15),
                   padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),

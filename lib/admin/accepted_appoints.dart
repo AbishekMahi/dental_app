@@ -533,7 +533,7 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                     children: [
                       Text(
                         // "By : ${snap['appointed by']}",
-                        'By Abishek',
+                        "By ${snap['user fname']}",
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
@@ -544,7 +544,7 @@ class _AcceptedAppointContainerState extends State<AcceptedAppointContainer> {
                         thickness: .5,
                       ),
                       Text(
-                        snap['appointed by'],
+                        snap['user mail'],
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,

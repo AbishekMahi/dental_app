@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/resourses/appoint_method.dart';
 import 'package:dental_app/screens/home-screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -31,6 +33,7 @@ class _BookingState extends State<Booking> {
   String datetime = DateFormat("dd MMM yyyy hh:mm a").format(DateTime.now());
   String tdata = DateFormat("hh:mm a").format(DateTime.now());
   String cdate = DateFormat("MMM dd yyyy").format(DateTime.now());
+  String userFname = "";
 
   //text editing controller for text field
   TextEditingController timeinput = TextEditingController();
@@ -41,6 +44,17 @@ class _BookingState extends State<Booking> {
     timeinput.text = "";
     dateinput.text = "";
     super.initState();
+    getUserName();
+  }
+
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      userFname = (snap.data() as Map<String, dynamic>)['first name'];
+    });
   }
 
   void getTime() async {
@@ -303,8 +317,17 @@ class _BookingState extends State<Booking> {
                                                   type: dropdownValue,
                                                   appointmentDate:
                                                       dateinput.text,
+                                                  fName: userFname,
                                                 );
-                                                if (res == "Success") {
+                                                if (res ==
+                                                    "Appointment Booked Successfully...") {
+                                                  // Show a snackbar with the result
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    backgroundColor:
+                                                        const Color(0xFF00C75A),
+                                                    content: Text(res),
+                                                  ));
                                                   Navigator.of(context)
                                                       .pushAndRemoveUntil(
                                                           MaterialPageRoute(

@@ -20,7 +20,7 @@ class _AcceptedUserAppointsState extends State<AcceptedUserAppoints> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           opacity: 80,
-          image: AssetImage("assets/images/old.png"),
+          image: AssetImage("assets/images/accepts.png"),
           // fit: BoxFit.cover
         ),
       ),

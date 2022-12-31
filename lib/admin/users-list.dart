@@ -15,7 +15,6 @@ class UserBios extends StatefulWidget {
 }
 
 class _UserBiosState extends State<UserBios> {
-  // set name(String name) {}
   String name = '';
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,6 @@ class _UserBiosState extends State<UserBios> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          // centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
           toolbarHeight: 100,
@@ -63,15 +61,17 @@ class _UserBiosState extends State<UserBios> {
                   onChanged: (val) {
                     setState(() {
                       name = val;
+                      print(name);
                     });
                   },
+                  textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       EvaIcons.search,
                       color: Colors.black87,
                     ),
-                    hintText: 'Search users',
-                    hintStyle: TextStyle(color: Colors.black87, fontSize: 18),
+                    hintText: 'Search users and admins by name',
+                    hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
                   ),
                 ),
               ),
@@ -79,50 +79,44 @@ class _UserBiosState extends State<UserBios> {
           ),
         ),
         body: Container(
-            margin: const EdgeInsets.all(10), child: const UsersList()),
+          margin: const EdgeInsets.all(10),
+          child: StreamBuilder(
+            stream: (name != "" && name != null)
+                ? FirebaseFirestore.instance
+                    .collection('users')
+                    // .where("first name", arrayContains: name)
+                    .where("first name", isGreaterThanOrEqualTo: name)
+                    .snapshots()
+                : FirebaseFirestore.instance
+                    .collection('users')
+                    .where('role', isNotEqualTo: "Admin")
+                    // .orderBy('first name', descending: false)
+                    .snapshots(),
+            builder: (context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                );
+              }
+              return GridView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) => UserContainer(
+                  snap: snapshot.data!.docs[index].data(),
+                ),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 220,
+                  childAspectRatio: 3 / 4,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+              );
+            },
+          ),
+        ),
       ),
-    );
-  }
-}
-
-class UsersList extends StatefulWidget {
-  const UsersList({super.key});
-
-  @override
-  State<UsersList> createState() => _UsersListState();
-}
-
-class _UsersListState extends State<UsersList> {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .where('role', isNotEqualTo: "Admin")
-          // .orderBy('first name', descending: false)
-          .snapshots(),
-      builder: (context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          );
-        }
-        return GridView.builder(
-          itemCount: snapshot.data!.docs.length,
-          itemBuilder: (context, index) => UserContainer(
-            snap: snapshot.data!.docs[index].data(),
-          ),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 220,
-            childAspectRatio: 3 / 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-        );
-      },
     );
   }
 }
@@ -241,3 +235,51 @@ class UserContainer extends StatelessWidget {
     );
   }
 }
+// class UsersList extends StatefulWidget {
+//   String name;
+//   UsersList({super.key, required this.name});
+//   @override
+//   State<UsersList> createState() => _UsersListState();
+// }
+// class _UsersListState extends State<UsersList> {
+//   // late String name;
+//   @override
+//   Widget build(BuildContext context) {
+//     return StreamBuilder(
+//       stream: (name != "" && name != null)
+//           ? FirebaseFirestore.instance
+//               .collection('items')
+//               .where("first name", arrayContains: name)
+//               .snapshots()
+//           : FirebaseFirestore.instance
+//               .collection('users')
+//               .where('role', isNotEqualTo: "Admin")
+//               // .orderBy('first name', descending: false)
+//               .snapshots(),
+//       builder: (context,
+//           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return const Center(
+//             child: CircularProgressIndicator(
+//               color: Colors.white,
+//             ),
+//           );
+//         }
+//         return GridView.builder(
+//           itemCount: snapshot.data!.docs.length,
+//           itemBuilder: (context, index) => UserContainer(
+//             snap: snapshot.data!.docs[index].data(),
+//           ),
+//           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+//             maxCrossAxisExtent: 220,
+//             childAspectRatio: 3 / 4,
+//             crossAxisSpacing: 10,
+//             mainAxisSpacing: 10,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
+
+

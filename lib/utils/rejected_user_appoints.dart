@@ -20,7 +20,7 @@ class _RejectedUserAppointState extends State<RejectedUserAppoint> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           opacity: 80,
-          image: AssetImage("assets/images/old.png"),
+          image: AssetImage("assets/images/reject.png"),
           // fit: BoxFit.cover
         ),
       ),

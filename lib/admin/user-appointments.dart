@@ -252,15 +252,15 @@ class UserAppointContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        // "By : ${snap['appointed by']}",
-                        'By Abishek',
+                        "By ${snap['user fname']}",
+                        // 'By Abishek',
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
                       Text(
-                        snap['appointed by'],
+                        snap['user mail'],
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
@@ -338,7 +338,9 @@ class UserAppointContainer extends StatelessWidget {
                         var collection = FirebaseFirestore.instance
                             .collection('appointments');
                         var docid = snap['appoint id'];
-                        collection.doc(docid).update({'status': "approved"});
+                        collection.doc(docid).update({
+                          'status': "approved",
+                        });
                       },
                       color: Colors.green.shade600,
                       child: Padding(

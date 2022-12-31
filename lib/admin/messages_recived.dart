@@ -39,7 +39,10 @@ class _MessagesState extends State<Messages> {
           ),
         ),
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('messages').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('messages')
+              .orderBy('timestamp', descending: true)
+              .snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -137,15 +140,11 @@ class MsgContainer extends StatelessWidget {
           Text(
             snap['message'],
             textAlign: TextAlign.left,
-            // maxLines: 3,
             style: GoogleFonts.poppins(
                 color: Colors.black87,
                 fontSize: 13,
                 fontWeight: FontWeight.w400),
           ),
-          // const Divider(
-          //   color: Colors.black45,
-          // ),
           const SizedBox(
             height: 8.0,
           ),

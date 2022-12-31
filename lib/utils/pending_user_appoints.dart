@@ -21,15 +21,13 @@ class _PendingUserAppointsState extends State<PendingUserAppoints> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           opacity: 80,
-          image: AssetImage("assets/images/upcoming.png"),
+          image: AssetImage("assets/images/pend.png"),
           // fit: BoxFit.cover
         ),
       ),
       padding: const EdgeInsets.only(bottom: 10),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            // .collection('users')
-            // .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('appointments')
             .where("appointed by",
                 isEqualTo: FirebaseAuth.instance.currentUser!.email)
@@ -152,6 +150,13 @@ class PendingUserAppointsContainer extends StatelessWidget {
                                       collection
                                           .doc(docid)
                                           .update({'status': "Deleted"});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red.shade400,
+                                        content: const Text(
+                                            'Appointment Deleted Successfully'),
+                                      ));
+                                      Navigator.of(context).pop();
                                     },
                                     color: Colors.red.shade400,
                                     child: Padding(
@@ -202,16 +207,8 @@ class PendingUserAppointsContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        // width: 80,
                         child: Column(
                           children: [
-                            // Text(
-                            //   'Status',
-                            //   style: GoogleFonts.poppins(
-                            //       color: Colors.black87,
-                            //       fontSize: 12,
-                            //       fontWeight: FontWeight.w400),
-                            // ),
                             const SizedBox(
                               height: 10,
                             ),

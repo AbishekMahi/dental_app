@@ -7,13 +7,13 @@ class AppointMethod {
   String datetime = DateFormat("ddMMMyyyyhhmmssa").format(DateTime.now());
 
   // book and store Appointment
-  Future createAppointment({
-    required String type,
-    String? status,
-    required String currentTime,
-    required String appointmentTime,
-    required String appointmentDate,
-  }) async {
+  Future createAppointment(
+      {required String type,
+      String? status,
+      required String currentTime,
+      required String appointmentTime,
+      required String appointmentDate,
+      required String fName}) async {
     String res = "Some error Occured";
     try {
       if (type.isNotEmpty ||
@@ -21,13 +21,10 @@ class AppointMethod {
           appointmentTime.isNotEmpty ||
           appointmentDate.isNotEmpty) {
         // add Appointment to database
-        await _firestore
-            // .collection('users')
-            // .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('appointments')
-            .doc(datetime)
-            .set({
+        await _firestore.collection('appointments').doc(datetime).set({
           'appointed by': FirebaseAuth.instance.currentUser!.email,
+          'user mail': FirebaseAuth.instance.currentUser!.email,
+          'user fname': fName,
           'appointment for': type,
           'appointed time': currentTime,
           'appointment time': appointmentTime,
@@ -36,10 +33,10 @@ class AppointMethod {
           'appointment date full': DateTime.now(),
           'status': 'pending',
           'amount paid': '00.0',
-          'prescription': 'https://i.postimg.cc/66YVxvqN/prescription.jpg',
+          'prescription': '',
           'prescription added': "no",
         });
-        res = "Success";
+        res = "Appointment Booked Successfully...";
       }
     }
     // on FirebaseAuthException catch (err) {
@@ -49,23 +46,21 @@ class AppointMethod {
     // }
     catch (err) {
       res = err.toString();
-
-      print(datetime);
     }
     return res;
   }
 
-  // Delete appointment
-  Future<void> deleteAppointment(datetime) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('appointments')
-          .doc(datetime)
-          .delete();
-    } catch (e) {
-      return;
-    }
-  }
+  // // Delete appointment
+  // Future<void> deleteAppointment(datetime) async {
+  //   try {
+  //     await FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(FirebaseAuth.instance.currentUser!.uid)
+  //         .collection('appointments')
+  //         .doc(datetime)
+  //         .delete();
+  //   } catch (e) {
+  //     return;
+  //   }
+  // }
 }

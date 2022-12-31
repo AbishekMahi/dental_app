@@ -146,7 +146,16 @@ class _FullProfileState extends State<FullProfile> {
                                                 collection
                                                     .doc(docid)
                                                     .update({'role': 'Admin'});
-                                                Navigator.of(context).pop();
+                                                // Show a snackbar with the result
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  backgroundColor:
+                                                      const Color(0xFF00C75A),
+                                                  content: Text(widget
+                                                          .snap['first name'] +
+                                                      ' is Admin Now'),
+                                                ));
+                                                Navigator.pop(context);
                                                 Navigator.of(context).pop();
                                               },
                                               color: Colors.green.shade400,
@@ -587,14 +596,14 @@ class UserAppointContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'By Abishek',
+                        "By ${usersnap['user fname']}",
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
                       Text(
-                        usersnap['appointed by'],
+                        usersnap['user mail'],
                         style: GoogleFonts.poppins(
                             color: Colors.black87,
                             fontSize: 12,
