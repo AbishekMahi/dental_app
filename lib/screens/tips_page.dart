@@ -437,9 +437,10 @@ class _TipsPageState extends State<TipsPage> {
                 Text(
                   "\nWhile regular checkups with your dentist is an excellent preventive measure, issues can develop in the months between visits. To prevent major concerns, you should do a quick scan of the inside of your mouth as part of your daily routine. Check your teeth and gums for anything that has changed or seems unusual. Make sure you share this information with your dentist at your next appointment, or call your dentist's office if you discover anything concerning. Regular self-exams are beneficial to maintaining your health.",
                   style: GoogleFonts.poppins(
-                      color: const Color(0xD5202020),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                    color: const Color(0xD5202020),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Submit_Button(
                   btntxt: 'Book Appointment',

@@ -322,6 +322,7 @@ class AdminContainer extends StatelessWidget {
                           snap['phone number'],
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
+                              // color: Colors.black87,
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),

@@ -49,18 +49,4 @@ class AppointMethod {
     }
     return res;
   }
-
-  // // Delete appointment
-  // Future<void> deleteAppointment(datetime) async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection('users')
-  //         .doc(FirebaseAuth.instance.currentUser!.uid)
-  //         .collection('appointments')
-  //         .doc(datetime)
-  //         .delete();
-  //   } catch (e) {
-  //     return;
-  //   }
-  // }
 }
