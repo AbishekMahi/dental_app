@@ -28,7 +28,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         builder: (context) {
           return AlertDialog(
             content: Text(
-              'Reset link Sent to your Mail!',
+              'Reset link sent to your mail!. Please check your spam folder',
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                   fontSize: 16,
@@ -49,10 +49,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               e.message.toString(),
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                  color: Colors.black87),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                height: 0,
+                color: Colors.black87,
+              ),
             ),
           );
         },
@@ -106,7 +107,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // Email or phone number
+                    // Email Address
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(

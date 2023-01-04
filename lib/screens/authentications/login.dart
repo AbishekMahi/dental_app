@@ -48,8 +48,8 @@ class LoginState extends State<Login> {
       },
     );
     String res = await AuthMethods().loginUser(
-      email: email.text,
-      password: password.text,
+      email: email.text.trim(),
+      password: password.text.trim(),
     );
     if (res == "Success") {
       Navigator.of(context).pushAndRemoveUntil(

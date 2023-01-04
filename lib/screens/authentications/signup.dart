@@ -71,14 +71,14 @@ class _SignUpState extends State<SignUp> {
     );
     if (passwordConfirmed()) {
       String res = await AuthMethods().signupUser(
-        fname: fname.text,
-        lname: lname.text,
+        fname: fname.text.trim(),
+        lname: lname.text.trim(),
         file: imageUrl!,
-        email: email.text,
-        password: password.text,
-        cpassword: cpassword.text,
+        email: email.text.trim(),
+        password: password.text.trim(),
+        cpassword: cpassword.text.trim(),
         dateinput: dateinput.text,
-        phone: phone.text,
+        phone: phone.text.trim(),
         gender: dropdownValue,
       );
       if (res != 'Success') {
